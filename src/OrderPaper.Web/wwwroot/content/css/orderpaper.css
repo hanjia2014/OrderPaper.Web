@@ -1,0 +1,52 @@
+﻿.panel-heading {
+    cursor: move;
+    min-height: 30px;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.form .btn {
+    -webkit-box-shadow: inset 0 0 0 0 transparent;
+    -moz-box-shadow: inset 0 0 0 0 transparent;
+    box-shadow: inset 0 0 0 0 transparent;
+    background: #fff none;
+    border: 2px solid #0f9f0f;
+    color: #004c38;
+    font-family: "segoe-uisemibold", arial, sans-serif;
+    padding: 0.5em .5em 0.66667em;
+}
+
+    .form .btn:visited {
+        color: #004c38;
+    }
+
+    .form .btn:active {
+        -webkit-box-shadow: inset 0 0 0 0 transparent;
+        -moz-box-shadow: inset 0 0 0 0 transparent;
+        box-shadow: inset 0 0 0 0 transparent;
+        background-color: #004c38;
+        color: #fff;
+    }
+
+.dnd-drag-start {
+    -webkit-transform: scale(.8);
+    transform: scale(.8);
+}
+
+.dnd-drag-enter, .dnd-drag-start {
+    opacity: .7;
+    border: 2px dashed #000;
+}
+
+.dnd-drag-over {
+    border: 2px dashed #000;
+}
+
+.dnd-sortable-drag {
+    -webkit-transform: scale(.9);
+    transform: scale(.9);
+    opacity: .7;
+    border: 1px dashed #000;
+}
