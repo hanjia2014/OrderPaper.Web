@@ -14,7 +14,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                                 <li class="panel panel-info" *ngFor="let summary of orderPaperSummary">
                                     <div class="row panel-body">
                                         <div class="col-md-2">
-                                            <a (click)="selectOrderPaper(summary.Id)">{{summary.Date | date: 'dd-MMM-yyyy'}}</a>
+                                            <a [class.bold]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id" (click)="selectOrderPaper(summary.Id)">{{summary.Date | date: 'dd-MMM-yyyy'}}</a>
                                         </div>
                                         <div class="col-md-2">
                                             {{summary.Status}}
@@ -54,7 +54,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 </div>
                 `,
     styles: [`a{cursor:pointer}
-                bold{font-weight:bold}`],
+                .bold{font-weight:bold}`],
     providers: [OrderPaperService]
 })
 export class HomeComponent extends BaseComponent implements OnInit {
