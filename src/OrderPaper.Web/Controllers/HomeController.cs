@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace OrderPaper.Web.Controllers
+namespace OrderPapers.Web.Controllers
 {
     public class HomeController : Controller
     {

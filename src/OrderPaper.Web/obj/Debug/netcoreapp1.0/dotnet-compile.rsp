@@ -194,3 +194,9 @@
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Program.cs
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Startup.cs
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Controllers\HomeController.cs
+C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Controllers\OrderPaperController.cs
+C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Controllers\OrderPaperSummaryController.cs
+C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Models\Items.cs
+C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Models\OrderPaper.cs
+C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Models\OrderPaperSummary.cs
+C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Models\Section.cs
