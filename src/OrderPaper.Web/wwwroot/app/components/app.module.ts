@@ -15,6 +15,7 @@ import { routing }                                  from './app.routes';
 import { MasterComponent }                          from './master.component';
 import { HomeComponent }                            from './home.component';
 import { OrderPaperDetailsComponent }               from './orderpaper.details.component';
+import { OrderPaperSectionDetailsComponent }               from './orderpaper.section.details.component';
 
 @NgModule({
     imports:
@@ -36,7 +37,8 @@ import { OrderPaperDetailsComponent }               from './orderpaper.details.c
         VerticalMenuComponent,
         MasterComponent,
         HomeComponent,
-        OrderPaperDetailsComponent
+        OrderPaperDetailsComponent,
+        OrderPaperSectionDetailsComponent
     ],
     bootstrap:
     [

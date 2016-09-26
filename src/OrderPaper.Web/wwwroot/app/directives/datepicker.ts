@@ -4,6 +4,7 @@
     selector: 'date-picker',
     template: `<div class="input-group date" style="max-width: 250px" id="{{id}}">
                     <input type="text" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
+
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>`,
     styles: [],
@@ -14,12 +15,19 @@ export class DatePickerComponent implements AfterViewInit {
     id: string;
     @Input()
     IncludeTime: boolean;
+    @Input()
+    initialValue: Date;
     @Output()
     onValueChange = new EventEmitter<Date>();
 
     selectedDate: string;
 
     ngAfterViewInit() {
+        if (this.initialValue) {
+            var date = new Date(this.initialValue.toString());
+            this.selectedDate = this.IncludeTime ? date.toLocaleString() : date.toLocaleDateString();
+        }
+
         var options = {
             pick12HourFormat: true,
             pickTime: this.IncludeTime,

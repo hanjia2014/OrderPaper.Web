@@ -10,31 +10,42 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 <div class="navbar-fixed-top" style="box-shadow: 0 14px 24px -14px gray; position: relative">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
-                            <ul class="form">
-                                <li class="panel panel-info" *ngFor="let summary of orderPaperSummary">
-                                    <div class="row panel-body">
-                                        <div class="col-md-2">
+                            <div class="form">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Number</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let summary of orderPaperSummary">
+                                        <td>
                                             <a [class.bold]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id" (click)="selectOrderPaper(summary.Id)">{{summary.Date | date: 'dd-MMM-yyyy'}}</a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            {{summary.Status}}
-                                        </div>
-                                        <div class="col-md-2">
+                                        </td>
+                                        <td>
                                             {{summary.Number}}
-                                        </div>
-                                        <div class="col-md-2">
+                                        </td>
+                                        <td>
+                                            {{summary.Status}}
+                                        </td>
+                                        <td>
                                             <a class="btn btn-lg save-button" (click)="deleteOrderPaper(summary.Id)">
                                                 Delete
                                             </a>
-                                        </div>
-                                        <div class="col-md-2">
+                                        </td>
+                                        <td>
                                             <a class="btn btn-lg save-button" (click)="copyOrderPaper(summary.Id)">
                                                 Copy
                                             </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </tab>
                         <tab [title]="'Search'" (onActiveChange)="onCheckTabMode($event)">
                             <vertical-menu></vertical-menu>

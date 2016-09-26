@@ -10,6 +10,6 @@ namespace OrderPapers.Models
         public string Status { get; set; }
         public string OrderPaperNumber { get; set; }
         public string SittingHours { get; set; }
-        public List<Item> Sections { get; set; }
+        public List<Section> Sections { get; set; }
     }
 }
