@@ -13,8 +13,8 @@ namespace OrderPapers.Controllers
         public string Get()
         {
             var summary = new List<OrderPaperSummary>();
-            summary.Add(new OrderPaperSummary { Number = "1", Date = new DateTime(2016, 6, 1), Status = "Provisional" });
-            summary.Add(new OrderPaperSummary { Number = "2", Date = new DateTime(2016, 7, 1), Status = "Provisional" });
+            summary.Add(new OrderPaperSummary { Id = "1", Number = "1", Date = new DateTime(2016, 6, 1), Status = "Provisional" });
+            summary.Add(new OrderPaperSummary { Id = "2", Number = "2", Date = new DateTime(2016, 7, 1), Status = "Provisional" });
             return JsonConvert.SerializeObject(summary);
         }
     }

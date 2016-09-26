@@ -50,9 +50,11 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                             </div>
                         </tab>
                     </tabs>
+                    <order-paper-details [orderPaper]="selectedOrderPaper"></order-paper-details>
                 </div>
                 `,
-    styles: [],
+    styles: [`a{cursor:pointer}
+                bold{font-weight:bold}`],
     providers: [OrderPaperService]
 })
 export class HomeComponent extends BaseComponent implements OnInit {
@@ -82,6 +84,19 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     onCheckTabMode = (value: string) => {
         this.isPreviewMode = value == 'Preview';
+    }
+
+    selectOrderPaper = (id: string) => {
+        this.spinner.spin(this.spinnerElm);
+        this.orderPaperService.getOrderPaper(id).subscribe(
+            (data: OrderPaper) => {
+                if (this.selectedOrderPaper == null) {
+                    this.selectedOrderPaper = new OrderPaper();
+                }
+                Object.assign(this.selectedOrderPaper, data);
+                this.spinner.stop();
+            },
+            (err: any) => this.error = err);
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }

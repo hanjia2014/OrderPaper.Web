@@ -26,7 +26,7 @@ export class OrderPaperService implements IOrderPaperService {
         });
     }
 
-    getOrderPaper = (id: number): Observable<OrderPaper> => {
+    getOrderPaper = (id: string): Observable<OrderPaper> => {
         return this.http.get(this.apiOrderpaperUrl + "/" + id).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);

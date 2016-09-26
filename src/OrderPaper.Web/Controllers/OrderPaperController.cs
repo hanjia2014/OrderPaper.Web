@@ -20,7 +20,7 @@ namespace OrderPapers.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
             var sections = new List<Item>();
             #region dummy data
@@ -1337,7 +1337,7 @@ namespace OrderPapers.Controllers
 
             sections.Add(new ReportItem { Sequence = 3, Type = "Report", Title = "2011/12 financial review of the Teritary Education Commission", Shoulder = string.Empty, Committee = "Education and Scuence", LatestEvent = "Report presented 10 May 2013" });
 
-            return JsonConvert.SerializeObject(new OrderPaper { Id = "1", Status = "Provisional", Date = DateTime.Now, OrderPaperNumber = "12", SittingHours = "2pm to 6pm", Sections = sections });
+            return JsonConvert.SerializeObject(new OrderPaper { Id = id, Status = "Provisional", Date = DateTime.Now, OrderPaperNumber = "12", SittingHours = "2pm to 6pm", Sections = sections });
         }
 
         // POST api/values

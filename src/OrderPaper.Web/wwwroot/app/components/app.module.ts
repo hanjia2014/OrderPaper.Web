@@ -14,11 +14,40 @@ import { DND_DIRECTIVES }                           from '../directives/dnd/ng2-
 import { routing }                                  from './app.routes';
 import { MasterComponent }                          from './master.component';
 import { HomeComponent }                            from './home.component';
+import { OrderPaperDetailsComponent }               from './orderpaper.details.component';
 
 @NgModule({
-    imports: [BrowserModule, HttpModule, FormsModule, routing],
-    declarations: [DND_DIRECTIVES, Select2Component, DatePickerComponent, MODAL_DIRECTIVES, Tabs, Tab, Dragula, VerticalMenuComponent, MasterComponent, HomeComponent],
-    bootstrap: [MasterComponent],
-    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }]
+    imports:
+    [
+        BrowserModule,
+        HttpModule,
+        FormsModule,
+        routing
+    ],
+    declarations:
+    [
+        DND_DIRECTIVES,
+        Select2Component,
+        DatePickerComponent,
+        MODAL_DIRECTIVES,
+        Tabs,
+        Tab,
+        Dragula,
+        VerticalMenuComponent,
+        MasterComponent,
+        HomeComponent,
+        OrderPaperDetailsComponent
+    ],
+    bootstrap:
+    [
+        MasterComponent
+    ],
+    providers:
+    [
+        {
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy
+        }
+    ]
 })
 export class AppModule { }
