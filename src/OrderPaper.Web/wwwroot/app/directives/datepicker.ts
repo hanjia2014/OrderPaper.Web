@@ -25,10 +25,12 @@ export class DatePickerComponent implements AfterViewInit {
     ngAfterViewInit() {
         if (this.initialValue) {
             var date = new Date(this.initialValue.toString());
-            this.selectedDate = this.IncludeTime ? date.toLocaleString() : date.toLocaleDateString();
+            var dateStr = this.IncludeTime ? date.toLocaleString() : date.toLocaleDateString();
+            this.selectedDate = this.getFormattedDate(dateStr);
         }
 
         var options = {
+            format: this.IncludeTime ? 'YYYY-MMM-DD HH:mm:ss' : 'YYYY-MMM-DD',
             pick12HourFormat: true,
             pickTime: this.IncludeTime,
         };
@@ -37,10 +39,23 @@ export class DatePickerComponent implements AfterViewInit {
         elem.datetimepicker(options).on("change", (e: any) => {
             var date = e.delegateTarget.children[0].value;
 
+
             this.onValueChange.next(new Date(date));
         });
     }
     constructor() {
         
+    }
+
+    private getFormattedDate = (input: string) : string => {
+        var pattern = /(.*?)\/(.*?)\/(.*?)$/;
+        var result = ""
+        var result = input.replace(pattern, (match, p1, p2, p3) => {
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            result = p3 + "-" + months[(p1 - 1)] + "-" + (p2 < 10 ? "0" + p2 : p2);
+            return result;
+        });
+
+        return result;
     }
 }
