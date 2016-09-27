@@ -21,6 +21,8 @@ export class Select2Component implements AfterViewInit {
     allowFreeText: boolean;
     @Input()
     disableMultipleSelection: boolean;
+    @Input()
+    initialValue: string;
 
     @Output() selected = new EventEmitter();
 
@@ -59,6 +61,10 @@ export class Select2Component implements AfterViewInit {
                     e.preventDefault();
                 }
             });
+        }
+
+        if (this.initialValue != null && this.initialValue != "") {
+            $("#" + this.id).val(this.initialValue).trigger("change");
         }
     }
     constructor() {

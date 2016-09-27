@@ -31,7 +31,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                 <input placeholder="Setting Hours" [(ngModel)]="orderPaper.SittingHours" />
                             </div>             
                             <div class="col-md-3">
-                                <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [multiple]="false" [data]="statusOptions" (selected)="selected($event)"></select2>
+                                <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
                             </div>             
                             <div class="col-md-3">
                                 <input placeholder="Number" [(ngModel)]="orderPaper.OrderPaperNumber" />
@@ -68,7 +68,13 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit 
     }
     ngOnInit() {
         this.spinner.spin(this.spinnerElm);
-        var paper = this.orderPaper;
+    }
+    dateChange = (value: Date) => {
+        this.orderPaper.Date = value;
+    }
+
+    statusChange = (e: string) => {
+        this.orderPaper.Status = e;
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
