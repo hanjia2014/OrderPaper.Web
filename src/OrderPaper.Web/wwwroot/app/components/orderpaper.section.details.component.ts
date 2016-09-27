@@ -8,7 +8,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
     selector: 'order-paper-section-details',
     template: `<div id="spinner"></div>
                 <div *ngIf="section">
-                    <div class="row">
+                    <div class="row container">
                         <div *ngFor="let item of section.Items; let i = index" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items" dnd-sortable [sortableIndex]="i">
                             <div class="panel panel-info">
                                 <div class="panel-heading">

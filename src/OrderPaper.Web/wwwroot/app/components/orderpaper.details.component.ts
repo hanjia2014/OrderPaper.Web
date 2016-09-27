@@ -38,26 +38,27 @@ import { ModalComponent }                                       from '../directi
                                 <input placeholder="Number" [(ngModel)]="orderPaper.OrderPaperNumber" />
                             </div>
                         </div>
-                        <div class="container row">
-                            <div *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable-container [dropZones]="['sections-drop-zone']" dnd-sortable [sortableIndex]="i" [sortableData]="orderPaper.Sections">
-                                <div class="input-group">
-                                    <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" class="form-control undraggable" (click)="selectedSection = section">{{section.Name}}</a>
-                                    <span class="input-group-addon" style="cursor: move">Move</span>
-                                    <span class="input-group-addon" style="cursor: pointer" (click)="removeSection(section, i)">Remove</span>
-                                </div>
-                            </div>  
+                        <div class="container row" style="margin-top: 30px;">
+                            <ul>
+                                <li *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable-container [dropZones]="['sections-drop-zone']" dnd-sortable [sortableIndex]="i" [sortableData]="orderPaper.Sections">
+                                    <div class="input-group">
+                                        <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" class="form-control" (click)="selectedSection = section">{{section.Name}}</a>
+                                        <span class="input-group-addon" style="cursor: move">Move</span>
+                                        <span class="input-group-addon" style="cursor: pointer" (click)="sectionDeleteIndex = i; modal.open()">Remove</span>
+                                    </div>
+                                </li>  
+                            </ul>
                         </div>
                     </div>
                     <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
                 </div>
-
                 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                     <modal-header [show-close]="true">
-                        <h4 class="modal-title">I'm a modal!</h4>
+                        <h4 class="modal-title">Confirm to delete</h4>
                     </modal-header>
                     <modal-body>
-                        
+                        Are you sure to delete the section?
                     </modal-body>
                     <modal-footer [show-default-buttons]="true"></modal-footer>
                 </modal>
@@ -73,6 +74,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     spinnerElm: any = document.getElementById("spinner");
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
+    sectionDeleteIndex: number;
     //modal
     @ViewChild('modals')
     modal: ModalComponent;
@@ -103,10 +105,28 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     removeSection = (section: Section, index: number) => {
-        this.orderPaper.Sections.splice(index, 1);
+        this.modal.open();
+        //this.orderPaper.Sections.splice(index, 1);
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
 
-    
+    //modal
+    opened() {
+
+    }
+
+    navigate() {
+
+    }
+
+    open() {
+        this.modal.open();
+    }
+    closed() {
+        this.orderPaper.Sections.splice(this.sectionDeleteIndex, 1);
+    }
+    dismissed() {
+
+    }
 }
