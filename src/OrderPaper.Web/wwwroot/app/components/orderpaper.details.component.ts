@@ -1,8 +1,9 @@
-﻿import { Component, OnInit, Input }         from '@angular/core';
-import { BaseComponent }                    from './base.component';
-import { OrderPaper }                       from '../models/orderpaper';
-import { Section }                          from '../models/section';
-import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
+﻿import { Component, AfterViewInit, OnInit, Input, ViewChild }   from '@angular/core';
+import { BaseComponent }                                        from './base.component';
+import { OrderPaper }                                           from '../models/orderpaper';
+import { Section }                                              from '../models/section';
+import { DND_PROVIDERS, DND_DIRECTIVES }                        from '../directives/dnd/ng2-dnd';
+import { ModalComponent }                                       from '../directives/modal/modal';
 
 @Component({
     selector: 'order-paper-details',
@@ -37,38 +38,62 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                 <input placeholder="Number" [(ngModel)]="orderPaper.OrderPaperNumber" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable-container [dropZones]="['sections-drop-zone']" [sortableData]="orderPaper.Sections" dnd-sortable [sortableIndex]="i">
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                    </div>
-                                    <div class="panel-body">
-                                        <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" (click)="selectedSection = section">{{section.Name}}</a>
-                                    </div>
+                        <div class="container row">
+                            <div *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable-container [dropZones]="['sections-drop-zone']" dnd-sortable [sortableIndex]="i" [sortableData]="orderPaper.Sections">
+                                <div class="input-group">
+                                    <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" class="form-control undraggable" (click)="selectedSection = section">{{section.Name}}</a>
+                                    <span class="input-group-addon" style="cursor: move">Move</span>
+                                    <span class="input-group-addon" style="cursor: pointer" (click)="removeSection(section, i)">Remove</span>
                                 </div>
                             </div>  
                         </div>
                     </div>
                     <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
                 </div>
+
+                <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+                       (onOpen)="opened()" [cssClass]="cssClass" #modal>
+                    <modal-header [show-close]="true">
+                        <h4 class="modal-title">I'm a modal!</h4>
+                    </modal-header>
+                    <modal-body>
+                        
+                    </modal-body>
+                    <modal-footer [show-default-buttons]="true"></modal-footer>
+                </modal>
                 `,
     styles: [`a{cursor:pointer}
                 .bold{font-weight:bold}`],
     providers: [DND_PROVIDERS]
 })
-export class OrderPaperDetailsComponent extends BaseComponent implements OnInit {
+export class OrderPaperDetailsComponent extends BaseComponent implements OnInit, AfterViewInit {
     @Input()
     orderPaper: OrderPaper;
     selectedSection: Section;
     spinnerElm: any = document.getElementById("spinner");
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
+    //modal
+    @ViewChild('modals')
+    modal: ModalComponent;
+
     constructor() {
         super();
     }
     ngOnInit() {
         this.spinner.spin(this.spinnerElm);
     }
+
+    ngAfterViewInit() {
+        $('.undraggable')
+            .on('focus', function (e) {
+                $('.input-group').attr("draggable", "false");
+            })
+            .on('blur', function (e) {
+                $('.input-group').attr("draggable", "true");
+            });
+    }
+
     dateChange = (value: Date) => {
         this.orderPaper.Date = value;
     }
@@ -77,5 +102,11 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit 
         this.orderPaper.Status = e;
     }
 
+    removeSection = (section: Section, index: number) => {
+        this.orderPaper.Sections.splice(index, 1);
+    }
+
     updateSequence(oldIndex: number, newIndex: number) { }
+
+    
 }
