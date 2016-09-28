@@ -39,12 +39,14 @@ import { ModalComponent }                                       from '../directi
                             </div>
                         </div>
                         <div class="container row" style="margin-top: 30px;">
-                            <ul>
-                                <li *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable-container [dropZones]="['sections-drop-zone']" dnd-sortable [sortableIndex]="i" [sortableData]="orderPaper.Sections">
+                            <ul dnd-sortable-container [dropZones]="['sections-drop-zone']" [sortableData]="orderPaper.Sections">
+                                <li *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable [sortableIndex]="i" class="item-li">
                                     <div class="input-group">
-                                        <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" class="form-control" (click)="selectedSection = section">{{section.Name}}</a>
+                                        <div class="form-control">
+                                            <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" (click)="selectedSection = section">{{section.Name}}</a>
+                                        </div>
                                         <span class="input-group-addon" style="cursor: move">Move</span>
-                                        <span class="input-group-addon" style="cursor: pointer" (click)="sectionDeleteIndex = i; modal.open()">Remove</span>
+                                        <span class="input-group-addon undraggable" style="cursor: pointer" (click)="sectionDeleteIndex = i; modal.open()">Remove</span>
                                     </div>
                                 </li>  
                             </ul>
@@ -87,13 +89,19 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     ngAfterViewInit() {
+
         $('.undraggable')
             .on('focus', function (e) {
-                $('.input-group').attr("draggable", "false");
+                $('.item-li').attr("draggable", "false");
+                console.log("focus");
             })
             .on('blur', function (e) {
-                $('.input-group').attr("draggable", "true");
+                $('.item-li').attr("draggable", "true");
+                console.log("blur");
             });
+
+        $('.item-li')
+            .draggable({ cancel: 'a' });
     }
 
     dateChange = (value: Date) => {
