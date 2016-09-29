@@ -45,7 +45,7 @@ import { ModalComponent }                                       from '../directi
                                         <div class="form-control">
                                             <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" (click)="selectedSection = section">{{section.Name}}</a>
                                             <div class="pull-right">
-                                                <img id="{{'move-img-' + i}}" style="visibility: hidden;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAWCAIAAACQbVFOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/hPCqCP6uDgYGNjYyCJh41QDRSCADxscs0mBoz6EhOM+hKTPVh8+f8/AL6I6hGXYxxmAAAAAElFTkSuQmCC">
+                                                <img id="{{'move-img-' + i}}" style="visibility: hidden;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAATCAIAAAAvYqvDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/gPBsHBwcbGxkASDxuqFMiHADxs0k0lBpCuFJelyOxRb416i2i3/v8PAJM4KtHpFC3YAAAAAElFTkSuQmCC">
                                             </div>
                                         </div>
                                         <span class="input-group-addon" id="{{'section-' + i}}" style="cursor: pointer; visibility: hidden;" (click)="sectionDeleteIndex = i; modal.open();">Remove</span>
