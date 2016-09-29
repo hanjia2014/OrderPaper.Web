@@ -4,7 +4,7 @@
     selector: 'vertical-menu',
     template: `
                 <!-- Icon Library -->
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+                <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
                 <div id="top-menu">
                   <ul>
                      <li class="active"><a href="#" target="_blank" style="text-shadow: rgba(0, 0, 0, 0.34902) 0px 1px 1px;"><span style="border-color: rgba(0, 0, 0, 0.34902);"><i class="fa fa-fw fa-home"></i> Home</span></a></li>

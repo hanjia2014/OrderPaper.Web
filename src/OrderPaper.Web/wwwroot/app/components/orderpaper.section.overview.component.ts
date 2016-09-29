@@ -5,19 +5,26 @@ import { Section }                                          from '../models/sect
 import { DND_PROVIDERS, DND_DIRECTIVES }                    from '../directives/dnd/ng2-dnd';
 
 @Component({
-    selector: 'order-paper-overview-details',
+    selector: 'order-paper-section-overview',
     template: `
                 <div class="input-group" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
                     <div class="form-control">
-                        <a [class.bold]="isSelected" (click)="selectSection(section)">{{section.Name}}</a>
+                        <a [class.bold]="isSelected" (click)="selectSection(section)">{{index + '. ' + section.Name}}</a>
                         <div class="pull-right">
                             <img [style.visibility]="hoverVisible ? 'visible' : 'hidden'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAATCAIAAAAvYqvDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/gPBsHBwcbGxkASDxuqFMiHADxs0k0lBpCuFJelyOxRb416i2i3/v8PAJM4KtHpFC3YAAAAAElFTkSuQmCC">
                         </div>
                     </div>
-                    <span class="input-group-addon" style="cursor: pointer;" [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="sectionDeleteIndex = i; modal.open();">Remove</span>
+                    <span class="input-group-addon" style="cursor: pointer;" [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">Remove</span>
                 </div>
                 `,
-    styles: [],
+    styles: [`
+                a{
+                    cursor: pointer;
+                }
+                .bold{
+                    font-weight: bold;
+                }
+            `],
     providers: [DND_PROVIDERS]
 })
 export class OrderPaperSectionOverviewComponent implements OnInit {
@@ -26,8 +33,12 @@ export class OrderPaperSectionOverviewComponent implements OnInit {
     hoverVisible: boolean;
     @Input()
     isSelected: boolean;
+    @Input()
+    index: number;
     @Output()
     onSelectSection: EventEmitter<Section> = new EventEmitter<Section>();
+    @Output()
+    onDeleteSection: EventEmitter<number> = new EventEmitter<number>();
 
     constructor() {
         
@@ -38,5 +49,9 @@ export class OrderPaperSectionOverviewComponent implements OnInit {
 
     selectSection = () => {
         this.onSelectSection.next(this.section);
+    }
+
+    deleteSection = () => {
+        this.onDeleteSection.next(this.index);
     }
 }

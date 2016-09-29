@@ -15,7 +15,8 @@ import { routing }                                  from './app.routes';
 import { MasterComponent }                          from './master.component';
 import { HomeComponent }                            from './home.component';
 import { OrderPaperDetailsComponent }               from './orderpaper.details.component';
-import { OrderPaperSectionDetailsComponent }               from './orderpaper.section.details.component';
+import { OrderPaperSectionDetailsComponent }        from './orderpaper.section.details.component';
+import { OrderPaperSectionOverviewComponent }       from './orderpaper.section.overview.component';
 
 @NgModule({
     imports:
@@ -30,6 +31,7 @@ import { OrderPaperSectionDetailsComponent }               from './orderpaper.se
         DND_DIRECTIVES,
         Select2Component,
         DatePickerComponent,
+        OrderPaperSectionOverviewComponent,
         MODAL_DIRECTIVES,
         Tabs,
         Tab,
@@ -38,7 +40,8 @@ import { OrderPaperSectionDetailsComponent }               from './orderpaper.se
         MasterComponent,
         HomeComponent,
         OrderPaperDetailsComponent,
-        OrderPaperSectionDetailsComponent
+        OrderPaperSectionDetailsComponent,
+        OrderPaperSectionOverviewComponent
     ],
     bootstrap:
     [

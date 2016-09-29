@@ -41,15 +41,7 @@ import { ModalComponent }                                       from '../directi
                         <div class="container row" style="margin-top: 30px;">
                             <ul dnd-sortable-container [dropZones]="['sections-drop-zone']" [sortableData]="orderPaper.Sections">
                                 <li *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable [sortableIndex]="i" class="item-li">
-                                    <div class="input-group" (mouseover)="setRemoveVisible(true, i)" (mouseleave)="setRemoveVisible(false, i)">
-                                        <div class="form-control">
-                                            <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" (click)="selectedSection = section">{{section.Name}}</a>
-                                            <div class="pull-right">
-                                                <img id="{{'move-img-' + i}}" style="visibility: hidden;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAATCAIAAAAvYqvDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/gPBsHBwcbGxkASDxuqFMiHADxs0k0lBpCuFJelyOxRb416i2i3/v8PAJM4KtHpFC3YAAAAAElFTkSuQmCC">
-                                            </div>
-                                        </div>
-                                        <span class="input-group-addon" id="{{'section-' + i}}" style="cursor: pointer; visibility: hidden;" (click)="sectionDeleteIndex = i; modal.open();">Remove</span>
-                                    </div>
+                                    <order-paper-section-overview [section]="section" [index]="i" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event)" (onDeleteSection)="deleteSection($event)"></order-paper-section-overview>
                                 </li>  
                             </ul>
                         </div>
@@ -67,8 +59,7 @@ import { ModalComponent }                                       from '../directi
                     <modal-footer [show-default-buttons]="true"></modal-footer>
                 </modal>
                 `,
-    styles: [`a{cursor:pointer}
-                .bold{font-weight:bold}`],
+    styles: [],
     providers: [DND_PROVIDERS]
 })
 export class OrderPaperDetailsComponent extends BaseComponent implements OnInit, AfterViewInit {
@@ -111,13 +102,16 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         this.orderPaper.Date = value;
     }
 
-    statusChange = (e: string) => {
-        this.orderPaper.Status = e;
+    selectSection = (value: Section) => {
+        this.selectedSection = value;
     }
 
-    setRemoveVisible = (visible: boolean, id: number) => {
-        $('#section-' + id).css("visibility", visible ? 'visible' : 'hidden');
-        $('#move-img-' + id).css("visibility", visible ? 'visible' : 'hidden');
+    deleteSection = (value: number) => {
+        alert(value);
+    }
+
+    statusChange = (e: string) => {
+        this.orderPaper.Status = e;
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
