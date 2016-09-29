@@ -41,12 +41,14 @@ import { ModalComponent }                                       from '../directi
                         <div class="container row" style="margin-top: 30px;">
                             <ul dnd-sortable-container [dropZones]="['sections-drop-zone']" [sortableData]="orderPaper.Sections">
                                 <li *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable [sortableIndex]="i" class="item-li">
-                                    <div class="input-group">
+                                    <div class="input-group" (mouseover)="setRemoveVisible(true, i)" (mouseleave)="setRemoveVisible(false, i)">
                                         <div class="form-control">
                                             <a [class.bold]="selectedSection != null && section.Name == selectedSection.Name" (click)="selectedSection = section">{{section.Name}}</a>
+                                            <div class="pull-right">
+                                                <img id="{{'move-img-' + i}}" style="visibility: hidden;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAWCAIAAACQbVFOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/hPCqCP6uDgYGNjYyCJh41QDRSCADxscs0mBoz6EhOM+hKTPVh8+f8/AL6I6hGXYxxmAAAAAElFTkSuQmCC">
+                                            </div>
                                         </div>
-                                        <span class="input-group-addon" style="cursor: move">Move</span>
-                                        <span class="input-group-addon undraggable" style="cursor: pointer" (click)="sectionDeleteIndex = i; modal.open()">Remove</span>
+                                        <span class="input-group-addon" id="{{'section-' + i}}" style="cursor: pointer; visibility: hidden;" (click)="sectionDeleteIndex = i; modal.open();">Remove</span>
                                     </div>
                                 </li>  
                             </ul>
@@ -77,6 +79,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     sectionDeleteIndex: number;
+    isRemoveVisible: boolean;
     //modal
     @ViewChild('modals')
     modal: ModalComponent;
@@ -112,13 +115,13 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         this.orderPaper.Status = e;
     }
 
-    removeSection = (section: Section, index: number) => {
-        this.modal.open();
-        //this.orderPaper.Sections.splice(index, 1);
+    setRemoveVisible = (visible: boolean, id: number) => {
+        $('#section-' + id).css("visibility", visible ? 'visible' : 'hidden');
+        $('#move-img-' + id).css("visibility", visible ? 'visible' : 'hidden');
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
-
+    
     //modal
     opened() {
 
