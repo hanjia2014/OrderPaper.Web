@@ -107,6 +107,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     deleteSection = (value: number) => {
+        this.sectionDeleteIndex = value;
         this.modal.open();
     }
 
