@@ -72,7 +72,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     sectionDeleteIndex: number;
     isRemoveVisible: boolean;
     //modal
-    @ViewChild('modals')
+    @ViewChild('modal')
     modal: ModalComponent;
 
     constructor() {
@@ -107,7 +107,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     deleteSection = (value: number) => {
-        alert(value);
+        this.modal.open();
     }
 
     statusChange = (e: string) => {

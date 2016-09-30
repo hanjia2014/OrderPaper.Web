@@ -33,6 +33,7 @@ import { OrderPaperSectionOverviewComponent }       from './orderpaper.section.o
         DatePickerComponent,
         OrderPaperSectionOverviewComponent,
         MODAL_DIRECTIVES,
+        ModalComponent,
         Tabs,
         Tab,
         Dragula,
