@@ -9,7 +9,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }                    from '../directives/
     template: `
                 <div class="input-group" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
                     <div class="form-control">
-                        <a [class.bold]="isSelected" (click)="selectSection(section)">{{index + '. ' + section.Name}}</a>
+                        <a [class.bold]="isSelected" (click)="selectSection(section)">{{index + 1 + '. ' + section.Name}}</a>
                         <div class="pull-right">
                             <img [style.visibility]="hoverVisible ? 'visible' : 'hidden'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAATCAIAAAAvYqvDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/gPBsHBwcbGxkASDxuqFMiHADxs0k0lBpCuFJelyOxRb416i2i3/v8PAJM4KtHpFC3YAAAAAElFTkSuQmCC">
                         </div>

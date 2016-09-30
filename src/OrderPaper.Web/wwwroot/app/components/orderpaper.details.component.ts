@@ -1,9 +1,17 @@
-﻿import { Component, AfterViewInit, OnInit, Input, ViewChild }   from '@angular/core';
-import { BaseComponent }                                        from './base.component';
-import { OrderPaper }                                           from '../models/orderpaper';
-import { Section }                                              from '../models/section';
-import { DND_PROVIDERS, DND_DIRECTIVES }                        from '../directives/dnd/ng2-dnd';
-import { ModalComponent }                                       from '../directives/modal/modal';
+﻿import { Component,
+    AfterViewInit,
+    OnInit,
+    Input,
+    ViewChild,
+    ViewChildren,
+    QueryList
+}                                               from '@angular/core';
+import { BaseComponent }                        from './base.component';
+import { OrderPaperSectionOverviewComponent }   from './orderpaper.section.overview.component';
+import { OrderPaper }                           from '../models/orderpaper';
+import { Section }                              from '../models/section';
+import { DND_PROVIDERS, DND_DIRECTIVES }        from '../directives/dnd/ng2-dnd';
+import { ModalComponent }                       from '../directives/modal/modal';
 
 @Component({
     selector: 'order-paper-details',
@@ -75,6 +83,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     @ViewChild('modal')
     modal: ModalComponent;
 
+    @ViewChildren(OrderPaperSectionOverviewComponent)
+    childrenSectionComponents: QueryList<OrderPaperSectionOverviewComponent>;
+
     constructor() {
         super();
     }
@@ -130,6 +141,10 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         this.modal.open();
     }
     closed() {
+        if (this.selectedSection != null && this.orderPaper.Sections[this.sectionDeleteIndex].Name == this.selectedSection.Name) {
+            if (this.selectedSection != null)
+                this.selectedSection = null;
+        }
         this.orderPaper.Sections.splice(this.sectionDeleteIndex, 1);
     }
     dismissed() {
