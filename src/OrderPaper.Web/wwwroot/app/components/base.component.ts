@@ -106,14 +106,12 @@ export abstract class BaseComponent implements AfterViewInit, ITogglable {
         this.SortableConfig();
     }
 
-    toggle(e: any) {
-        e.preventDefault();
+    toggle(element: any, eleId: string) {
+        element.preventDefault();
 
         this.isExpand = !this.isExpand;
-        var eleId = "#" + this.SortableListId;
-        $(eleId).toggle("fade", {
-            direction: 'up'
-        }, 500);
+        var eleId = "#" + eleId;
+        $(eleId).slideToggle();
     }
 
     toggleItemOfBusiness(e: any, id: number) {

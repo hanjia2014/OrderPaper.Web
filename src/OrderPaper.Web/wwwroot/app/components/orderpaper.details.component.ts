@@ -42,8 +42,13 @@ import { ModalComponent }                       from '../directives/modal/modal'
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
                             </div>             
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <input placeholder="Number" [(ngModel)]="orderPaper.OrderPaperNumber" />
+                            </div>
+                            <div class="col-md-1">
+                                <div class="col-md-2">
+                                    <a href="#" (click)="toggle($event, 'order-paper-section-details')">{{isExpand ? 'Expand' : 'Collapse'}}</a>
+                                </div>
                             </div>
                         </div>
                         <div class="container row" style="margin-top: 30px;">
@@ -56,8 +61,9 @@ import { ModalComponent }                       from '../directives/modal/modal'
                     </div>
                     
                     <!--<div [froalaEditor]="options" [(froalaModel)]="editorContent"></div>-->
-
-                    <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
+                    <div id="order-paper-section-details">
+                        <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
+                    </div>
                 </div>
                 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>

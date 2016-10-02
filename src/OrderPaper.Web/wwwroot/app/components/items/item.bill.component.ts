@@ -6,45 +6,49 @@
     AfterViewInit
 }                               from '@angular/core';
 import { BillItem }             from '../../models/items';
-import { ItemBaseComponent }    from './item.base.component';
 
 @Component({
     selector: 'item-bill',
     template: `
                 <div class="bill">
-                   <h1>Bill ({{index}}) -- {{item.Sequence}}</h1>
-                   <div class="row">
-                       <div class="col-md-2">
-                           Title:
-                       </div>
-                       <div class="col-md-8">
-                           <input class="undraggable" [(ngModel)] = "item.Title" placeholder="Title" />
-                       </div>
-                   </div>    
-                   <div class="row">
-                       <div class="col-md-2">
-                           Speeches:
-                       </div>
-                       <div class="col-md-8">
-                           <input class="undraggable" [(ngModel)] = "item.Speeches" placeholder="Speeches" />
-                       </div>
-                   </div>   
-                   <div class="row">
-                       <div class="col-md-2">
-                           Member:
-                       </div>
-                       <div class="col-md-8">
-                           <input class="undraggable" [(ngModel)] = "item.Member" placeholder="Member" />
-                       </div>
-                   </div>   
-                   <div class="row">
-                       <div class="col-md-2">
-                           Latest event:
-                       </div>
-                       <div class="col-md-8">
-                           <input class="undraggable" [(ngModel)] = "item.LatestEvent" placeholder="Latest Event" />
-                       </div>
-                   </div>
+                    <div class="row">
+                        <h1 class="pull-left">Bill ({{index}}) -- {{item.Sequence}}</h1>
+                        <a href="#" (click)="toggle($event, index + 'bill')" class="pull-right">{{isExpand ? 'Expand' : 'Collapse'}}</a>
+                    </div>
+                    <div id="{{index + 'bill'}}">                     
+                        <div class="row">
+                            <div class="col-md-2">
+                                Title:
+                            </div>
+                            <div class="col-md-8">
+                                <input class="undraggable" [(ngModel)] = "item.Title" placeholder="Title" />
+                            </div>
+                        </div>    
+                        <div class="row">
+                            <div class="col-md-2">
+                                Speeches:
+                            </div>
+                            <div class="col-md-8">
+                                <input class="undraggable" [(ngModel)] = "item.Speeches" placeholder="Speeches" />
+                            </div>
+                        </div>   
+                        <div class="row">
+                            <div class="col-md-2">
+                                Member:
+                            </div>
+                            <div class="col-md-8">
+                                <input class="undraggable" [(ngModel)] = "item.Member" placeholder="Member" />
+                            </div>
+                        </div>   
+                        <div class="row">
+                            <div class="col-md-2">
+                                Latest event:
+                            </div>
+                            <div class="col-md-8">
+                                <input class="undraggable" [(ngModel)] = "item.LatestEvent" placeholder="Latest Event" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 `,
     styles: [],
@@ -55,6 +59,7 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
     item: BillItem;
     @Input()
     index: number;
+    isExpand: boolean;
 
     constructor() {
     }
@@ -76,5 +81,13 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
             .on('blur', function (e) {
                 $('.item-li').attr("draggable", "true");
             });
+    }
+
+    toggle(element: any, eleId: string) {
+        element.preventDefault();
+
+        this.isExpand = !this.isExpand;
+        var eleId = "#" + eleId;
+        $(eleId).slideToggle();
     }
 }

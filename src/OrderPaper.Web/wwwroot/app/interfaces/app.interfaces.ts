@@ -4,7 +4,7 @@ import { OrderPaperSummary }    from '../models/orderpapersummary';
 import { OrderPaper }           from '../models/orderpaper';
 
 export interface ITogglable {
-    toggle: (eleId: string) => void;
+    toggle: (element: any, eleId: string) => void;
 }
 
 export interface IOrderPaperService {
