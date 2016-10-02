@@ -55,7 +55,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                         </div>
                     </div>
                     
-                    <div [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+                    <!--<div [froalaEditor]="options" [(froalaModel)]="editorContent"></div>-->
 
                     <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
                 </div>
