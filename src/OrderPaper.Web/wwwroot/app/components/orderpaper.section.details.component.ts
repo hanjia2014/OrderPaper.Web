@@ -8,13 +8,15 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
     selector: 'order-paper-section-details',
     template: `<div id="spinner"></div>
                 <div *ngIf="section">
-                    <div class="row container">
-                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items" dnd-sortable [sortableIndex]="i">
+                    <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
+                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" class="item-li">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
-                                    {{item.Type}}
+                                    <span *ngIf="item.Type == 'Bill'">
+                                        <item-bill [index]="i" [item]="item"></item-bill>
+                                    </span>
                                 </div>
                             </div>
                         </div>  

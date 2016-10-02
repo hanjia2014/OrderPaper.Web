@@ -17,6 +17,7 @@ import { HomeComponent }                            from './home.component';
 import { OrderPaperDetailsComponent }               from './orderpaper.details.component';
 import { OrderPaperSectionDetailsComponent }        from './orderpaper.section.details.component';
 import { OrderPaperSectionOverviewComponent }       from './orderpaper.section.overview.component';
+import { ItemBillComponent }                        from './items/item.bill.component';
 
 @NgModule({
     imports:
@@ -42,7 +43,8 @@ import { OrderPaperSectionOverviewComponent }       from './orderpaper.section.o
         HomeComponent,
         OrderPaperDetailsComponent,
         OrderPaperSectionDetailsComponent,
-        OrderPaperSectionOverviewComponent
+        OrderPaperSectionOverviewComponent,
+        ItemBillComponent
     ],
     bootstrap:
     [
