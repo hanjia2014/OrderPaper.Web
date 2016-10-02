@@ -54,6 +54,9 @@ import { ModalComponent }                       from '../directives/modal/modal'
                             </ul>
                         </div>
                     </div>
+                    
+                    <div [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+
                     <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
                 </div>
                 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
@@ -82,6 +85,12 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     //modal
     @ViewChild('modal')
     modal: ModalComponent;
+    //froala
+    options: Object = {
+        placeholderText: 'Edit Your Content Here!',
+        charCounterCount: false
+    }
+    editorContent: string = 'My Document\'s Title'
 
     @ViewChildren(OrderPaperSectionOverviewComponent)
     childrenSectionComponents: QueryList<OrderPaperSectionOverviewComponent>;
