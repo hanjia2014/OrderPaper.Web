@@ -53,9 +53,9 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     dropSuccess(e: any) {
         var sequence = 1;
         this.section.Items.forEach((item) => {
-            //if (item.Type != 'Line') {
+            if (item.Type != 'Line') {
                 item.Sequence = sequence++;
-            //}
+            }
         });
     }
 
