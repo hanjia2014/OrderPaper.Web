@@ -4,6 +4,11 @@
     Title: string;
     IsGroup: boolean;
     HasLine: boolean;
+    IsNew: boolean;
+
+    constructor() {
+        this.IsNew = true;
+    }
 }
 
 export class MotionItem extends Item {
@@ -49,6 +54,7 @@ export class LineItem extends Item {
     constructor() {
         super();
         this.Type = "Line";
+        this.IsNew = false;
     }
 }
 

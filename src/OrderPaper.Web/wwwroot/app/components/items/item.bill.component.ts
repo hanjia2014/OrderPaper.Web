@@ -12,8 +12,12 @@ import { BillItem }             from '../../models/items';
     template: `
                 <div class="bill">
                     <div class="row">
-                        <h1 class="pull-left">Bill ({{index}}) -- {{item.Sequence}}</h1>
-                        <a href="#" (click)="toggle($event, index + 'bill')" class="pull-right">{{isExpand ? 'Expand' : 'Collapse'}}</a>
+                        <div class="col-md-8">
+                            <h1>Bill ({{index}}) -- {{item.Sequence}}</h1>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" (click)="toggle($event, index + 'bill')" class="pull-right">{{isExpand ? 'Expand' : 'Collapse'}}</a>
+                        </div>
                     </div>
                     <div id="{{index + 'bill'}}">                     
                         <div class="row">
@@ -68,11 +72,11 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
     }
 
     ngAfterViewInit() {
-        var billDiv = $(".bill");
-        billDiv.mousedown((e: JQueryMouseEventObject) => {
-            if (e.target.tagName != "INPUT")
-                return false;
-        });
+        //var billDiv = $(".bill");
+        //billDiv.mousedown((e: JQueryMouseEventObject) => {
+        //    if (e.target.tagName != "INPUT")
+        //        return false;
+        //});
 
         $('.undraggable')
             .on('focus', function (e) {

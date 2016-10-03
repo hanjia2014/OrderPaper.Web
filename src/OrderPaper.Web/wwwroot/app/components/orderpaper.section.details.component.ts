@@ -2,15 +2,17 @@
 import { BaseComponent }                    from './base.component';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section }                          from '../models/section';
+import { LineItem }                         from '../models/items';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 
 @Component({
     selector: 'order-paper-section-details',
     template: `<div id="spinner"></div>
+                <button *ngIf="section" [disabled]="hasLine" (click)="addLine()">Add Line</button>
                 <div *ngIf="section">
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
-                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" class="item-li">
-                            <div class="panel panel-info">
+                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="dropSuccess()" class="item-li" [style.border-style]="item.IsNew ? 'dashed' : 'none'">
+                            <div *ngIf="item.Type != 'Line' && item.Type != 'Group'" class="panel panel-info">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -19,6 +21,9 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                     </span>
                                 </div>
                             </div>
+                            <span *ngIf="item.Type == 'Line'">
+                                <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
+                            </span>
                         </div>  
                     </div>
                 </div>
@@ -31,13 +36,36 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     section: Section;
     spinnerElm: any = document.getElementById("spinner");
     error: any;
+    hasLine: boolean;
 
     constructor() {
         super();
     }
     ngOnInit() {
         this.spinner.spin(this.spinnerElm);
+        if (this.section != null) {
+            this.section.Items[0].IsNew = true;
+        }
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
+
+    dropSuccess(e: any) {
+        var sequence = 1;
+        this.section.Items.forEach((item) => {
+            //if (item.Type != 'Line') {
+                item.Sequence = sequence++;
+            //}
+        });
+    }
+
+    addLine() {
+        var lineItem = new LineItem();
+        this.section.Items.push(lineItem);
+        this.hasLine = true;
+    }
+    deleteLine = (line: LineItem, index: number) => {
+        this.section.Items.splice(index, 1);
+        this.hasLine = false;
+    }
 }

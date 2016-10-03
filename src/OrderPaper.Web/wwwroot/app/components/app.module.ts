@@ -1,6 +1,6 @@
-﻿import { NgModule }                                 from '@angular/core';
-import { BrowserModule }                            from '@angular/platform-browser';
-import { FormsModule }                              from '@angular/forms';
+﻿import { NgModule }                                     from '@angular/core';
+import { BrowserModule }                                from '@angular/platform-browser';
+import { FormsModule }                                  from '@angular/forms';
 import { HttpModule, Response }                         from '@angular/http';
 import { LocationStrategy, HashLocationStrategy }       from '@angular/common';
 import { Select2Component }                             from '../directives/select2';
@@ -19,6 +19,7 @@ import { OrderPaperDetailsComponent }                   from './orderpaper.detai
 import { OrderPaperSectionDetailsComponent }            from './orderpaper.section.details.component';
 import { OrderPaperSectionOverviewComponent }           from './orderpaper.section.overview.component';
 import { ItemBillComponent }                            from './items/item.bill.component';
+import { ItemLineComponent }                            from './items/item.line.component';
 
 @NgModule({
     imports:
@@ -46,7 +47,8 @@ import { ItemBillComponent }                            from './items/item.bill.
         OrderPaperDetailsComponent,
         OrderPaperSectionDetailsComponent,
         OrderPaperSectionOverviewComponent,
-        ItemBillComponent
+        ItemBillComponent,
+        ItemLineComponent
     ],
     bootstrap:
     [
