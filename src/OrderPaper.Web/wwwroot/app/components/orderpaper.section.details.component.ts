@@ -11,7 +11,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 <button *ngIf="section" [disabled]="hasLine" (click)="addLine()">Add Line</button>
                 <div *ngIf="section">
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
-                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="dragEnd()" (onDragOver)="dragOver()" (onDropSuccess)="dropSuccess()" class="item-li" [style.border-style]="item.IsNew ? 'dashed' : 'none'">
+                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="dragEnd()" (onDragOver)="dragOver()" (onDropSuccess)="dropSuccess()" class="item-li">
                             <div *ngIf="item.Type != 'Line' && item.Type != 'Group'" class="panel panel-info">
                                 <div class="panel-heading">
                                 </div>
@@ -28,7 +28,9 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     </div>
                 </div>
                 `,
-    styles: [],
+    styles: [`
+                
+            `],
     providers: [DND_PROVIDERS]
 })
 export class OrderPaperSectionDetailsComponent extends BaseComponent implements OnInit {
