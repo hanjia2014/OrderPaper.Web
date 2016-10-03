@@ -11,7 +11,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 <button *ngIf="section" [disabled]="hasLine" (click)="addLine()">Add Line</button>
                 <div *ngIf="section">
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
-                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="dropSuccess()" class="item-li" [style.border-style]="item.IsNew ? 'dashed' : 'none'">
+                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="dragEnd()" (onDragOver)="dragOver()" (onDropSuccess)="dropSuccess()" class="item-li" [style.border-style]="item.IsNew ? 'dashed' : 'none'">
                             <div *ngIf="item.Type != 'Line' && item.Type != 'Group'" class="panel panel-info">
                                 <div class="panel-heading">
                                 </div>
@@ -43,14 +43,29 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     }
     ngOnInit() {
         this.spinner.spin(this.spinnerElm);
-        if (this.section != null) {
-            this.section.Items[0].IsNew = true;
-        }
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
 
     dropSuccess(e: any) {
+        var sequence = 1;
+        this.section.Items.forEach((item) => {
+            if (item.Type != 'Line') {
+                item.Sequence = sequence++;
+            }
+        });
+    }
+
+    dragEnd(e: any){
+        var sequence = 1;
+        this.section.Items.forEach((item) => {
+            if (item.Type != 'Line') {
+                item.Sequence = sequence++;
+            }
+        });
+    }
+
+    dragOver() {
         var sequence = 1;
         this.section.Items.forEach((item) => {
             if (item.Type != 'Line') {
