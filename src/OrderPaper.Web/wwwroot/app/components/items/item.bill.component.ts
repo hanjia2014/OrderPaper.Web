@@ -68,7 +68,6 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
     constructor() {
     }
     ngOnInit() {
-        var tt = this.item;
     }
 
     ngAfterViewInit() {

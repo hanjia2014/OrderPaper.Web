@@ -20,6 +20,8 @@ import { OrderPaperSectionDetailsComponent }            from './orderpaper.secti
 import { OrderPaperSectionOverviewComponent }           from './orderpaper.section.overview.component';
 import { ItemBillComponent }                            from './items/item.bill.component';
 import { ItemLineComponent }                            from './items/item.line.component';
+import { ItemReportComponent }                          from './items/item.report.component';
+import { ItemMotionComponent }                          from './items/item.motion.component';
 
 @NgModule({
     imports:
@@ -48,7 +50,9 @@ import { ItemLineComponent }                            from './items/item.line.
         OrderPaperSectionDetailsComponent,
         OrderPaperSectionOverviewComponent,
         ItemBillComponent,
-        ItemLineComponent
+        ItemLineComponent,
+        ItemReportComponent,
+        ItemMotionComponent
     ],
     bootstrap:
     [

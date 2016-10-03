@@ -7,7 +7,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
 @Component({
     selector: 'home',
     template: `<div id="spinner"></div>
-                <div class="navbar-fixed-top" style="box-shadow: 0 14px 24px -14px gray; position: relative">
+                <div class="navbar-fixed-top" style="position: relative">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
                             <div class="form">
