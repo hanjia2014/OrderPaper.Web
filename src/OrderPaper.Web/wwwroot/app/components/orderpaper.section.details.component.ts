@@ -21,27 +21,39 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 <div *ngIf="section">
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
                         <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li">
-                            <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-warning' : 'panel panel-success'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
-                                <div class="panel-heading">
+                            <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
+                                <div class="col-md-1">
+                                    <div *ngIf="item.Type != 'Group'">
+                                        <input (change)="addGroup(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" type="checkbox" />
+                                    </div>
                                 </div>
-                                <div class="panel-body">
-                                    <span *ngIf="item.Type == 'Bill'">
-                                        <item-bill [index]="i" [item]="item" (onAddGroup)="addGroup($event, i)"></item-bill>
-                                    </span>
-                                    <span *ngIf="item.Type == 'Report'">
-                                        <item-report [index]="i" [item]="item"></item-report>
-                                    </span>
-                                    <span *ngIf="item.Type == 'Motion'">
-                                        <item-motion [index]="i" [item]="item"></item-motion>
-                                    </span>
-                                    <span *ngIf="item.Type == 'Group'">
-                                        <item-group [group]="item" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
-                                    </span>
+                                <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-warning col-md-10 nopadding' : 'panel panel-success col-md-10 nopadding'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
+                                    <div class="panel-heading">
+                                    </div>
+                                    <div class="panel-body">
+                                        <span *ngIf="item.Type == 'Bill'">
+                                            <item-bill [index]="i" [item]="item" (onAddGroup)="addGroup($event, i)"></item-bill>
+                                        </span>
+                                        <span *ngIf="item.Type == 'Report'">
+                                            <item-report [index]="i" [item]="item"></item-report>
+                                        </span>
+                                        <span *ngIf="item.Type == 'Motion'">
+                                            <item-motion [index]="i" [item]="item"></item-motion>
+                                        </span>
+                                        <span *ngIf="item.Type == 'Group'">
+                                            <item-group [group]="item" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
+                                        </span>
+                                    </div>
+                                </div>
+                                <span *ngIf="item.Type == 'Line'">
+                                    <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
+                                </span>
+                                <div class="col-md-1">
+                                    <div *ngIf="item.Type != 'Group'">
+                                        <img (click)="removeItem(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="/content/images/sprite-base/sprite/icon-trash-2-xxl.png" width="30" style="cursor: pointer">
+                                    </div>
                                 </div>
                             </div>
-                            <span *ngIf="item.Type == 'Line'">
-                                <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
-                            </span>
                         </div>  
                     </div>
                 </div>
@@ -51,6 +63,10 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     border-style: dashed;
                     border-color: gray;
                     border-width: 2px; 
+                }
+                .nopadding {
+                   padding: 0 !important;
+                   margin: 0 !important;
                 }
             `],
     providers: [DND_PROVIDERS]
@@ -133,10 +149,15 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
 
     removeGroup = (group: GroupItem, index: number) => {
         var existingItems = group.Items;
-        this.section.Items.splice(index, 1);    
+        this.section.Items.splice(index, 1);
         existingItems.forEach((item) => {
             this.section.Items.splice(index++, 0, item);
         });
+    }
+
+    removeItem = (item: Item, index: number) => {
+        this.section.Items.splice(index, 1);
+        this.sortingItems(null);
     }
 
     addItemsToGroup = (group: GroupItem, index: number) => {
@@ -148,7 +169,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         newGroup.From = group.From;
         newGroup.To = group.To;
 
-        for (var i = this.section.Items.length - 1; i >= 0 ; i--) {
+        for (var i = this.section.Items.length - 1; i >= 0; i--) {
             var item = this.section.Items[i];
             if (item.Sequence >= newGroup.From && item.Sequence <= newGroup.To) {
                 newGroup.Items.push(item);
