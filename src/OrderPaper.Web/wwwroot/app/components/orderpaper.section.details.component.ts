@@ -35,7 +35,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                         <item-motion [index]="i" [item]="item"></item-motion>
                                     </span>
                                     <span *ngIf="item.Type == 'Group'">
-                                        <item-group [group]="item" [groupIndex]="i"></item-group>
+                                        <item-group [group]="item" [groupIndex]="i" (onAddItems)="addItemsToGroup($event, i)"></item-group>
                                     </span>
                                 </div>
                             </div>
@@ -129,5 +129,28 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
 
     itemSelect = (e: string) => {
         this.selectedItemType = e;
+    }
+
+    addItemsToGroup = (group: GroupItem, index: number) => {
+        var existingItems = group.Items;
+        this.section.Items.splice(index, 1);    //remove group first
+        existingItems.forEach((item) => {
+            this.section.Items.splice(index++, 0, item);
+        });
+
+        var newGroup = new GroupItem();
+        newGroup.From = group.From;
+        newGroup.To = group.To;
+
+        for (var i = 0; i < this.section.Items.length; i++) {
+            var item = this.section.Items[i];
+            if (item.Sequence >= newGroup.From && item.Sequence <= newGroup.To) {
+                newGroup.Items.push(item);
+                this.section.Items.splice(i, 1);
+                if (newGroup.From == item.Sequence) {
+                    this.section.Items.splice(i, 0, newGroup);
+                }
+            }
+        }
     }
 }

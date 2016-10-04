@@ -38,11 +38,14 @@ export class ItemGroupComponent {
     groupIndex: number;
     @Input()
     dropZone: string;
+    @Output()
+    onAddItems = new EventEmitter<GroupItem>();
 
     constructor() {
     }
 
     addItems = () => {
+        this.onAddItems.next(this.group);
     }
 
     validateSequences() {
