@@ -8,7 +8,8 @@ import { ReportItem, MotionItem, BillItem, GroupItem  } from '../../models/items
                     <div class="panel-body">
                         <input [(ngModel)]="group.From" placeholder="From" />
                         <input [(ngModel)]="group.To" placeholder="To" />
-                        <button class="btn" [disabled]="validateSequences()" (click)="addItems()">Add</button>
+                        <button class="btn btn-primary" [disabled]="validateSequences()" (click)="addItems()">Add</button>
+                        <button class="btn btn-danger pull-right" (click)="removeGroup()">Remove</button>
                     </div>
                 </div>
                 <div class="row">
@@ -40,12 +41,18 @@ export class ItemGroupComponent {
     dropZone: string;
     @Output()
     onAddItems = new EventEmitter<GroupItem>();
+    @Output()
+    onRemoveGroup = new EventEmitter<GroupItem>();
 
     constructor() {
     }
 
     addItems = () => {
         this.onAddItems.next(this.group);
+    }
+
+    removeGroup = () => {
+        this.onRemoveGroup.next(this.group);
     }
 
     validateSequences() {

@@ -21,7 +21,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 <div *ngIf="section">
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
                         <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li">
-                            <div *ngIf="item.Type != 'Line'" class="panel panel-info" [class.new-item]="item.IsNew && item.Type != 'Group'">
+                            <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-warning' : 'panel panel-success'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -35,7 +35,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                         <item-motion [index]="i" [item]="item"></item-motion>
                                     </span>
                                     <span *ngIf="item.Type == 'Group'">
-                                        <item-group [group]="item" [groupIndex]="i" (onAddItems)="addItemsToGroup($event, i)"></item-group>
+                                        <item-group [group]="item" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
                                     </span>
                                 </div>
                             </div>
@@ -131,7 +131,16 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         this.selectedItemType = e;
     }
 
+    removeGroup = (group: GroupItem, index: number) => {
+        var existingItems = group.Items;
+        this.section.Items.splice(index, 1);    
+        existingItems.forEach((item) => {
+            this.section.Items.splice(index++, 0, item);
+        });
+    }
+
     addItemsToGroup = (group: GroupItem, index: number) => {
+        var originalIndex = index;
         var existingItems = group.Items;
         this.section.Items.splice(index, 1);    //remove group first
         existingItems.forEach((item) => {
@@ -142,15 +151,16 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         newGroup.From = group.From;
         newGroup.To = group.To;
 
-        for (var i = 0; i < this.section.Items.length; i++) {
+        for (var i = this.section.Items.length - 1; i >= 0 ; i--) {
             var item = this.section.Items[i];
             if (item.Sequence >= newGroup.From && item.Sequence <= newGroup.To) {
                 newGroup.Items.push(item);
                 this.section.Items.splice(i, 1);
-                if (newGroup.From == item.Sequence) {
-                    this.section.Items.splice(i, 0, newGroup);
-                }
             }
         }
+
+        newGroup.Items = newGroup.Items.reverse();
+
+        this.section.Items.splice(originalIndex, 0, newGroup);
     }
 }
