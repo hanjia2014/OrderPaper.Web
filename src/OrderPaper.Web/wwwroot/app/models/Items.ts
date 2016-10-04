@@ -2,7 +2,7 @@
     Sequence: number;
     Type: string;
     Title: string;
-    IsGroup: boolean;
+    IsGrouppedItem: boolean;
     HasLine: boolean;
     IsNew: boolean;
 
@@ -59,6 +59,8 @@ export class LineItem extends Item {
 }
 
 export class GroupItem extends Item {
+    From: number;
+    To: number;
     Items: Array<Item>;
     constructor() {
         super();

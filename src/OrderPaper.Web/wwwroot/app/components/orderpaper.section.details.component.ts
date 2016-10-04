@@ -20,13 +20,13 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 </div>
                 <div *ngIf="section">
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
-                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="dragEnd()" (onDragOver)="dragOver()" (onDropSuccess)="dropSuccess()" class="item-li">
-                            <div *ngIf="item.Type != 'Line' && item.Type != 'Group'" class="panel panel-info" [class.new-item]="item.IsNew">
+                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li">
+                            <div *ngIf="item.Type != 'Line'" class="panel panel-info" [class.new-item]="item.IsNew && item.Type != 'Group'">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
                                     <span *ngIf="item.Type == 'Bill'">
-                                        <item-bill [index]="i" [item]="item"></item-bill>
+                                        <item-bill [index]="i" [item]="item" (onAddGroup)="addGroup($event, i)"></item-bill>
                                     </span>
                                     <span *ngIf="item.Type == 'Report'">
                                         <item-report [index]="i" [item]="item"></item-report>
@@ -34,7 +34,9 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                     <span *ngIf="item.Type == 'Motion'">
                                         <item-motion [index]="i" [item]="item"></item-motion>
                                     </span>
-
+                                    <span *ngIf="item.Type == 'Group'">
+                                        <item-group [group]="item" [groupIndex]="i"></item-group>
+                                    </span>
                                 </div>
                             </div>
                             <span *ngIf="item.Type == 'Line'">
@@ -71,28 +73,20 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
 
     updateSequence(oldIndex: number, newIndex: number) { }
 
-    dropSuccess(e: any) {
+    sortingItems(e: any) {
         var sequence = 1;
         this.section.Items.forEach((item) => {
             if (item.Type != 'Line') {
-                item.Sequence = sequence++;
-            }
-        });
-    }
-
-    dragEnd(e: any){
-        var sequence = 1;
-        this.section.Items.forEach((item) => {
-            if (item.Type != 'Line') {
-                item.Sequence = sequence++;
-            }
-        });
-    }
-
-    dragOver() {
-        var sequence = 1;
-        this.section.Items.forEach((item) => {
-            if (item.Type != 'Line') {
+                if (item.Type == "Group") {
+                    var group = (item as GroupItem);
+                    group.From = sequence;
+                    for (var i = 0; i < group.Items.length; i++) {
+                        var grouppedItem = group.Items[i];
+                        grouppedItem.Sequence = i + sequence;
+                    }
+                    group.To = group.Items[group.Items.length - 1].Sequence;
+                    sequence = sequence + group.Items.length - 1;
+                }
                 item.Sequence = sequence++;
             }
         });
@@ -122,6 +116,15 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     deleteLine = (line: LineItem, index: number) => {
         this.section.Items.splice(index, 1);
         this.hasLine = false;
+    }
+
+    addGroup = (item: Item, index: number) => {
+        var group = new GroupItem();
+        group.From = item.Sequence;
+        group.To = item.Sequence;
+        group.Items.push(item);
+        this.section.Items.splice(index, 1);
+        this.section.Items.splice(index, 0, group);
     }
 
     itemSelect = (e: string) => {

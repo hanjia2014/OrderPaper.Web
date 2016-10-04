@@ -22,6 +22,7 @@ import { ItemBillComponent }                            from './items/item.bill.
 import { ItemLineComponent }                            from './items/item.line.component';
 import { ItemReportComponent }                          from './items/item.report.component';
 import { ItemMotionComponent }                          from './items/item.motion.component';
+import { ItemGroupComponent }                           from './items/item.group.component';
 
 @NgModule({
     imports:
@@ -52,7 +53,8 @@ import { ItemMotionComponent }                          from './items/item.motio
         ItemBillComponent,
         ItemLineComponent,
         ItemReportComponent,
-        ItemMotionComponent
+        ItemMotionComponent,
+        ItemGroupComponent
     ],
     bootstrap:
     [

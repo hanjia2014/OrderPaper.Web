@@ -3,7 +3,9 @@
     OnInit,
     ViewChild,
     Input,
-    AfterViewInit
+    AfterViewInit,
+    Output,
+    EventEmitter
 }                               from '@angular/core';
 import { BillItem }             from '../../models/items';
 
@@ -14,6 +16,7 @@ import { BillItem }             from '../../models/items';
                     <div class="row">
                         <div class="col-md-8">
                             <h1>Bill ({{index}}) -- {{item.Sequence}}</h1>
+                            <input type="checkbox" [ngModel]="item.IsGrouppedItem" (change)="addGroup()"/>
                         </div>
                         <div class="col-md-2">
                             <a href="#" (click)="toggle($event, index + 'bill')" class="pull-right">{{isExpand ? 'Expand' : 'Collapse'}}</a>
@@ -64,10 +67,16 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
     @Input()
     index: number;
     isExpand: boolean;
+    @Output()
+    onAddGroup = new EventEmitter<BillItem>();
 
     constructor() {
     }
     ngOnInit() {
+    }
+
+    addGroup() {
+        this.onAddGroup.next(this.item);
     }
 
     ngAfterViewInit() {
