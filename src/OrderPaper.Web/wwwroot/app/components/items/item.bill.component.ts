@@ -15,7 +15,7 @@ import { BillItem }             from '../../models/items';
                 <div class="bill">
                     <div class="row">
                         <div class="col-md-8">
-                            <h1>Bill ({{index}}) -- {{item.Sequence}}</h1>
+                            <h1>Bill (Sequence -- {{item.Sequence}})</h1>
                             <input type="checkbox" [ngModel]="item.IsGrouppedItem" (change)="addGroup()"/>
                         </div>
                         <div class="col-md-2">

@@ -13,7 +13,7 @@ import { ReportItem }             from '../../models/items';
                 <div class="report">
                     <div class="row">
                         <div class="col-md-8">
-                            <h1>Report ({{index}}) -- {{item.Sequence}}</h1>
+                            <h1>Report (Sequence -- {{item.Sequence}})</h1>
                         </div>
                     </div>
                 </div>

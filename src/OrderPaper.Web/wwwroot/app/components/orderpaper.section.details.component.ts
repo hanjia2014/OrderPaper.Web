@@ -141,11 +141,8 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
 
     addItemsToGroup = (group: GroupItem, index: number) => {
         var originalIndex = index;
-        var existingItems = group.Items;
-        this.section.Items.splice(index, 1);    //remove group first
-        existingItems.forEach((item) => {
-            this.section.Items.splice(index++, 0, item);
-        });
+
+        this.removeGroup(group, index);
 
         var newGroup = new GroupItem();
         newGroup.From = group.From;
