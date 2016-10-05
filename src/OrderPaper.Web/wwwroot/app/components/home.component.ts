@@ -10,7 +10,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 <div class="navbar-fixed-top" style="position: relative">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
-                            <div class="form">
+                            <div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -33,13 +33,13 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                                             {{summary.Status}}
                                         </td>
                                         <td>
-                                            <a class="btn btn-lg save-button" (click)="deleteOrderPaper(summary.Id)">
-                                                Delete
+                                            <a class="btn btn-primary" (click)="copyOrderPaper(summary.Id)">
+                                                Copy
                                             </a>
                                         </td>
                                         <td>
-                                            <a class="btn btn-lg save-button" (click)="copyOrderPaper(summary.Id)">
-                                                Copy
+                                            <a class="btn btn-danger" (click)="deleteOrderPaper(summary.Id)">
+                                                Delete
                                             </a>
                                         </td>
                                       </tr>

@@ -22,12 +22,12 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
                         <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li">
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
-                                <div class="col-md-1">
+                                <div class="col-md-1 group-tick-box">
                                     <div *ngIf="item.Type != 'Group'">
                                         <input (change)="addGroup(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" type="checkbox" />
                                     </div>
                                 </div>
-                                <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-warning col-md-10 nopadding' : 'panel panel-success col-md-10 nopadding'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
+                                <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-warning col-md-10 nopadding item-box' : 'panel panel-success col-md-10 nopadding item-box'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
                                     <div class="panel-heading">
                                     </div>
                                     <div class="panel-body">
@@ -48,7 +48,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                 <span *ngIf="item.Type == 'Line'">
                                     <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
                                 </span>
-                                <div class="col-md-1">
+                                <div class="col-md-1 trash-bin-box">
                                     <div *ngIf="item.Type != 'Group'">
                                         <img (click)="removeItem(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="/content/images/sprite-base/sprite/icon-trash-2-xxl.png" width="30" style="cursor: pointer">
                                     </div>
@@ -67,6 +67,17 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 .nopadding {
                    padding: 0 !important;
                    margin: 0 !important;
+                }
+                .group-tick-box {
+                    width: 2%;
+                }
+
+                .item-box {
+                    width: 90%;
+                }
+
+                .trash-bin-box {
+                    width: 3%;
                 }
             `],
     providers: [DND_PROVIDERS]
