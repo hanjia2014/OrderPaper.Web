@@ -22,7 +22,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     <div class="row container" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
                         <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li">
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
-                                <div class="col-md-1 group-tick-box">
+                                <div class="col-md-1 group-tick-box" *ngIf="item.Type != 'Line'">
                                     <div *ngIf="item.Type != 'Group'">
                                         <input (change)="addGroup(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" type="checkbox" />
                                     </div>
@@ -48,7 +48,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                 <span *ngIf="item.Type == 'Line'">
                                     <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
                                 </span>
-                                <div class="col-md-1 trash-bin-box">
+                                <div class="col-md-1 trash-bin-box" *ngIf="item.Type != 'Line'">
                                     <div *ngIf="item.Type != 'Group'">
                                         <img (click)="removeItem(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="/content/images/sprite-base/sprite/icon-trash-2-xxl.png" width="30" style="cursor: pointer">
                                     </div>
