@@ -8,7 +8,7 @@
     }
   `],
     template: `
-    <div [hidden]="!active" class="pane">
+    <div [hidden]="!active" class="pane container">
       <ng-content></ng-content>
     </div>
   `

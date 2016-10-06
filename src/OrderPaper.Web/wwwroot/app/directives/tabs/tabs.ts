@@ -4,13 +4,15 @@ import { Tab } from './tab';
 @Component({
     selector: 'tabs',
     template: `
-    <ul class="nav nav-tabs">
-      <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
-        <a>{{tab.title}}
-            <span [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; height: 1.5em;">&nbsp;</span>
-        </a>
-      </li>
-    </ul>
+    <nav class="nav-black">
+        <ul class="nav nav-tabs container">
+          <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
+            <a>{{tab.title}}
+                <span [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; height: 1.5em;">&nbsp;</span>
+            </a>
+          </li>
+        </ul>
+    </nav>
     <ng-content></ng-content>
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
@@ -20,6 +22,9 @@ import { Tab } from './tab';
             }
             .non-active-span:hover {
                 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAALAQMAAACqBVQ+AAAABlBMVEX///8zMzM4VIyRAAAAAXRSTlMAQObYZgAAACpJREFUCB0FwTERACAIAMDHc2AkAlGMYCRGY/tvpKO0Vo40drAWsfFw0T5KfwL3FCp0KAAAAABJRU5ErkJggg==) no-repeat scroll center center;
+            }
+            .nav-black{
+                background-color: #000000;
             }`]
 })
 export class Tabs implements AfterContentInit {
