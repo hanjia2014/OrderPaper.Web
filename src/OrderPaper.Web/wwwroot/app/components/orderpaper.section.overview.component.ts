@@ -12,14 +12,13 @@ import { DND_PROVIDERS, DND_DIRECTIVES }                                    from
                         <div class="form-control">
                             <a [class.bold]="isSelected" (click)="selectSection(section)">{{index + 1 + '. ' + section.Name}}</a>
                             <div class="pull-right">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAATCAIAAAAvYqvDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/gPBsHBwcbGxkASDxuqFMiHADxs0k0lBpCuFJelyOxRb416i2i3/v8PAJM4KtHpFC3YAAAAAElFTkSuQmCC">
+                                <img src="/content/images/icons/dragndrop.png" height="23px" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                                 <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
                                     <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? '/content/images/icons/flag - section on front cover.png' : '/content/images/icons/flag - section not on front cover.png'}}">
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <!--<span class="input-group-addon" style="cursor: pointer;" [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">Remove</span>-->
                     <a [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">
                         <img style="padding: 6px 0px;" src="/content/images/icons/delete.png">
                     </a>

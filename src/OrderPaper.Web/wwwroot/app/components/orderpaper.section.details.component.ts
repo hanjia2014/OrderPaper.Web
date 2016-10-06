@@ -23,11 +23,11 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                         <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li">
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
                                 <div class="col-md-1 group-tick-box">
-                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line'">
-                                        <img src="content/images/icons/group tick.png" style="cursor: pointer" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" (click)="addGroup(item, i)">
+                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line'" class="group-tick-box">
+                                        <img class="vcenter" src="content/images/icons/group tick.png" style="cursor: pointer" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" (click)="addGroup(item, i)">
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1 vcenter">
                                     <div *ngIf="item.Type != 'Group' && item.Type != 'Line'" class="pull-right">
                                         {{item.Sequence}}
                                     </div>
@@ -52,7 +52,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                 <span *ngIf="item.Type == 'Line'">
                                     <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
                                 </span>
-                                <div class="col-md-1 trash-bin-box">
+                                <div class="col-md-1 trash-bin-box vcenter">
                                     <div *ngIf="item.Type != 'Group' && item.Type != 'Line'">
                                         <img (click)="removeItem(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="/content/images/icons/delete.png" style="cursor: pointer">
                                     </div>
@@ -76,7 +76,9 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     width: 2%;
                     margin-left: -20px;
                 }
-
+                .vcenter{
+                    padding: 15px;
+                }
                 .item-box {
                     width: 80%;
                 }
