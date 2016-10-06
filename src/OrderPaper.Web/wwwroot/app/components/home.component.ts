@@ -40,6 +40,9 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                                       </tr>
                                     </tbody>
                                 </table>
+                                <div *ngIf="orderPaperSummary == null || orderPaperSummary.length == 0">
+                                    <a class="btn btn-parliament" (click)="createNewOrderPaper()">New Order Paper</a>
+                                </div>
                             </div>
                         </tab>
                         <tab [title]="'Search'" (onActiveChange)="onCheckTabMode($event)">
@@ -105,6 +108,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 this.spinner.stop();
             },
             (err: any) => this.error = err);
+    }
+
+    createNewOrderPaper = () => {
+        this.selectedOrderPaper = new OrderPaper();
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
