@@ -6,10 +6,10 @@ import { Tab } from './tab';
     template: `
     <nav class="nav-black">
         <ul class="nav nav-tabs container">
-          <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
-            <a>{{tab.title}}
-                <span [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; height: 1.5em;">&nbsp;</span>
+          <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
+            <a class="list-unstyled" style="color:white">{{tab.title}}
             </a>
+            <span [style.background-color]="tab.active ? '#ffffff' : '#000000'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; height: 1.5em; cursor: pointer;">&nbsp;</span>
           </li>
         </ul>
     </nav>
@@ -17,7 +17,6 @@ import { Tab } from './tab';
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
             .active-span { 
-                cursor: pointer;
                 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAALCAYAAACQy8Z9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABZSURBVDhPrc9JCgAhDERR71T3P5uNYjVOMeXwVwGTB4YoBqBMfhJKUIVdtIcUeIlagAebqHe4ep+iyhdT1t6AqiCb7TfoLsj6ux89BVl9n9FbkNEJr0AGIH5ckGZedwonSQAAAABJRU5ErkJggg==) no-repeat scroll center center;
             }
             .non-active-span:hover {
@@ -25,6 +24,16 @@ import { Tab } from './tab';
             }
             .nav-black{
                 background-color: #000000;
+            }
+            .nav-tabs > li > a:hover{
+                border-color: none;
+            }
+            .nav > li > a:focus, .nav > li > a:hover {
+                text-decoration: none;
+                background-color: #000000;
+            }
+            .nav-tabs > li > a{
+                border: 1px solid #000000;
             }`]
 })
 export class Tabs implements AfterContentInit {

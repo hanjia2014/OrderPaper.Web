@@ -53,3 +53,9 @@ ol, ul {
     opacity: .7;
     border: 1px dashed #000;
 }
+
+.btn-parliament{
+    border-color: #adadad;
+    color: #333;
+    background-color: #abded2;
+}
