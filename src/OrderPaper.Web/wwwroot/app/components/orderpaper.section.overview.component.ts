@@ -1,8 +1,8 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter }   from '@angular/core';
-import { BaseComponent }                                    from './base.component';
-import { OrderPaper }                                       from '../models/orderpaper';
-import { Section }                                          from '../models/section';
-import { DND_PROVIDERS, DND_DIRECTIVES }                    from '../directives/dnd/ng2-dnd';
+﻿import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit }    from '@angular/core';
+import { BaseComponent }                                                    from './base.component';
+import { OrderPaper }                                                       from '../models/orderpaper';
+import { Section }                                                          from '../models/section';
+import { DND_PROVIDERS, DND_DIRECTIVES }                                    from '../directives/dnd/ng2-dnd';
 
 @Component({
     selector: 'order-paper-section-overview',
@@ -13,7 +13,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }                    from '../directives/
                             <a [class.bold]="isSelected" (click)="selectSection(section)">{{index + 1 + '. ' + section.Name}}</a>
                             <div class="pull-right">
                                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAATCAIAAAAvYqvDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVDhPY/gPBsHBwcbGxkASDxuqFMiHADxs0k0lBpCuFJelyOxRb416i2i3/v8PAJM4KtHpFC3YAAAAAElFTkSuQmCC">
-                                <a>
+                                <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
                                     <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? '/content/images/icons/flag - section on front cover.png' : '/content/images/icons/flag - section not on front cover.png'}}">
                                 </a>
                             </div>
@@ -35,7 +35,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }                    from '../directives/
             `],
     providers: [DND_PROVIDERS]
 })
-export class OrderPaperSectionOverviewComponent implements OnInit {
+export class OrderPaperSectionOverviewComponent implements OnInit, AfterViewInit {
     @Input()
     section: Section;
     hoverVisible: boolean;
@@ -53,6 +53,10 @@ export class OrderPaperSectionOverviewComponent implements OnInit {
     }
     ngOnInit() {
         
+    }
+
+    ngAfterViewInit() {
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     selectSection = () => {
