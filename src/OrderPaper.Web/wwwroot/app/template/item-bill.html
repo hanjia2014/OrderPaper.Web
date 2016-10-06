@@ -1,0 +1,44 @@
+﻿<div class="bill">
+    <div class="row">
+        <div class="col-md-9">
+            <a href="#" (click)="toggle($event, index + 'bill')">{{item.Title}}</a>
+        </div>
+        <div class="col-md-1">
+            <span>{{item.Type}}</span>
+        </div>
+    </div>
+    <div id="{{index + 'bill'}}">
+        <div class="row">
+            <div class="col-md-2">
+                Title:
+            </div>
+            <div class="col-md-8">
+                <input class="undraggable" [(ngModel)]="item.Title" placeholder="Title" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                Speeches:
+            </div>
+            <div class="col-md-8">
+                <input class="undraggable" [(ngModel)]="item.Speeches" placeholder="Speeches" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                Member:
+            </div>
+            <div class="col-md-8">
+                <input class="undraggable" [(ngModel)]="item.Member" placeholder="Member" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                Latest event:
+            </div>
+            <div class="col-md-8">
+                <input class="undraggable" [(ngModel)]="item.LatestEvent" placeholder="Latest Event" />
+            </div>
+        </div>
+    </div>
+</div>

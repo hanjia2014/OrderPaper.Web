@@ -11,10 +11,11 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
                             <div>
-                                <table class="table">
+                                <h3>Order Papers history</h3>
+                                <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" class="table">
                                     <thead>
                                         <tr>
-                                            <th>Date</th>
+                                            <th>Sitting day</th>
                                             <th>Status</th>
                                             <th>Number</th>
                                             <th>Delete</th>

@@ -11,52 +11,7 @@ import { BillItem }             from '../../models/items';
 
 @Component({
     selector: 'item-bill',
-    template: `
-                <div class="bill">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h1>Bill (Sequence -- {{item.Sequence}})</h1>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="#" (click)="toggle($event, index + 'bill')" class="pull-right">{{isExpand ? 'Expand' : 'Collapse'}}</a>
-                        </div>
-                    </div>
-                    <div id="{{index + 'bill'}}">                     
-                        <div class="row">
-                            <div class="col-md-2">
-                                Title:
-                            </div>
-                            <div class="col-md-8">
-                                <input class="undraggable" [(ngModel)] = "item.Title" placeholder="Title" />
-                            </div>
-                        </div>    
-                        <div class="row">
-                            <div class="col-md-2">
-                                Speeches:
-                            </div>
-                            <div class="col-md-8">
-                                <input class="undraggable" [(ngModel)] = "item.Speeches" placeholder="Speeches" />
-                            </div>
-                        </div>   
-                        <div class="row">
-                            <div class="col-md-2">
-                                Member:
-                            </div>
-                            <div class="col-md-8">
-                                <input class="undraggable" [(ngModel)] = "item.Member" placeholder="Member" />
-                            </div>
-                        </div>   
-                        <div class="row">
-                            <div class="col-md-2">
-                                Latest event:
-                            </div>
-                            <div class="col-md-8">
-                                <input class="undraggable" [(ngModel)] = "item.LatestEvent" placeholder="Latest Event" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                `,
+    templateUrl: `app/template/item-bill.html`,
     styles: [],
     providers: []
 })
