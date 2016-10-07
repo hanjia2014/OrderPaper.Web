@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'select2',
-    template: `<input id="{{id}}"/>`,
+    template: `<input id="{{id}}" class="{{cssClass=='' ? '' : cssClass}}"/>`,
     styles: [],
     providers: []
 })
@@ -23,6 +23,8 @@ export class Select2Component implements AfterViewInit {
     disableMultipleSelection: boolean;
     @Input()
     initialValue: string;
+    @Input()
+    cssClass: string;
 
     @Output() selected = new EventEmitter();
 
