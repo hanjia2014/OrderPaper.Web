@@ -10,9 +10,9 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 <div class="navbar-fixed-top" style="position: relative">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
-                            <div>
+                            <div class="col-md-9">
                                 <h3>Order Papers history</h3>
-                                <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" class="table">
+                                <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" class="table history-list">
                                     <thead>
                                         <tr>
                                             <th>Sitting day</th>

@@ -8,7 +8,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }                                    from
     selector: 'order-paper-section-overview',
     template: `
                 <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
-                    <div class="col-md-11">
+                    <div class="col-md-9">
                         <div class="form-control">
                             <a [class.bold]="isSelected" (click)="selectSection(section)">{{index + 1 + '. ' + section.Name}}</a>
                             <div class="pull-right">

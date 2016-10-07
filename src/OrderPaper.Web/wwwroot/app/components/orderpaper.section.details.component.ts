@@ -20,7 +20,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 </div>
                 <div *ngIf="section">
                     <div class="row" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
-                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li">
+                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li col-md-10">
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
                                 <div class="col-md-1 group-tick-box">
                                     <div *ngIf="item.Type != 'Group' && item.Type != 'Line'" class="group-tick-box">

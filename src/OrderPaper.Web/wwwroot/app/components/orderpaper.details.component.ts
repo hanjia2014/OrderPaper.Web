@@ -26,7 +26,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 Date
                             </div>
                             <div class="col-md-3">
@@ -35,12 +35,12 @@ import { ModalComponent }                       from '../directives/modal/modal'
                             <div class="col-md-3">
                                 Status
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 Number
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [initialValue]="orderPaper.Date" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
                             <div class="col-md-3">
@@ -50,13 +50,13 @@ import { ModalComponent }                       from '../directives/modal/modal'
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
                             </div>             
-                            <div class="col-md-3">
-                                <input placeholder="Number" class="form-control" [(ngModel)]="orderPaper.OrderPaperNumber" />
+                            <div class="col-md-1">
+                                <input placeholder="Number" class="form-control input-sm" [(ngModel)]="orderPaper.OrderPaperNumber" />
                             </div>
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <div class="pull-right">
                                     <a class="btn btn-parliament">Save</a>
                                     <a class="btn btn-parliament">Generate preview Order Papers</a>
@@ -72,7 +72,6 @@ import { ModalComponent }                       from '../directives/modal/modal'
                         </div>
                     </div>
                     
-                    <!--<div [froalaEditor]="options" [(froalaModel)]="editorContent"></div>-->
                     <div id="order-paper-section-details">
                         <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
                     </div>
