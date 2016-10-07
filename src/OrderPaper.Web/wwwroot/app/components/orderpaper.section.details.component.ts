@@ -76,9 +76,6 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     width: 2%;
                     margin-left: -20px;
                 }
-                .vcenter{
-                    padding: 15px;
-                }
                 .item-box {
                     width: 80%;
                 }

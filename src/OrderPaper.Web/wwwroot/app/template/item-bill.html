@@ -1,13 +1,16 @@
 ﻿<div class="bill">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-11">
             <a href="#" (click)="toggle($event, index + 'bill')">{{item.Title}}</a>
         </div>
         <div class="col-md-1">
-            <span>{{item.Type}}</span>
+            <div class="pull-right">
+                <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                <span>{{item.Type}}</span>
+            </div>
         </div>
     </div>
-    <div id="{{index + 'bill'}}">
+    <div id="{{index + 'bill'}}" class="initially-hidden">
         <div class="row">
             <div class="col-md-2">
                 Title:
