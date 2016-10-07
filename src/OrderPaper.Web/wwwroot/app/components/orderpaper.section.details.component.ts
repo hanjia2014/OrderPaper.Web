@@ -68,10 +68,6 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     border-color: gray;
                     border-width: 2px; 
                 }
-                .nopadding {
-                   padding: 0 !important;
-                   margin: 0 !important;
-                }
                 .group-tick-box {
                     width: 2%;
                     margin-left: -20px;

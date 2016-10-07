@@ -23,10 +23,11 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
     isExpand: boolean;
     @Output()
     onAddGroup = new EventEmitter<BillItem>();
-
+    billTitleOptions: any;
     constructor() {
     }
     ngOnInit() {
+        this.billTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
     }
 
     addGroup() {
@@ -55,5 +56,8 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
         this.isExpand = !this.isExpand;
         var eleId = "#" + eleId;
         $(eleId).slideToggle();
+    }
+
+    titleSelect = (e: string) => {
     }
 }

@@ -1,7 +1,7 @@
 ﻿<div class="bill">
     <div class="row">
         <div class="col-md-11">
-            <a href="#" (click)="toggle($event, index + 'bill')">{{item.Title}}</a>
+            <a href="#" (click)="toggle($event, index + '-bill')">{{item.Title}}</a>
         </div>
         <div class="col-md-1">
             <div class="pull-right">
@@ -10,38 +10,19 @@
             </div>
         </div>
     </div>
-    <div id="{{index + 'bill'}}" class="initially-hidden">
-        <div class="row">
-            <div class="col-md-2">
-                Title:
-            </div>
-            <div class="col-md-8">
-                <input class="undraggable" [(ngModel)]="item.Title" placeholder="Title" />
-            </div>
+    <div id="{{index + '-bill'}}" class="initially-hidden">
+        <br />
+        <div class="form-group col-md-5 nopadding">
+            <label>Title</label>
+            <input type="text" class="form-control undraggable" [(ngModel)]="item.Title"/>
         </div>
-        <div class="row">
-            <div class="col-md-2">
-                Speeches:
-            </div>
-            <div class="col-md-8">
-                <input class="undraggable" [(ngModel)]="item.Speeches" placeholder="Speeches" />
-            </div>
+        <div class="form-group col-md-1">
+            <label>&nbsp;</label>
+            <img class="form-control undraggable nopadding noborder" src="/content/images/icons/left-arrow.png" />
         </div>
-        <div class="row">
-            <div class="col-md-2">
-                Member:
-            </div>
-            <div class="col-md-8">
-                <input class="undraggable" [(ngModel)]="item.Member" placeholder="Member" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                Latest event:
-            </div>
-            <div class="col-md-8">
-                <input class="undraggable" [(ngModel)]="item.LatestEvent" placeholder="Latest Event" />
-            </div>
+        <div class="form-group col-md-5 nopadding">
+            <label>CPD</label>
+            <select2 [id]="index + 'bill-title-cpd'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
         </div>
     </div>
 </div>

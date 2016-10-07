@@ -69,10 +69,21 @@ ol, ul {
 .vcenter {
     padding: 15px;
 }
+
 .history-list > tbody > tr > td {
     border-top: none;
     padding: 4px;
 }
+
 .history-list > thead > tr > th {
     border-bottom: none;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.noborder {
+    border: none;
 }
