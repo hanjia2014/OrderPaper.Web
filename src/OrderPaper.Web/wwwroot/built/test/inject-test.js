@@ -1,9 +1,39 @@
 "use strict";
-var testing_1 = require('@angular/core/testing');
-var core_1 = require('@angular/core');
-describe('default test injector', function () {
-    it('should provide default id', testing_1.inject([core_1.APP_ID], function (id) {
-        expect(id).toBe('a');
-    }));
-});
+//describe('default test injector', () => {
+//    beforeEach(() => {
+//        TestBed.configureTestingModule({
+//            providers: [
+//                MockBackend,
+//                BaseRequestOptions,
+//                {
+//                    provide: Http,
+//                    useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
+//                        return new Http(backendInstance, defaultOptions);
+//                    },
+//                    deps: [MockBackend, BaseRequestOptions]
+//                },
+//                OrderPaperService
+//            ]
+//        });
+//    });
+//    let opservice: OrderPaperService = null;
+//    let backend: MockBackend = null;
+//    beforeEach(inject([OrderPaperService, MockBackend], (userService: OrderPaperService, mockBackend: MockBackend) => {
+//        opservice = userService;
+//        backend = mockBackend;
+//    }));
+//    it('should provide default id', () => {
+//        backend.connections.subscribe((connection: MockConnection) => {
+//            let options = new ResponseOptions({
+//                body: JSON.stringify({ success: true })
+//            });
+//            connection.mockRespond(new Response(options));
+//        });
+//        opservice.getOrderPaperList().subscribe(
+//            (data: any) => {
+//                expect(data != null).toEqual(true);
+//            },
+//            (err: any) => this.error = err);
+//    });
+//}); 
 //# sourceMappingURL=inject-test.js.map
