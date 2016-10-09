@@ -35,6 +35,8 @@ module.exports = function (config) {
             { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
             { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
 
+            { pattern: 'karma-test-shim.js', included: true, watched: true },
+            { pattern: 'built/test/*-test.js', included: true, watched: true },
             // paths loaded via module imports
             // Angular itself
             { pattern: 'node_modules/@angular/**/*.js', included: false, watched: true },
@@ -43,8 +45,6 @@ module.exports = function (config) {
             // Our built application code
             { pattern: 'built/**/*.js', included: false, watched: true },
 
-            { pattern: 'karma-test-shim.js', included: true, watched: true },
-            { pattern: 'built/test/*-test.js', included: true, watched: true },
             // paths to support debugging with source maps in dev tools
             { pattern: 'app/**/*.ts', included: false, watched: false },
             { pattern: 'built/**/*.js.map', included: false, watched: false }
