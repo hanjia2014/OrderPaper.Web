@@ -1,5 +1,5 @@
 {
-  "name": "order paper",
+  "name": "order-paper",
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
