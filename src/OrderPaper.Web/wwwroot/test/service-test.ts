@@ -1,7 +1,9 @@
 ﻿import { inject, TestBed, async, fakeAsync }                                               from '@angular/core/testing';
+import { ReflectiveInjector } from '@angular/core';
 import { MockBackend, MockConnection }                                          from '@angular/http/testing';
 import { OrderPaperService }                                                    from '../app/services/app.services';
-import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, HttpModule }   from '@angular/http';
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
+import { Http, BaseRequestOptions, ConnectionBackend, RequestOptions, Response, ResponseOptions, RequestMethod, HttpModule }   from '@angular/http';
 import { GroupItem } from '../app/models/items';
 
 const mockHttpProvider = {
@@ -11,14 +13,33 @@ const mockHttpProvider = {
     }
 }
 
-class MockOrderPaperService extends OrderPaperService {
-    public sayHello = () => {
-        return this.apiOrderpapersummaryUrl;
-    }
-}
+describe('service test', () => {
+    beforeEach(() => {
+        // Must reset the test environment before initializing it.
+        TestBed.resetTestEnvironment();
 
-describe('Group Item', () => {
-    it('should return empty item list', () => {
-        expect(new GroupItem().Items.length).toEqual(0);
+        TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting())
+            .configureTestingModule({
+            providers: [
+                OrderPaperService,
+                MockBackend,
+                BaseRequestOptions,
+                { provide: ConnectionBackend, useClass: MockBackend },
+                { provide: RequestOptions, useClass: BaseRequestOptions },
+                Http
+            ],
+            imports: [
+                HttpModule
+            ],
+        });
     });
+    
+
+    it('should get order paper summary list', async(inject([OrderPaperService, MockBackend, Http], (orderPaperService: OrderPaperService, backend: MockBackend, http: Http) => {
+        orderPaperService.getOrderPaperList().subscribe(
+            (data: any) => {
+                expect(data.length).toEqual(2);
+            },
+            (err: any) => this.error = err);
+    })));
 });
