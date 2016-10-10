@@ -5,12 +5,6 @@ var testing_2 = require('@angular/http/testing');
 var app_services_1 = require('../app/services/app.services');
 var testing_3 = require("@angular/platform-browser-dynamic/testing");
 var http_1 = require('@angular/http');
-var mockHttpProvider = {
-    deps: [testing_2.MockBackend, http_1.BaseRequestOptions],
-    useFactory: function (backend, defaultOptions) {
-        return new http_1.Http(backend, defaultOptions);
-    }
-};
 describe('service test', function () {
     beforeEach(function () {
         // Must reset the test environment before initializing it.
@@ -30,7 +24,7 @@ describe('service test', function () {
             ],
         });
     });
-    it('should get order paper summary list', testing_1.async(testing_1.inject([app_services_1.OrderPaperService, testing_2.MockBackend, http_1.Http], function (orderPaperService, backend, http) {
+    it('should get order paper summary list', testing_1.async(testing_1.inject([app_services_1.OrderPaperService], function (orderPaperService) {
         orderPaperService.getOrderPaperList().subscribe(function (data) {
             expect(data.length).toEqual(2);
         }, function (err) { return _this.error = err; });

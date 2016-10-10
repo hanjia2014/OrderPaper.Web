@@ -1,17 +1,21 @@
-﻿import { inject, TestBed, async, fakeAsync }                                               from '@angular/core/testing';
-import { ReflectiveInjector } from '@angular/core';
-import { MockBackend, MockConnection }                                          from '@angular/http/testing';
-import { OrderPaperService }                                                    from '../app/services/app.services';
-import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
-import { Http, BaseRequestOptions, ConnectionBackend, RequestOptions, Response, ResponseOptions, RequestMethod, HttpModule }   from '@angular/http';
-import { GroupItem } from '../app/models/items';
-
-const mockHttpProvider = {
-    deps: [MockBackend, BaseRequestOptions],
-    useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
-        return new Http(backend, defaultOptions);
-    }
-}
+﻿import { inject, TestBed, async }       from '@angular/core/testing';
+import { ReflectiveInjector }           from '@angular/core';
+import { MockBackend, MockConnection }  from '@angular/http/testing';
+import { OrderPaperService }            from '../app/services/app.services';
+import {
+    BrowserDynamicTestingModule,
+    platformBrowserDynamicTesting
+}                                       from "@angular/platform-browser-dynamic/testing";
+import {
+    Http,
+    BaseRequestOptions,
+    ConnectionBackend,
+    RequestOptions,
+    Response,
+    ResponseOptions,
+    RequestMethod,
+    HttpModule
+}                                       from '@angular/http';
 
 describe('service test', () => {
     beforeEach(() => {
@@ -35,7 +39,7 @@ describe('service test', () => {
     });
     
 
-    it('should get order paper summary list', async(inject([OrderPaperService, MockBackend, Http], (orderPaperService: OrderPaperService, backend: MockBackend, http: Http) => {
+    it('should get order paper summary list', async(inject([OrderPaperService], (orderPaperService: OrderPaperService) => {
         orderPaperService.getOrderPaperList().subscribe(
             (data: any) => {
                 expect(data.length).toEqual(2);
