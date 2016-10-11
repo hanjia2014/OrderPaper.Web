@@ -40,7 +40,7 @@ import { Item,
                                 </div>
                             </div>
                             <div id="{{index + '-section'}}" class="initially-hidden">
-                                <order-paper-section-details [section]="section"></order-paper-section-details>
+                                <order-paper-section-details [index]="index" [section]="section"></order-paper-section-details>
                             </div>
                         </div>
                     </div>

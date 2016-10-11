@@ -17,7 +17,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 <div class="row">
                     <div class="col-md-5">
                         <div class="col-md-6">
-                            <select2 [id]="'item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                            <select2 [id]="index + '-item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
                         </div>
                         <div class="col-md-6">
                             <a class="btn btn-default" (click)="addItem()">Add Item</a>
@@ -93,6 +93,8 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 export class OrderPaperSectionDetailsComponent extends BaseComponent implements OnInit {
     @Input()
     section: Section;
+    @Input()
+    index: number;
     error: any;
     hasLine: boolean;
     itemTypes = [{ id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Bill", text: "Bill" }, { id: "Line", text: "Line" }];
