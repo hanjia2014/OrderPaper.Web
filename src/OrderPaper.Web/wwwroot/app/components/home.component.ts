@@ -10,9 +10,9 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 <div class="navbar-fixed-top" style="position: relative">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
-                            <div class="col-md-9">
+                            <div class="col-md-9 nopadding">
                                 <h3>Order Papers history</h3>
-                                <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" class="table history-list">
+                                <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
                                         <tr>
                                             <th>Sitting day</th>
@@ -64,8 +64,17 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                     </div>
                 </div>
                 `,
-    styles: [`a{cursor:pointer}
-                .bold{font-weight:bold}`],
+    styles: [`
+                a{
+                    cursor:pointer
+                }
+                .bold{
+                    font-weight:bold
+                }
+                .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+                    padding: 0px;
+                }
+            `],
     providers: [OrderPaperService]
 })
 export class HomeComponent extends BaseComponent implements OnInit {

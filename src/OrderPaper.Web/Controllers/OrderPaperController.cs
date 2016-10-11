@@ -1346,7 +1346,7 @@ namespace OrderPapers.Controllers
             section1.Items.Add(new BillItem { Sequence = 2, Member = "Hon Peter Dunne", Speeches = "John Doe", Number = "23-2", Type = "Bill", Title = "Support for Children in Hardship Bill" });
             section1.Items.Add(new ReportItem { Sequence = 3, Type = "Report", Title = "2011/12 financial review of the Teritary Education Commission", Shoulder = string.Empty, Committee = "Education and Scuence", LatestEvent = "Report presented 10 May 2013" });
 
-            return JsonConvert.SerializeObject(new OrderPaper { Id = id, Status = "Provisional", Date = DateTime.Now, OrderPaperNumber = "12", SittingHours = "2pm - 6pm", Sections = new List<Section> { section1, section2 } });
+            return JsonConvert.SerializeObject(new OrderPaper { Id = id, Status = "Provisional", Date = DateTime.Now, OrderPaperNumber = "12", SittingHours = "2pm - 6pm", Sections = new List<Section> { section1, section2, section3, section4 } });
         }
 
         // POST api/values
