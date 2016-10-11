@@ -64,11 +64,11 @@ import { ModalComponent }                       from '../directives/modal/modal'
                             </div>
                         </div>
                         <div class="container row" style="margin-top: 30px;">
-                            <div sortable id="sortable-section" (onStopSort)="stopSort($event)" [handle]="'.section-handle'">
-                                <div *ngFor="let section of orderPaper.Sections; let i = index" class="item-li">
+                            <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
+                                <li *ngFor="let section of orderPaper.Sections; let i = index" class="item-li">
                                     <order-paper-section [section]="section" [index]="i" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event)" (onDeleteSection)="deleteSection($event)"></order-paper-section>
-                                </div>  
-                            </div>
+                                </li>  
+                            </ul>
                         </div>
                     </div>
                     

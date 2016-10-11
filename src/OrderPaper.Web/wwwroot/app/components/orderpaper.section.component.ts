@@ -21,8 +21,8 @@ import { Item,
     selector: 'order-paper-section',
     template: `
                 <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
-                    <div class="col-md-9">
-                        <div class="form-control">
+                    <div class="col-md-9 panel panel-default">
+                        <div class="panel-body">
                             <div class="section-handle">
                                 <a [class.bold]="isSelected" (click)="toggle($event, index + '-section')">{{index + 1 + '. ' + section.Name}}</a>
                                 <div class="pull-right">
@@ -32,14 +32,14 @@ import { Item,
                                     </a>
                                 </div>
                             </div>
+                            <div id="{{index + '-section'}}" class="initially-hidden">
+                                <order-paper-section-details [section]="section"></order-paper-section-details>
+                            </div>
                         </div>
                     </div>
                     <a [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">
-                        <img style="padding: 6px 0px;" src="/content/images/icons/delete.png">
+                        <img style="padding: 15px;" src="/content/images/icons/delete.png">
                     </a>
-                    <div id="{{index + '-section'}}" class="initially-hidden">
-                        <order-paper-section-details [section]="section"></order-paper-section-details>
-                    </div>
                 </div>
                 `,
     styles: [`
@@ -63,7 +63,6 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     onSelectSection: EventEmitter<Section> = new EventEmitter<Section>();
     @Output()
     onDeleteSection: EventEmitter<number> = new EventEmitter<number>();
-    isExpand: boolean;
 
     constructor() {
 
@@ -86,8 +85,7 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
 
     toggle(element: any, eleId: string) {
         element.preventDefault();
-
-        this.isExpand = !this.isExpand;
+        
         this.isSelected = !this.isSelected;
         var eleId = "#" + eleId;
         $(eleId).slideToggle();

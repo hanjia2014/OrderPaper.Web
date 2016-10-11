@@ -14,7 +14,7 @@ export class Sortable implements AfterViewInit {
     ngAfterViewInit() {
         var options = {
             placeholder: "sortable-hightlight",
-            handle: this.handle,
+            handle: ".section-handle",
             start: (e: any, ui: any) => {
                 $(this).attr('original-index', ui.item.index());
             },
