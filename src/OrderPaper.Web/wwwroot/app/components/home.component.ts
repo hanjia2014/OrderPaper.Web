@@ -6,7 +6,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
 
 @Component({
     selector: 'home',
-    template: `<div id="spinner"></div>
+    template: `
                 <div class="navbar-fixed-top" style="position: relative">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
@@ -69,7 +69,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
     providers: [OrderPaperService]
 })
 export class HomeComponent extends BaseComponent implements OnInit {
-    spinnerElm: any = document.getElementById("spinner");
+    
     orderPaperStatus = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     isPreviewMode: boolean;
     selectedOrderPaper: OrderPaper;
@@ -80,7 +80,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
         super();
     }
     ngOnInit() {
-        this.spinner.spin(this.spinnerElm);
         this.getOrderPaperSummary();
     }
 
@@ -88,7 +87,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.orderPaperService.getOrderPaperList().subscribe(
             (data: Array<OrderPaperSummary>) => {
                 Object.assign(this.orderPaperSummary, data);
-                this.spinner.stop();
             },
             (err: any) => this.error = err);
     }
@@ -98,14 +96,12 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     selectOrderPaper = (id: string) => {
-        this.spinner.spin(this.spinnerElm);
         this.orderPaperService.getOrderPaper(id).subscribe(
             (data: OrderPaper) => {
                 if (this.selectedOrderPaper == null) {
                     this.selectedOrderPaper = new OrderPaper();
                 }
                 Object.assign(this.selectedOrderPaper, data);
-                this.spinner.stop();
             },
             (err: any) => this.error = err);
     }

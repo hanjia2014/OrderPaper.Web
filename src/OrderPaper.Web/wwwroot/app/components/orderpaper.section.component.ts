@@ -1,0 +1,95 @@
+﻿import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    AfterViewInit
+}                                           from '@angular/core';
+import { BaseComponent }                    from './base.component';
+import { OrderPaper }                       from '../models/orderpaper';
+import { Section }                          from '../models/section';
+import { Item,
+    LineItem,
+    MotionItem,
+    GroupItem,
+    ReportItem,
+    BillItem
+}                                           from '../models/items';
+
+@Component({
+    selector: 'order-paper-section',
+    template: `
+                <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            <div class="section-handle">
+                                <a [class.bold]="isSelected" (click)="toggle($event, index + '-section')">{{index + 1 + '. ' + section.Name}}</a>
+                                <div class="pull-right">
+                                    <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
+                                    <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
+                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? '/content/images/icons/flag - section on front cover.png' : '/content/images/icons/flag - section not on front cover.png'}}">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">
+                        <img style="padding: 6px 0px;" src="/content/images/icons/delete.png">
+                    </a>
+                    <div id="{{index + '-section'}}" class="initially-hidden">
+                        <order-paper-section-details [section]="section"></order-paper-section-details>
+                    </div>
+                </div>
+                `,
+    styles: [`
+               a{
+                    cursor: pointer;
+                }
+                .bold{
+                    font-weight: bold;
+                }
+            `]
+})
+export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
+    @Input()
+    section: Section;
+    hoverVisible: boolean;
+    @Input()
+    isSelected: boolean;
+    @Input()
+    index: number;
+    @Output()
+    onSelectSection: EventEmitter<Section> = new EventEmitter<Section>();
+    @Output()
+    onDeleteSection: EventEmitter<number> = new EventEmitter<number>();
+    isExpand: boolean;
+
+    constructor() {
+
+    }
+    ngOnInit() {
+
+    }
+
+    ngAfterViewInit() {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
+    selectSection = () => {
+        this.onSelectSection.next(this.section);
+    }
+
+    deleteSection = () => {
+        this.onDeleteSection.next(this.index);
+    }
+
+    toggle(element: any, eleId: string) {
+        element.preventDefault();
+
+        this.isExpand = !this.isExpand;
+        this.isSelected = !this.isSelected;
+        var eleId = "#" + eleId;
+        $(eleId).slideToggle();
+    }
+}

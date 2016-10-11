@@ -15,7 +15,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
 
 @Component({
     selector: 'order-paper-details',
-    template: `<div id="spinner"></div>
+    template: `
                 <div>
                     <div *ngIf="orderPaper">
                         <hr />
@@ -64,17 +64,17 @@ import { ModalComponent }                       from '../directives/modal/modal'
                             </div>
                         </div>
                         <div class="container row" style="margin-top: 30px;">
-                            <ul dnd-sortable-container [dropZones]="['sections-drop-zone']" [sortableData]="orderPaper.Sections">
-                                <li *ngFor="let section of orderPaper.Sections; let i = index" dnd-sortable [sortableIndex]="i" class="item-li">
-                                    <order-paper-section-overview [section]="section" [index]="i" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event)" (onDeleteSection)="deleteSection($event)"></order-paper-section-overview>
-                                </li>  
-                            </ul>
+                            <div sortable id="sortable-section" (onStopSort)="stopSort($event)" [handle]="'.section-handle'">
+                                <div *ngFor="let section of orderPaper.Sections; let i = index" class="item-li">
+                                    <order-paper-section [section]="section" [index]="i" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event)" (onDeleteSection)="deleteSection($event)"></order-paper-section>
+                                </div>  
+                            </div>
                         </div>
                     </div>
                     
-                    <div id="order-paper-section-details">
+                    <!--<div id="order-paper-section-details">
                         <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
-                    </div>
+                    </div>-->
                 </div>
                 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
@@ -94,7 +94,6 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     @Input()
     orderPaper: OrderPaper;
     selectedSection: Section;
-    spinnerElm: any = document.getElementById("spinner");
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     sittingHoursOptions = [{ id: "2pm - 6pm", text: "2pm - 6pm" }, { id: "7:30pm - 10pm", text: "7:30pm - 10pm" }];
@@ -117,7 +116,6 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
-        this.spinner.spin(this.spinnerElm);
     }
 
     ngAfterViewInit() {
@@ -158,7 +156,17 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
-    
+
+    stopSort = (e: any) => {
+        var original = e.original;
+        var updated = e.updated;
+        var updatedSection = this.orderPaper.Sections[original];
+        //remove item from original index
+        this.orderPaper.Sections.splice(original, 1);
+        //add the item to updated index
+        this.orderPaper.Sections.splice(updated, 0, updatedSection);
+
+    }
     //modal
     opened() {
 

@@ -13,7 +13,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 
 @Component({
     selector: 'order-paper-section-details',
-    template: `<div id="spinner"></div>
+    template: `
                 <div *ngIf="section">
                     <select2 [id]="'item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
                     <button (click)="addItem()">Add Item</button>
@@ -87,7 +87,6 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 export class OrderPaperSectionDetailsComponent extends BaseComponent implements OnInit {
     @Input()
     section: Section;
-    spinnerElm: any = document.getElementById("spinner");
     error: any;
     hasLine: boolean;
     itemTypes = [{ id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Bill", text: "Bill" }, { id: "Line", text: "Line" }];
@@ -97,7 +96,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         super();
     }
     ngOnInit() {
-        this.spinner.spin(this.spinnerElm);
+
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }

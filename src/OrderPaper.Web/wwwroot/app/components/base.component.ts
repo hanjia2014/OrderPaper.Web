@@ -5,7 +5,6 @@ export abstract class BaseComponent implements AfterViewInit, ITogglable {
     SortableListId: string;
     IsNumberedList: boolean;
     isExpand: boolean;
-    spinner: Spinner = new Spinner({ radius: 10 });
     private zone: NgZone;
 
     constructor() {

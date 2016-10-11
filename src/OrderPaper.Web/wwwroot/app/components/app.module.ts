@@ -11,11 +11,13 @@ import { Tab }                                          from '../directives/tabs
 import { Dragula }                                      from '../directives/dragula/dragula.directive';
 import { VerticalMenuComponent }                        from '../directives/vertical-menu/vertical-menu';
 import { DND_DIRECTIVES }                               from '../directives/dnd/ng2-dnd';
+import { Sortable }                                     from '../directives/sortable/sortable';
 import { FroalaEditorDirective, FroalaViewDirective }   from '../directives/froala-editor/froala.directives';
 import { routing }                                      from './app.routes';
 import { MasterComponent }                              from './master.component';
 import { HomeComponent }                                from './home.component';
 import { OrderPaperDetailsComponent }                   from './orderpaper.details.component';
+import { OrderPaperSectionComponent }                   from './orderpaper.section.component';
 import { OrderPaperSectionDetailsComponent }            from './orderpaper.section.details.component';
 import { OrderPaperSectionOverviewComponent }           from './orderpaper.section.overview.component';
 import { ItemBillComponent }                            from './items/item.bill.component';
@@ -43,11 +45,13 @@ import { ItemGroupComponent }                           from './items/item.group
         Tabs,
         Tab,
         Dragula,
+        Sortable,
         FroalaEditorDirective,
         VerticalMenuComponent,
         MasterComponent,
         HomeComponent,
         OrderPaperDetailsComponent,
+        OrderPaperSectionComponent,
         OrderPaperSectionDetailsComponent,
         OrderPaperSectionOverviewComponent,
         ItemBillComponent,
