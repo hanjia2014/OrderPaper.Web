@@ -5,13 +5,13 @@
     ViewChild,
     ViewChildren,
     QueryList
-}                                               from '@angular/core';
-import { BaseComponent }                        from './base.component';
-import { OrderPaperSectionOverviewComponent }   from './orderpaper.section.overview.component';
-import { OrderPaper }                           from '../models/orderpaper';
-import { Section }                              from '../models/section';
-import { DND_PROVIDERS, DND_DIRECTIVES }        from '../directives/dnd/ng2-dnd';
-import { ModalComponent }                       from '../directives/modal/modal';
+}                                           from '@angular/core';
+import { BaseComponent }                    from './base.component';
+import { OrderPaperSectionComponent }       from './orderpaper.section.component';
+import { OrderPaper }                       from '../models/orderpaper';
+import { Section }                          from '../models/section';
+import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
+import { ModalComponent }                   from '../directives/modal/modal';
 
 @Component({
     selector: 'order-paper-details',
@@ -109,8 +109,8 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
     editorContent: string = 'My Document\'s Title'
 
-    @ViewChildren(OrderPaperSectionOverviewComponent)
-    childrenSectionComponents: QueryList<OrderPaperSectionOverviewComponent>;
+    @ViewChildren(OrderPaperSectionComponent)
+    childrenSectionComponents: QueryList<OrderPaperSectionComponent>;
 
     constructor() {
         super();
