@@ -39,7 +39,7 @@ import { Item,
                                     </a>
                                 </div>
                             </div>
-                            <div id="{{index + '-section'}}" [class.collapsing]="isSelected == false">
+                            <div id="{{index + '-section'}}" class="initially-hidden">
                                 <order-paper-section-details [section]="section"></order-paper-section-details>
                             </div>
                         </div>
@@ -110,7 +110,7 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     toggle(element: any, eleId: string) {
         element.preventDefault();
         this.selectSection();
-        //var eleId = "#" + eleId;
-        //$(eleId).slideToggle();
+        var eleId = "#" + eleId;
+        $(eleId).slideToggle();
     }
 }

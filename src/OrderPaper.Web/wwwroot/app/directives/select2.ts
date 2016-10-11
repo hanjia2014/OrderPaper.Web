@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'select2',
-    template: `<input id="{{id}}" class="{{cssClass=='' ? '' : cssClass}}"/>`,
+    template: `<input id="{{id}}" style="min-width: 150px;" class="{{cssClass=='' ? '' : cssClass}}"/>`,
     styles: [],
     providers: []
 })

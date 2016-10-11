@@ -14,9 +14,13 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 @Component({
     selector: 'order-paper-section-details',
     template: `
-                <div *ngIf="section">
-                    <select2 [id]="'item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
-                    <button (click)="addItem()">Add Item</button>
+                <div class="row">
+                    <div class="col-md-1">
+                        <select2 style="width:20px;" [id]="'item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                    </div>
+                    <div class="col-md-1">
+                        <button (click)="addItem()">Add Item</button>
+                    </div>
                 </div>
                 <div *ngIf="section">
                     <div class="row" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
