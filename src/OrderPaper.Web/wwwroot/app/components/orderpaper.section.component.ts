@@ -5,6 +5,7 @@
     animate,
     transition,
     style,
+    HostBinding,
     Component,
     OnInit,
     Input,
@@ -38,7 +39,7 @@ import { Item,
                                     </a>
                                 </div>
                             </div>
-                            <div id="{{index + '-section'}}" [class.initially-hidden]="isSelected==false" [@openClose]="isSelected">
+                            <div id="{{index + '-section'}}" [class.collapsing]="isSelected == false">
                                 <order-paper-section-details [section]="section"></order-paper-section-details>
                             </div>
                         </div>
