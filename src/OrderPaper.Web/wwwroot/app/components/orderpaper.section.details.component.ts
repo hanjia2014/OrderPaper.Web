@@ -15,16 +15,18 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
     selector: 'order-paper-section-details',
     template: `
                 <div class="row">
-                    <div class="col-md-1">
-                        <select2 style="width:20px;" [id]="'item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
-                    </div>
-                    <div class="col-md-1">
-                        <button (click)="addItem()">Add Item</button>
+                    <div class="col-md-5">
+                        <div class="col-md-6">
+                            <select2 [id]="'item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="btn btn-default" (click)="addItem()">Add Item</a>
+                        </div>
                     </div>
                 </div>
                 <div *ngIf="section">
                     <div class="row" dnd-sortable-container [dropZones]="['items-drop-zone']" [sortableData]="section.Items">
-                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li col-md-10">
+                        <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li col-md-12">
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
                                 <div class="col-md-1 group-tick-box">
                                     <div *ngIf="item.Type != 'Group' && item.Type != 'Line'" class="group-tick-box">
@@ -68,7 +70,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                         </div>  
                     </div>
                 </div>
-                `,
+                 `,
     styles: [`
                .new-item{
                     border-style: dashed;

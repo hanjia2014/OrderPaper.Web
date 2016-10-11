@@ -10,10 +10,23 @@ import { MotionItem }           from '../../models/items';
 @Component({
     selector: 'item-motion',
     template: `
-                <div class="report">
+                <div class="motion">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h1>Motion (Sequence -- {{item.Sequence}})</h1>
+                        <div class="col-md-10">
+                            <a href="#" (click)="toggle($event, index + '-motion')">{{item.Title}}</a>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="pull-right">
+                                <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                                <span>{{item.Type}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="{{index + '-motion'}}" class="initially-hidden">
+                        <br />
+                        <div class="form-group col-md-5 nopadding">
+                            <label>Title</label>
+                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Title"/>
                         </div>
                     </div>
                 </div>

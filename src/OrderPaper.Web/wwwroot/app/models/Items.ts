@@ -8,6 +8,7 @@
 
     constructor() {
         this.IsNew = true;
+        this.Title = "Untitled";
     }
 }
 
