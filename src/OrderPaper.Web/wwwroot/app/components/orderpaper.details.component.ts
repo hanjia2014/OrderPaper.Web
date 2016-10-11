@@ -142,8 +142,8 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         //this.selectedSection = value;
         var children = this.childrenSectionComponents.toArray();
         for (var i = 0; i < children.length; i++) {
-            if (i != index) {
-                children[i].isSelected = false;
+            if (i != index && children[i].isSelected) {
+                children[i].toggle(children[i], i + '-section', false);
             }
         }
     }

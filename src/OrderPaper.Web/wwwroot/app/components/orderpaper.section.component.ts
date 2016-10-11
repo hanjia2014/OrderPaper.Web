@@ -31,7 +31,7 @@ import { Item,
                     <div class="col-md-9 panel panel-default">
                         <div class="panel-body">
                             <div class="drag-handle">
-                                <a [class.bold]="isSelected" (click)="toggle($event, index + '-section')">{{index + 1 + '. ' + section.Name}}</a>
+                                <a [class.bold]="isSelected" (click)="toggle($event, index + '-section', true)">{{index + 1 + '. ' + section.Name}}</a>
                                 <div class="pull-right">
                                     <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                                     <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
@@ -99,7 +99,6 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     }
 
     selectSection = () => {
-        this.isSelected = !this.isSelected;
         this.onSelectSection.next(this.section);
     }
 
@@ -107,9 +106,11 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
         this.onDeleteSection.next(this.index);
     }
 
-    toggle(element: any, eleId: string) {
-        element.preventDefault();
-        this.selectSection();
+    toggle(element: any, eleId: string, isCallbackRequired: boolean) {
+        //element.preventDefault();
+        this.isSelected = !this.isSelected;
+        if(isCallbackRequired)
+            this.selectSection();
         var eleId = "#" + eleId;
         $(eleId).slideToggle();
     }
