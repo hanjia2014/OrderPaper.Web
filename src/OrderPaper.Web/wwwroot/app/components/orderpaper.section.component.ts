@@ -30,7 +30,7 @@ import { Item,
                 <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
                     <div class="col-md-9 panel panel-default">
                         <div class="panel-body">
-                            <div class="section-handle">
+                            <div class="drag-handle">
                                 <a [class.bold]="isSelected" (click)="toggle($event, index + '-section')">{{index + 1 + '. ' + section.Name}}</a>
                                 <div class="pull-right">
                                     <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
