@@ -1,4 +1,10 @@
 ﻿import {
+    AUTO_STYLE,
+    trigger,
+    state,
+    animate,
+    transition,
+    style,
     Component,
     OnInit,
     Input,
@@ -32,7 +38,7 @@ import { Item,
                                     </a>
                                 </div>
                             </div>
-                            <div id="{{index + '-section'}}" [class.collapsable]="isSelected == false">
+                            <div id="{{index + '-section'}}" [class.initially-hidden]="isSelected==false" [@openClose]="isSelected">
                                 <order-paper-section-details [section]="section"></order-paper-section-details>
                             </div>
                         </div>
@@ -58,7 +64,14 @@ import { Item,
                     -moz-transition: height 1s;        
                     -o-transition: height 1s;         
                 }
-            `]
+            `],
+    animations: [
+        trigger('openClose', [
+            state('false', style({ height: '0px' })),
+            state('true', style({ height: AUTO_STYLE })),
+            transition('false <=> true', [ animate(100000) ])
+        ])
+    ],
 })
 export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     @Input()
