@@ -1339,6 +1339,8 @@ namespace OrderPapers.Controllers
 
             var section1 = new Section { IsFrontPage = true, Name = "Select committee reports" };
             var section2 = new Section { IsFrontPage = false, Name = "Government orders of the day" };
+            var section3 = new Section { IsFrontPage = true, Name = "This is the 3rd section" };
+            var section4 = new Section { IsFrontPage = false, Name = "This is the 4th section" };
 
             section1.Items.Add(new MotionItem { Sequence = 1, Date = DateTime.Now, Member = "Hon Peter Dunne", Speeches = "John Doe", Summary = "This is a motion", Type = "Motion", Title = "That the House congratulate Constance Stiring and Olivia Clark", Motion = "That the House congratulate Constance Stiring and Olivia Clark of Onslow College who won the Bronze medal in the GU16 Double at the 2016 Maadi Cup Rowing Regatta and note that it is the frst Onslow College girls medal in more than 40 years." });
             section1.Items.Add(new BillItem { Sequence = 2, Member = "Hon Peter Dunne", Speeches = "John Doe", Number = "23-2", Type = "Bill", Title = "Support for Children in Hardship Bill" });

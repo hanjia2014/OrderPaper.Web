@@ -7,8 +7,12 @@ import { ReportItem, MotionItem, BillItem, GroupItem  } from '../../models/items
                 <div class="group">
                     <div class="row">
                         <div class="panel-body">
-                            <input [(ngModel)]="group.From" placeholder="From" />
-                            <input [(ngModel)]="group.To" placeholder="To" />
+                            <div class="col-md-2 nopadding">
+                                <input [(ngModel)]="group.From" class="form-control input-sm" placeholder="From" />
+                            </div>
+                            <div class="col-md-2 nopadding">
+                                <input [(ngModel)]="group.To" class="form-control input-sm" placeholder="To" />
+                            </div>
                             <button class="btn btn-primary" [disabled]="validateSequences()" (click)="addItems()">Add</button>
                             <button class="btn btn-danger pull-right" (click)="removeGroup()">Remove</button>
                         </div>
