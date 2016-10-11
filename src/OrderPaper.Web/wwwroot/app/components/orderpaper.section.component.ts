@@ -32,7 +32,7 @@ import { Item,
                                     </a>
                                 </div>
                             </div>
-                            <div id="{{index + '-section'}}" class="initially-hidden">
+                            <div id="{{index + '-section'}}" [class.collapsable]="isSelected == false">
                                 <order-paper-section-details [section]="section"></order-paper-section-details>
                             </div>
                         </div>
@@ -48,6 +48,15 @@ import { Item,
                 }
                 .bold{
                     font-weight: bold;
+                }
+                .collapsable {
+                    display: inline-block;
+                    overflow: hidden;
+                    height: 0;
+                    transition: height 1s ease;
+                    -webkit-transition: height 1s;        
+                    -moz-transition: height 1s;        
+                    -o-transition: height 1s;         
                 }
             `]
 })
@@ -76,6 +85,7 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     }
 
     selectSection = () => {
+        this.isSelected = !this.isSelected;
         this.onSelectSection.next(this.section);
     }
 
@@ -85,9 +95,8 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
 
     toggle(element: any, eleId: string) {
         element.preventDefault();
-        
-        this.isSelected = !this.isSelected;
-        var eleId = "#" + eleId;
-        $(eleId).slideToggle();
+        this.selectSection();
+        //var eleId = "#" + eleId;
+        //$(eleId).slideToggle();
     }
 }
