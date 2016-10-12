@@ -6,8 +6,10 @@
     ViewChildren,
     QueryList
 }                                           from '@angular/core';
+import { Response }                         from '@angular/http';
 import { BaseComponent }                    from './base.component';
 import { OrderPaperSectionComponent }       from './orderpaper.section.component';
+import { OrderPaperService }                from '../services/app.services';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section }                          from '../models/section';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
@@ -58,7 +60,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="pull-right">
-                                    <a class="btn btn-parliament">Save</a>
+                                    <a class="btn btn-parliament" (click)="save($event)">Save</a>
                                     <a class="btn btn-parliament">Generate preview Order Papers</a>
                                 </div>
                             </div>
@@ -71,10 +73,6 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </ul>
                         </div>
                     </div>
-                    
-                    <!--<div id="order-paper-section-details">
-                        <order-paper-section-details [section]="selectedSection"></order-paper-section-details>
-                    </div>-->
                 </div>
                 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
@@ -88,7 +86,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                 </modal>
                 `,
     styles: [],
-    providers: [DND_PROVIDERS]
+    providers: [OrderPaperService]
 })
 export class OrderPaperDetailsComponent extends BaseComponent implements OnInit, AfterViewInit {
     @Input()
@@ -112,7 +110,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     @ViewChildren(OrderPaperSectionComponent)
     childrenSectionComponents: QueryList<OrderPaperSectionComponent>;
 
-    constructor() {
+    constructor(private orderPaperService: OrderPaperService) {
         super();
     }
     ngOnInit() {
@@ -172,6 +170,16 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         //add the item to updated index
         this.orderPaper.Sections.splice(updated, 0, updatedSection);
 
+    }
+
+    save = (e: any) => {
+        var paperString = JSON.stringify(this.orderPaper);
+        e.preventDefault();
+        this.orderPaperService.save(this.orderPaper).subscribe(
+            (data: Response) => {
+
+            },
+            (err: any) => this.error = err);
     }
     //modal
     opened() {
