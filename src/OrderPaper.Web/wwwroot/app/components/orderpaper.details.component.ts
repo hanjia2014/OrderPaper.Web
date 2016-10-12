@@ -59,6 +59,9 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <br />
                         <div class="row">
                             <div class="col-md-9">
+                                <div class="pull-left">
+                                    <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
+                                </div>
                                 <div class="pull-right">
                                     <a class="btn btn-parliament" (click)="save($event)">Save</a>
                                     <a class="btn btn-parliament">Generate preview Order Papers</a>
@@ -80,7 +83,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <h4 class="modal-title">Confirm to delete</h4>
                     </modal-header>
                     <modal-body>
-                        Are you sure to delete the section?
+                        Are you sure to delete the {{deletingType=='section' ? 'section' : 'order paper'}}?
                     </modal-body>
                     <modal-footer [show-default-buttons]="true"></modal-footer>
                 </modal>
@@ -106,6 +109,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         charCounterCount: false
     }
     editorContent: string = 'My Document\'s Title'
+    deletingType = '';
 
     @ViewChildren(OrderPaperSectionComponent)
     childrenSectionComponents: QueryList<OrderPaperSectionComponent>;
@@ -148,6 +152,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
 
     deleteSection = (value: number) => {
         this.sectionDeleteIndex = value;
+        this.deletingType = "section";
         this.modal.open();
     }
 
@@ -181,6 +186,11 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             },
             (err: any) => this.error = err);
     }
+
+    cancel = () => {
+        this.deletingType = "orderpaper";
+        this.modal.open();
+    }
     //modal
     opened() {
 
@@ -194,11 +204,16 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         this.modal.open();
     }
     closed() {
-        if (this.selectedSection != null && this.orderPaper.Sections[this.sectionDeleteIndex].Name == this.selectedSection.Name) {
-            if (this.selectedSection != null)
-                this.selectedSection = null;
+        if (this.deletingType == "orderpaper") {
+            this.orderPaper = null;
         }
-        this.orderPaper.Sections.splice(this.sectionDeleteIndex, 1);
+        else {
+            if (this.selectedSection != null && this.orderPaper.Sections[this.sectionDeleteIndex].Name == this.selectedSection.Name) {
+                if (this.selectedSection != null)
+                    this.selectedSection = null;
+            }
+            this.orderPaper.Sections.splice(this.sectionDeleteIndex, 1);
+        }
     }
     dismissed() {
 
