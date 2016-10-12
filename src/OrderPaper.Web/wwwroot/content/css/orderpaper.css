@@ -1,4 +1,7 @@
-﻿.panel-heading {
+﻿body {
+    background-color: #fdfdfd;
+}
+.panel-heading {
     /*cursor: move;*/
     min-height: 30px;
     padding: 10px 15px;

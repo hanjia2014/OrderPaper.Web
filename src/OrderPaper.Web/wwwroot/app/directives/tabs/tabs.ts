@@ -4,16 +4,19 @@ import { Tab } from './tab';
 @Component({
     selector: 'tabs',
     template: `
-    <nav class="nav-black">
-        <ul class="nav nav-tabs container">
-          <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
-            <a class="list-unstyled" style="color:white">{{tab.title}}
-            </a>
-            <span [style.background-color]="tab.active ? '#ffffff' : '#3b3b3b'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
-          </li>
-        </ul>
-    </nav>
-    <ng-content></ng-content>
+        <nav class="nav-black">
+            <ul class="nav nav-tabs container">
+                <li>
+                    <img src="/content/images/icons/OP logo.png" width="70" style="margin-left: -110px; margin-right: 20px;">
+                </li>
+                <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
+                    <a class="list-unstyled" style="color:white">{{tab.title}}
+                    </a>
+                    <span [style.background-color]="tab.active ? '#ffffff' : '#3b3b3b'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
+                </li>
+            </ul>
+        </nav>
+        <ng-content></ng-content>
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
             .active-span { 
