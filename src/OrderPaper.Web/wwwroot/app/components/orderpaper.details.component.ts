@@ -32,7 +32,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Date
                             </div>
                             <div class="col-md-3">
-                                Setting Hours
+                                Sitting Hours
                             </div>
                             <div class="col-md-3">
                                 Status
