@@ -59,7 +59,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <br />
                         <div class="row">
                             <div class="col-md-9">
-                                <div class="pull-left">
+                                <div *ngIf="orderPaper.Id == null" class="pull-left">
                                     <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
                                 </div>
                                 <div class="pull-right">
