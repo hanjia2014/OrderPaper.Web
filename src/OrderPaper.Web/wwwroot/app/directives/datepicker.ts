@@ -5,7 +5,7 @@
     template: `<div class="input-group date" style="max-width: 250px" id="{{id}}">
                     <input type="text" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
 
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    <span class="input-group-addon" style="background-color: white"><img src="/content/images/icons/calendar.png" width="15"></span>
                 </div>`,
     styles: [],
     providers: []
