@@ -41,6 +41,9 @@ import { Tab } from './tab';
             .nav-tabs > li > a{
                 border: 1px solid #3b3b3b;
             }
+            .nav > li > a {
+                padding-bottom: 6px;
+            }
             `]
 })
 export class Tabs implements AfterContentInit {
