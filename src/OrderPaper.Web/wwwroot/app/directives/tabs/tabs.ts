@@ -12,7 +12,7 @@ import { Tab } from './tab';
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
                     <a class="list-unstyled" style="color:white">{{tab.title}}
                     </a>
-                    <span [style.background-color]="tab.active ? '#ffffff' : '#3b3b3b'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
+                    <span [style.background-color]="tab.active ? '#08548b' : '#3b3b3b'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
                 </li>
             </ul>
         </nav>
@@ -20,10 +20,10 @@ import { Tab } from './tab';
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
             .active-span { 
-                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAALCAYAAACQy8Z9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABZSURBVDhPrc9JCgAhDERR71T3P5uNYjVOMeXwVwGTB4YoBqBMfhJKUIVdtIcUeIlagAebqHe4ep+iyhdT1t6AqiCb7TfoLsj6ux89BVl9n9FbkNEJr0AGIH5ckGZedwonSQAAAABJRU5ErkJggg==) no-repeat scroll center center;
+                background: url('/content/images/icons/white up arrow.png') no-repeat scroll center center;
             }
             .non-active-span:hover {
-                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAALAQMAAACqBVQ+AAAABlBMVEX///8zMzM4VIyRAAAAAXRSTlMAQObYZgAAACpJREFUCB0FwTERACAIAMDHc2AkAlGMYCRGY/tvpKO0Vo40drAWsfFw0T5KfwL3FCp0KAAAAABJRU5ErkJggg==) no-repeat scroll center center;
+                background: url('/content/images/icons/white down arrow.png') no-repeat scroll center center;
             }
             .nav-black{
                 background-color: #3b3b3b;
@@ -40,7 +40,8 @@ import { Tab } from './tab';
             }
             .nav-tabs > li > a{
                 border: 1px solid #3b3b3b;
-            }`]
+            }
+            `]
 })
 export class Tabs implements AfterContentInit {
     @ContentChildren(Tab) tabs: QueryList<Tab>;

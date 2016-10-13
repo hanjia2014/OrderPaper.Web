@@ -7,14 +7,14 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
 @Component({
     selector: 'home',
     template: `
-                <div class="navbar-fixed-top" style="position: relative">
+                <div class="navbar-fixed-top" style="position: relative; background-color: #08548b">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
                             <div class="col-md-9 nopadding">
-                                <h3>Order Papers history</h3>
+                                <h3 class="header-green-text">Order Papers history</h3>
                                 <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
-                                        <tr>
+                                        <tr class="header-green-text">
                                             <th>Sitting day</th>
                                             <th>Status</th>
                                             <th>Number</th>
@@ -22,9 +22,14 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let summary of orderPaperSummary">
-                                        <td>
-                                            <a [class.bold]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id" (click)="selectOrderPaper(summary.Id)">{{summary.Date | date: 'dd-MMM-yyyy'}}</a>
+                                      <tr *ngFor="let summary of orderPaperSummary" class="header-white-text">
+                                        <td >
+                                            <a class="header-table-link" [class.bold]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id" (click)="selectOrderPaper(summary.Id)">
+                                                <span>
+                                                    <img src="/content/images/icons/open.png">
+                                                </span>
+                                                {{summary.Date | date: 'dd-MMM-yyyy'}}
+                                            </a>
                                         </td>
                                         <td>
                                             {{summary.Number}}
@@ -59,8 +64,10 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                             </div>
                         </tab>
                     </tabs>
-                    <div class="container">
-                        <order-paper-details [orderPaper]="selectedOrderPaper"></order-paper-details>
+                    <div style="background-color: #fdfdfd">
+                        <div class="container">
+                            <order-paper-details [orderPaper]="selectedOrderPaper"></order-paper-details>
+                        </div>
                     </div>
                 </div>
                 `,
@@ -73,6 +80,18 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 }
                 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
                     padding: 0px;
+                }
+                .header-green-text{
+                    color: #abded2;
+                }
+                .header-white-text{
+                    color: #fdfdfd;
+                }
+                .header-table-link{
+                    color: #fdfdfd;
+                }
+                .header-table-link : hover{
+                    color: #abded2;
                 }
             `],
     providers: [OrderPaperService]

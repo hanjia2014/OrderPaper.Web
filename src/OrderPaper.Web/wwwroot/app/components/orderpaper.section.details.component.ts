@@ -30,7 +30,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
                                 <div class="col-md-1 group-tick-box">
                                     <div *ngIf="item.Type != 'Group' && item.Type != 'Line'" class="group-tick-box">
-                                        <img class="vcenter" src="content/images/icons/group tick.png" style="cursor: pointer" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" (click)="addGroup(item, i)">
+                                        <img class="vcenter" src="content/images/icons/group.png" style="cursor: pointer" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" (click)="addGroup(item, i)">
                                     </div>
                                 </div>
                                 <div class="col-md-1 vcenter">
