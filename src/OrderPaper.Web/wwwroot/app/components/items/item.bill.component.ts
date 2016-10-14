@@ -76,6 +76,16 @@ export class ItemBillComponent implements OnInit, AfterViewInit{
             .on('blur', function (e) {
                 $('.item-li').attr("draggable", "true");
             });
+
+        document.addEventListener('mousedown', function (e) {
+            var element = e.target;
+
+            if (['input', 'textarea'].indexOf(element.tagName.toLowerCase()) > -1 && Array.prototype.some.call(document.querySelectorAll('[draggable="true"]'), function (el) {
+                return el.contains(element);
+            })) {
+                element.focus();
+            }
+        }, false);
     }
 
     toggle(element: any, eleId: string) {

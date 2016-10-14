@@ -7,7 +7,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
 @Component({
     selector: 'home',
     template: `
-                <div class="navbar-fixed-top" style="position: relative; background-color: #08548b">
+                <div class="navbar-fixed-top" style="position: relative; background-color: #263a55">
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
                             <div class="col-md-9 nopadding">

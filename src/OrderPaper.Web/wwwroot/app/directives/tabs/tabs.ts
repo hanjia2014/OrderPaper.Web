@@ -12,7 +12,7 @@ import { Tab } from './tab';
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
                     <a class="list-unstyled" style="color:white">{{tab.title}}
                     </a>
-                    <span [style.background-color]="tab.active ? '#08548b' : '#3b3b3b'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
+                    <span [style.background-color]="tab.active ? '#263a55' : '#142840'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
                 </li>
             </ul>
         </nav>
@@ -26,7 +26,7 @@ import { Tab } from './tab';
                 background: url('/content/images/icons/white down arrow.png') no-repeat scroll center center;
             }
             .nav-black{
-                background-color: #3b3b3b;
+                background-color: #142840;
             }
             .nav-tabs {
                 border-bottom: none;
@@ -36,10 +36,10 @@ import { Tab } from './tab';
             }
             .nav > li > a:focus, .nav > li > a:hover {
                 text-decoration: none;
-                background-color: #3b3b3b;
+                background-color: #142840;
             }
             .nav-tabs > li > a{
-                border: 1px solid #3b3b3b;
+                border: 1px solid #142840;
             }
             .nav > li > a {
                 padding-bottom: 6px;
