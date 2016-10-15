@@ -1,4 +1,5 @@
-﻿import { AfterViewInit, NgZone }    from '@angular/core';
+﻿/// <reference path="../../typings/jquery.d.ts" />
+import { AfterViewInit, NgZone }    from '@angular/core';
 import { ITogglable }               from '../interfaces/app.interfaces';
 
 export abstract class BaseComponent implements AfterViewInit, ITogglable {
@@ -113,15 +114,15 @@ export abstract class BaseComponent implements AfterViewInit, ITogglable {
         $(eleId).slideToggle();
     }
 
-    toggleItemOfBusiness(e: any, id: number) {
-        e.preventDefault();
+    //toggleItemOfBusiness(e: any, id: number) {
+    //    e.preventDefault();
 
-        this.isExpand = !this.isExpand;
-        var eleId = "#" + this.SortableListId;
-        $(eleId).toggle("fade", {
-            direction: 'up'
-        }, 500);
-    }
+    //    this.isExpand = !this.isExpand;
+    //    var eleId = "#" + this.SortableListId;
+    //    $(eleId).toggle("fade", {
+    //        direction: 'up'
+    //    }, 500);
+    //}
 
     abstract updateSequence(oldIndex: number, newIndex: number) : void;
 }
