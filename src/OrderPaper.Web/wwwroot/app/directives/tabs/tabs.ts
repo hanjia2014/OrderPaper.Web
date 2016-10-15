@@ -5,7 +5,7 @@ import { Tab } from './tab';
     selector: 'tabs',
     template: `
         <nav class="nav-black">
-            <ul class="nav nav-tabs container">
+            <ul class="nav nav-tabs container" style="padding-left: 10%">
                 <li>
                     <img src="/content/images/icons/OP logo.png" width="70" style="margin-left: -110px; margin-right: 20px;">
                 </li>

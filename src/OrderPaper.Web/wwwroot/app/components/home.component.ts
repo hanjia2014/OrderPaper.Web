@@ -65,7 +65,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                         </tab>
                     </tabs>
                     <div style="background-color: #fdfdfd">
-                        <div class="container">
+                        <div class="container" style="padding-left: 10%;">
                             <order-paper-details [orderPaper]="selectedOrderPaper"></order-paper-details>
                         </div>
                     </div>
