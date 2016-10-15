@@ -114,7 +114,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     getOrderPaperSummary = () => {
         this.orderPaperService.getOrderPaperList().subscribe(
             (data: Array<OrderPaperSummary>) => {
-                Object.assign(this.orderPaperSummary, data);
+                (<any>Object).assign(this.orderPaperSummary, data);
             },
             (err: any) => this.error = err);
     }
@@ -129,7 +129,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 if (this.selectedOrderPaper == null) {
                     this.selectedOrderPaper = new OrderPaper();
                 }
-                Object.assign(this.selectedOrderPaper, data);
+                (<any>Object).assign(this.selectedOrderPaper, data);
             },
             (err: any) => this.error = err);
     }

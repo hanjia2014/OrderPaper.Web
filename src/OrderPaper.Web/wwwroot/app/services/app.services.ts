@@ -1,4 +1,5 @@
-﻿import { Injectable }                               from '@angular/core';
+﻿/// <reference path="../../typings/core-js.d.ts" />
+import { Injectable }                               from '@angular/core';
 import { Http, Response, Headers, RequestOptions }  from '@angular/http';
 import { Observable }                               from 'rxjs/Observable';
 import { OrderPaper }                               from '../models/orderpaper';
