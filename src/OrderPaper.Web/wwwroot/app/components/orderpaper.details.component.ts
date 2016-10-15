@@ -20,7 +20,6 @@ import { ModalComponent }                   from '../directives/modal/modal';
     template: `
                 <div>
                     <div *ngIf="orderPaper">
-                        <hr />
                         <div class="row">
                             <div class="col-md-3">
                                 <h3>Order paper details</h3>
@@ -132,8 +131,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 console.log("blur");
             });
 
-        $('.item-li')
-            .draggable({ cancel: 'a' });
+        $('.item-li').draggable({ cancel: 'a' });
     }
 
     dateChange = (value: Date) => {
