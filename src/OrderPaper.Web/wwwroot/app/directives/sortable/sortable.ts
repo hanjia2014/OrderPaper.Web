@@ -25,6 +25,6 @@ export class Sortable implements AfterViewInit {
             }
         };
 
-        $(this.el.nativeElement).sortable(options).disableSelection();
+        $(this.el.nativeElement).sortable(options);
     }
 }
