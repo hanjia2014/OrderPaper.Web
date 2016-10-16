@@ -22,9 +22,9 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let summary of orderPaperSummary" class="header-white-text">
-                                        <td >
-                                            <a class="header-table-link" [class.bold]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id" (click)="selectOrderPaper(summary.Id)">
+                                      <tr *ngFor="let summary of orderPaperSummary" class="header-white-text" [class.header-select-highlight]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id">
+                                        <td>
+                                            <a class="header-table-link" (click)="selectOrderPaper(summary.Id)">
                                                 <span style="margin-right: 5px;">
                                                     <img src="/content/images/icons/open.png">
                                                 </span>
@@ -75,8 +75,8 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 a{
                     cursor:pointer
                 }
-                .bold{
-                    font-weight:bold
+                .header-select-highlight{
+                    background-color: #142840;
                 }
                 .header-green-text{
                     color: #2ebcc5;
@@ -89,6 +89,18 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 }
                 .header-table-link : hover{
                     color: #abded2;
+                }
+                .history-list > tbody > tr: hover {
+                    background-color: #142840;
+                }
+                .history-list > tbody > tr > td {
+                    border-top: none;
+                    padding: 6px;
+                }
+
+                .history-list > thead > tr > th {
+                    border-bottom: none;
+                    font-weight: normal;
                 }
             `],
     providers: [OrderPaperService]

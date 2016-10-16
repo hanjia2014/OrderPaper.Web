@@ -31,7 +31,7 @@ import { Item,
                     <div class="col-md-9 panel panel-default">
                         <div class="panel-body">
                             <div class="drag-handle">
-                                <a [class.bold]="isSelected" (click)="toggle($event, index + '-section', true)">{{index + 1 + '. ' + section.Name}}</a>
+                                <a (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <div class="pull-right">
                                     <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                                     <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
@@ -52,9 +52,6 @@ import { Item,
     styles: [`
                a{
                     cursor: pointer;
-                }
-                .bold{
-                    font-weight: bold;
                 }
                 .collapsable {
                     display: inline-block;

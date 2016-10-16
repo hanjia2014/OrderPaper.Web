@@ -73,16 +73,6 @@ ol, ul {
     padding: 15px;
 }
 
-.history-list > tbody > tr > td {
-    border-top: none;
-    padding: 6px;
-}
-
-.history-list > thead > tr > th {
-    border-bottom: none;
-    font-weight: normal;
-}
-
 .nopadding {
     padding: 0 !important;
     margin: 0 !important;
