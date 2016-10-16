@@ -25,7 +25,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                                       <tr *ngFor="let summary of orderPaperSummary" class="header-white-text">
                                         <td >
                                             <a class="header-table-link" [class.bold]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id" (click)="selectOrderPaper(summary.Id)">
-                                                <span>
+                                                <span style="margin-right: 5px;">
                                                     <img src="/content/images/icons/open.png">
                                                 </span>
                                                 {{summary.Date | date: 'dd-MMM-yyyy'}}
@@ -78,11 +78,8 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                 .bold{
                     font-weight:bold
                 }
-                .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-                    padding: 0px;
-                }
                 .header-green-text{
-                    color: #abded2;
+                    color: #2ebcc5;
                 }
                 .header-white-text{
                     color: #fdfdfd;

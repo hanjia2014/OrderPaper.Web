@@ -75,11 +75,12 @@ ol, ul {
 
 .history-list > tbody > tr > td {
     border-top: none;
-    padding: 4px;
+    padding: 6px;
 }
 
 .history-list > thead > tr > th {
     border-bottom: none;
+    font-weight: normal;
 }
 
 .nopadding {
