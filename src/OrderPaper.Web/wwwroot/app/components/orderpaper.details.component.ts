@@ -46,7 +46,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>             
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperSittingHours'" [enableSearch]="false" [initialValue]="orderPaper.SittingHours" [multiple]="false" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
-                                <img src="/content/images/icons/time.png">
+                                <img src="../../content/images/icons/time.png">
                             </div>             
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>

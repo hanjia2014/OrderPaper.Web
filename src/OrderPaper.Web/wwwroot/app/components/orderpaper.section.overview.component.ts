@@ -12,7 +12,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }                                    from
                         <div class="form-control">
                             <a [class.bold]="isSelected" (click)="selectSection(section)">{{index + 1 + '. ' + section.Name}}</a>
                             <div class="pull-right">
-                                <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
+                                <img src="../../content/images/icons/dragndrop.png" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                                 <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
                                     <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? '/content/images/icons/flag - section on front cover.png' : '/content/images/icons/flag - section not on front cover.png'}}">
                                 </a>

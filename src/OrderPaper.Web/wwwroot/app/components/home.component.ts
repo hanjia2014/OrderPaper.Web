@@ -26,7 +26,7 @@ import { OrderPaperService }         from '../services/app.services';
                                         <td>
                                             <a class="header-table-link" (click)="selectOrderPaper(summary.Id)">
                                                 <span style="margin-right: 5px;">
-                                                    <img src="/content/images/icons/open.png">
+                                                    <img src="../../content/images/icons/open.png">
                                                 </span>
                                                 {{summary.SittingDay | date: 'dd-MMM-yyyy'}}
                                             </a>
@@ -39,7 +39,7 @@ import { OrderPaperService }         from '../services/app.services';
                                         </td>
                                         <td>
                                             <a>
-                                                <img src="/content/images/icons/delete.png" (click)="deleteOrderPaper(summary.Id)">
+                                                <img src="../../content/images/icons/delete.png" (click)="deleteOrderPaper(summary.Id)">
                                             </a>
                                         </td>
                                       </tr>

@@ -7,7 +7,7 @@ import { Tab } from './tab';
         <nav class="nav-black">
             <ul class="nav nav-tabs container" style="padding-left: 10%">
                 <li>
-                    <img src="/content/images/icons/OP logo.png" width="70" style="margin-left: -110px; margin-right: 20px;">
+                    <img src="../../../content/images/icons/OP logo.png" width="70" style="margin-left: -110px; margin-right: 20px;">
                 </li>
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
                     <a class="list-unstyled" style="color:white">{{tab.title}}
@@ -20,10 +20,10 @@ import { Tab } from './tab';
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
             .active-span { 
-                background: url('/content/images/icons/white up arrow.png') no-repeat scroll center center;
+                background: url('../../../content/images/icons/white up arrow.png') no-repeat scroll center center;
             }
             .non-active-span:hover {
-                background: url('/content/images/icons/white down arrow.png') no-repeat scroll center center;
+                background: url('../../../content/images/icons/white down arrow.png') no-repeat scroll center center;
             }
             .nav-black{
                 background-color: #142840;

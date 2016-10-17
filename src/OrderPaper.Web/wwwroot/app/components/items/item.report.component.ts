@@ -17,7 +17,7 @@ import { ReportItem }             from '../../models/items';
                         </div>
                         <div class="col-md-2">
                             <div class="pull-right">
-                                <img src="/content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                                <img src="../../content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                                 <span>{{item.Type}}</span>
                             </div>
                         </div>
