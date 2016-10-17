@@ -13,6 +13,7 @@ import { VerticalMenuComponent }                        from '../directives/vert
 import { DND_DIRECTIVES }                               from '../directives/dnd/ng2-dnd';
 import { Sortable }                                     from '../directives/sortable/sortable';
 import { Collapse }                                     from '../directives/collapse';
+import { Ng2PaginationModule }                          from '../directives/pagination/ng2-pagination';
 import { FroalaEditorDirective, FroalaViewDirective }   from '../directives/froala-editor/froala.directives';
 import { routing }                                      from './app.routes';
 import { MasterComponent }                              from './master.component';
@@ -33,6 +34,7 @@ import { ItemGroupComponent }                           from './items/item.group
         BrowserModule,
         HttpModule,
         FormsModule,
+        Ng2PaginationModule,
         routing
     ],
     declarations:
