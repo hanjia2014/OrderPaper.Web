@@ -3,10 +3,10 @@ import { Item, MotionItem, BillItem, ReportItem }   from './Items';
 import { Section }                                  from './Section';
 
 export class OrderPaper {
-    Id: string;
-    Date: Date;
+    Id: number;
+    SittingDay: Date;
     Status: string;
-    OrderPaperNumber: string;
+    Number: number;
     SittingHours: string;
     Sections: Array<Section>;
 

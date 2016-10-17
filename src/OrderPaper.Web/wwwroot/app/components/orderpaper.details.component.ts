@@ -42,7 +42,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [initialValue]="orderPaper.Date" (onValueChange)="dateChange($event)"></date-picker>
+                                <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperSittingHours'" [enableSearch]="false" [initialValue]="orderPaper.SittingHours" [multiple]="false" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
@@ -52,7 +52,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
                             </div>             
                             <div class="col-md-1">
-                                <input placeholder="Number" class="form-control input-sm" [(ngModel)]="orderPaper.OrderPaperNumber" />
+                                <input placeholder="Number" class="form-control input-sm" [(ngModel)]="orderPaper.Number" />
                             </div>
                         </div>
                         <br />
@@ -131,11 +131,11 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 console.log("blur");
             });
 
-        $('.item-li').draggable({ cancel: 'a' });
+        //$('.item-li').draggable({ cancel: 'a' });
     }
 
     dateChange = (value: Date) => {
-        this.orderPaper.Date = value;
+        this.orderPaper.SittingDay = value;
     }
 
     selectSection = (value: Section, index: number) => {

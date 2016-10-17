@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, NgZone } from '@angular/core';
 import { BaseComponent }             from './base.component';
 import { OrderPaper }                from '../models/orderpaper';
+import { OrderPaperWrapper }         from '../models/orderpaperwrapper';
 import { OrderPaperService }         from '../services/app.services';
-import { OrderPaperSummary }         from '../models/orderpapersummary';
 
 @Component({
     selector: 'home',
@@ -28,7 +28,7 @@ import { OrderPaperSummary }         from '../models/orderpapersummary';
                                                 <span style="margin-right: 5px;">
                                                     <img src="/content/images/icons/open.png">
                                                 </span>
-                                                {{summary.Date | date: 'dd-MMM-yyyy'}}
+                                                {{summary.SittingDay | date: 'dd-MMM-yyyy'}}
                                             </a>
                                         </td>
                                         <td>
@@ -111,7 +111,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     isPreviewMode: boolean;
     selectedOrderPaper: OrderPaper;
     error: any;
-    orderPaperSummary: Array<OrderPaperSummary> = new Array<OrderPaperSummary>();
+    orderPaperSummary: Array<OrderPaperWrapper> = new Array<OrderPaperWrapper>();
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -122,7 +122,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     getOrderPaperSummary = () => {
         this.orderPaperService.getOrderPaperList().subscribe(
-            (data: Array<OrderPaperSummary>) => {
+            (data: Array<OrderPaperWrapper>) => {
                 (<any>Object).assign(this.orderPaperSummary, data);
             },
             (err: any) => this.error = err);
@@ -134,11 +134,12 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     selectOrderPaper = (id: string) => {
         this.orderPaperService.getOrderPaper(id).subscribe(
-            (data: OrderPaper) => {
+            (data: OrderPaperWrapper) => {
                 if (this.selectedOrderPaper == null) {
                     this.selectedOrderPaper = new OrderPaper();
                 }
-                (<any>Object).assign(this.selectedOrderPaper, data);
+                var op = JSON.parse(data.OrderPaper);
+                (<any>Object).assign(this.selectedOrderPaper, op);
             },
             (err: any) => this.error = err);
     }

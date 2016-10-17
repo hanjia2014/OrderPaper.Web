@@ -1,6 +1,6 @@
 ﻿import { Observable }           from 'rxjs/Observable';
 import { Response }             from '@angular/http';
-import { OrderPaperSummary }    from '../models/orderpapersummary';
+import { OrderPaperWrapper }    from '../models/orderpaperwrapper';
 import { OrderPaper }           from '../models/orderpaper';
 
 export interface ITogglable {
@@ -8,7 +8,7 @@ export interface ITogglable {
 }
 
 export interface IOrderPaperService {
-    getOrderPaperList: () => Observable<OrderPaperSummary[]>;
-    getOrderPaper: (id: string) => Observable<OrderPaper>;
+    getOrderPaperList: () => Observable<OrderPaperWrapper[]>;
+    getOrderPaper: (id: string) => Observable<OrderPaperWrapper>;
     save: (orderPaper: OrderPaper) => Observable<Response>;
 }

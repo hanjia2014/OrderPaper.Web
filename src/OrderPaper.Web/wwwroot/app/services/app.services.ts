@@ -3,22 +3,21 @@ import { Injectable }                               from '@angular/core';
 import { Http, Response, Headers, RequestOptions }  from '@angular/http';
 import { Observable }                               from 'rxjs/Observable';
 import { OrderPaper }                               from '../models/orderpaper';
+import { OrderPaperWrapper }                        from '../models/orderpaperwrapper';
 import { IOrderPaperService }                       from '../interfaces/app.interfaces';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import { OrderPaperSummary }                        from '../models/orderpapersummary';
 
 @Injectable()
 export class OrderPaperService implements IOrderPaperService {
-    apiOrderpapersummaryUrl: string = '/api/orderpapersummary';
     apiOrderpaperUrl: string = '/api/orderpaper';
 
     constructor(private http: Http) {
         
     }
 
-    getOrderPaperList = (): Observable<Array<OrderPaperSummary>> => {
-        return this.http.get(this.apiOrderpapersummaryUrl).map((res: Response) => {
+    getOrderPaperList = (): Observable<Array<OrderPaperWrapper>> => {
+        return this.http.get(this.apiOrderpaperUrl).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -27,7 +26,7 @@ export class OrderPaperService implements IOrderPaperService {
         });
     }
 
-    getOrderPaper = (id: string): Observable<OrderPaper> => {
+    getOrderPaper = (id: string): Observable<OrderPaperWrapper> => {
         return this.http.get(this.apiOrderpaperUrl + "/" + id).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
@@ -41,8 +40,14 @@ export class OrderPaperService implements IOrderPaperService {
         var body = JSON.stringify({ name: "AA" });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
+        let wrapper = new OrderPaperWrapper();
+        wrapper.Id = orderPaper.Id;
+        wrapper.Number = orderPaper.Number;
+        wrapper.SittingDay = orderPaper.SittingDay;
+        wrapper.Status = orderPaper.Status;
+        wrapper.OrderPaper = JSON.stringify(orderPaper);
 
-        return this.http.post(this.apiOrderpaperUrl, orderPaper, options).map((res: Response) => {
+        return this.http.post(this.apiOrderpaperUrl, wrapper, options).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
