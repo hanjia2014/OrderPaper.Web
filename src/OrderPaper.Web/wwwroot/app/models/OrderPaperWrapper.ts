@@ -3,5 +3,5 @@
     SittingDay: Date;
     Status: string;
     Number: number;
-    OrderPaper: string;
+    OrderPaperJson: string;
 }

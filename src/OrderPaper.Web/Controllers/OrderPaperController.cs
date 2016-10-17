@@ -46,7 +46,7 @@ namespace OrderPapers.Controllers
         {
             var dummyOP = "{\"Sections\":[{\"IsFrontPage\":true,\"Include\":false,\"Name\":\"Select committee reports\",\"Items\":[{\"Date\":\"2016-10-17T14:21:10.9954921+13:00\",\"Summary\":\"This is a motion\",\"Member\":\"Hon Peter Dunne\",\"Speeches\":\"John Doe\",\"Motion\":\"That the House congratulate Constance Stiring and Olivia Clark of Onslow College who won the Bronze medal in the GU16 Double at the 2016 Maadi Cup Rowing Regatta and note that it is the frst Onslow College girls medal in more than 40 years.\",\"Sequence\":1,\"Type\":\"Motion\",\"Title\":\"That the House congratulate Constance Stiring and Olivia Clark\"},{\"Number\":\"23-2\",\"Member\":\"Hon Peter Dunne\",\"Stage\":null,\"IsCurrentSittingWeek\":false,\"IsFollowingSittingWeek\":false,\"IsMajorityAmendments\":false,\"IsExtendedSittingHours\":false,\"Speeches\":\"John Doe\",\"LatestEvent\":null,\"Sequence\":2,\"Type\":\"Bill\",\"Title\":\"Support for Children in Hardship Bill\"},{\"Shoulder\":\"\",\"Committee\":\"Education and Scuence\",\"LatestEvent\":\"Report presented 10 May 2013\",\"Sequence\":3,\"Type\":\"Report\",\"Title\":\"2011/12 financial review of the Teritary Education Commission\"}],\"Groups\":[]},{\"IsFrontPage\":false,\"Include\":false,\"Name\":\"Government orders of the day\",\"Items\":[],\"Groups\":[]},{\"IsFrontPage\":true,\"Include\":false,\"Name\":\"This is the 3rd section\",\"Items\":[],\"Groups\":[]},{\"IsFrontPage\":false,\"Include\":false,\"Name\":\"This is the 4th section\",\"Items\":[],\"Groups\":[]}],\"Id\":" + id.ToString() + ",\"SittingDay\":\"2016-10-17T14:21:10.9954921+13:00\",\"Number\":\"12\",\"SittingHours\":\"7:30pm - 10pm\",\"Status\":\"Final\"}";
             var wrapper = new OrderPaperWrapper { Id = id, Status = "Provisional", SittingDay = DateTime.Now, Number = 99 };
-            wrapper.OrderPaper = dummyOP;
+            wrapper.OrderPaperJson = dummyOP;
             return JsonConvert.SerializeObject(wrapper);
         }
 
@@ -54,8 +54,8 @@ namespace OrderPapers.Controllers
         [HttpPost]
         public bool Post([FromBody]OrderPaperWrapper value)
         {
-            var agendaJson = JsonConvert.SerializeObject(value);
-            var doc = JsonConvert.DeserializeXNode(agendaJson, "OrderPaper");
+            var json = JsonConvert.SerializeObject(value);
+            var doc = JsonConvert.DeserializeXNode(json, "OrderPaper");
             return value != null;
         }
 

@@ -8,6 +8,6 @@ namespace OrderPapers.Models
         public DateTime SittingDay { get; set; }
         public string Status { get; set; }
         public int Number { get; set; }
-        public string OrderPaper { get; set; }
+        public string OrderPaperJson { get; set; }
     }
 }

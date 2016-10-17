@@ -45,7 +45,7 @@ export class OrderPaperService implements IOrderPaperService {
         wrapper.Number = orderPaper.Number;
         wrapper.SittingDay = orderPaper.SittingDay;
         wrapper.Status = orderPaper.Status;
-        wrapper.OrderPaper = JSON.stringify(orderPaper);
+        wrapper.OrderPaperJson = JSON.stringify(orderPaper);
 
         return this.http.post(this.apiOrderpaperUrl, wrapper, options).map((res: Response) => {
             if (res.status != 200) {
