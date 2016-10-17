@@ -45,7 +45,9 @@ import { OrderPaperService }         from '../services/app.services';
                                       </tr>
                                     </tbody>
                                 </table>
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                <div *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0">
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                <div>
                                 <div *ngIf="orderPaperSummary == null || orderPaperSummary.length == 0">
                                     <a class="btn btn-parliament" (click)="createNewOrderPaper()">New Order Paper</a>
                                 </div>
