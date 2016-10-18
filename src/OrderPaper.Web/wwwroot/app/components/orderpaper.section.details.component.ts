@@ -17,7 +17,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 <div class="row">
                     <div class="col-md-5">
                         <div class="col-md-6">
-                            <select2 [id]="index + '-item-types'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                            <select2 [id]="index + '-item-types'" [width]="'125px'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
                         </div>
                         <div class="col-md-6">
                             <a class="btn btn-default" (click)="addItem()">Add Item</a>
@@ -79,7 +79,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                 }
                 .group-tick-box {
                     width: 2%;
-                    margin-left: -20px;
+                    margin-left: -5px;
                 }
                 .item-box {
                     width: 80%;

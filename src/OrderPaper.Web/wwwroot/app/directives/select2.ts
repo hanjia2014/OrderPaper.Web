@@ -1,8 +1,9 @@
-﻿import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+﻿/// <reference path="../../typings/select2.d.ts" />
+import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
     selector: 'select2',
-    template: `<input id="{{id}}" style="min-width: 150px;" class="{{cssClass=='' ? '' : cssClass}}"/>`,
+    template: `<input id="{{id}}" [style.width]= "width" class="{{cssClass=='' ? '' : cssClass}}"/>`,
     styles: [],
     providers: []
 })
@@ -25,6 +26,8 @@ export class Select2Component implements AfterViewInit {
     initialValue: string;
     @Input()
     cssClass: string;
+    @Input()
+    width: string;
 
     @Output() selected = new EventEmitter();
 

@@ -112,6 +112,15 @@ ol, ul {
     margin: 0 !important;
 }
 
+.no-padding-left {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
 .noborder {
     border: none;
 }

@@ -11,7 +11,11 @@ import { OrderPaperService }         from '../services/app.services';
                     <tabs>
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
                             <div class="col-md-9 nopadding">
-                                <h3 class="header-green-text">Order Papers history</h3>
+                                <div>
+                                    <h3 class="header-green-text pull-left">Order Papers history</h3>
+                                    <a class="btn btn-parliament pull-right" style="margin-top:20px;" (click)="createNewOrderPaper()">New Order Paper</a>
+                                </div>
+                                
                                 <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
                                         <tr class="header-green-text">
@@ -45,11 +49,9 @@ import { OrderPaperService }         from '../services/app.services';
                                       </tr>
                                     </tbody>
                                 </table>
-                                <div *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0">
-                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                                <div>
+                                
                                 <div *ngIf="orderPaperSummary == null || orderPaperSummary.length == 0">
-                                    <a class="btn btn-parliament" (click)="createNewOrderPaper()">New Order Paper</a>
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                                 </div>
                             </div>
                         </tab>

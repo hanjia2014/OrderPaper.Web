@@ -28,8 +28,8 @@ import { Item,
     selector: 'order-paper-section',
     template: `
                 <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
-                    <div class="col-md-9 panel panel-default">
-                        <div class="panel-body">
+                    <div class="col-md-8 panel panel-default margin-left-15">
+                        <div class="panel-body no-padding-left">
                             <div class="drag-handle">
                                 <a (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <div class="pull-right">

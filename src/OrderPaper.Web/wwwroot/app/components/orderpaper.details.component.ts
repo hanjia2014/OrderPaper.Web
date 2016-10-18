@@ -27,13 +27,13 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 Date
                             </div>
                             <div class="col-md-3">
                                 Sitting Hours
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 Status
                             </div>
                             <div class="col-md-1">
@@ -41,18 +41,18 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperSittingHours'" [enableSearch]="false" [initialValue]="orderPaper.SittingHours" [multiple]="false" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
                                 <img src="../../content/images/icons/time.png">
                             </div>             
-                            <div class="col-md-3">
-                                <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
+                            <div class="col-md-2">
+                                <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [width]="'125px'" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
                             </div>             
                             <div class="col-md-1">
-                                <input placeholder="Number" class="form-control input-sm" [(ngModel)]="orderPaper.Number" />
+                                <input class="form-control input-sm" [(ngModel)]="orderPaper.Number" />
                             </div>
                         </div>
                         <br />
