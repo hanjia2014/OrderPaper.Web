@@ -1,4 +1,5 @@
-﻿import { Directive, ElementRef, EventEmitter, Output, Input, AfterViewInit } from '@angular/core';
+﻿/// <reference path="../../../typings/jqueryui.d.ts" />
+import { Directive, ElementRef, EventEmitter, Output, Input, AfterViewInit } from '@angular/core';
 
 @Directive({
     selector: '[sortable]'

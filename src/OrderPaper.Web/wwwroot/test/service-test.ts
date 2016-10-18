@@ -1,4 +1,5 @@
-﻿import { inject, TestBed, async }       from '@angular/core/testing';
+﻿/// <reference path="../typings/globals/jasmine/index.d.ts" />
+import { inject, TestBed, async }       from '@angular/core/testing';
 import { ReflectiveInjector }           from '@angular/core';
 import { MockBackend, MockConnection }  from '@angular/http/testing';
 import { OrderPaperService }            from '../app/services/app.services';

@@ -1,4 +1,5 @@
-﻿describe('universal truths', () => {
+﻿/// <reference path="../typings/globals/jasmine/index.d.ts" />
+describe('universal truths', () => {
     it('should do math', () => {
         expect(1 + 1).toEqual(2);
 
