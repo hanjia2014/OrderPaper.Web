@@ -12,6 +12,14 @@
     }
 }
 
+export class SubHeadingItem extends Item {
+    constructor() {
+        super();
+        this.Type = "Subheading";
+        this.Title = "Sub heading";
+    }
+}
+
 export class MotionItem extends Item {
     Date: Date;
     Summary: string;

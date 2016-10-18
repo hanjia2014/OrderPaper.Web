@@ -2,12 +2,14 @@
 import { BaseComponent }                    from './base.component';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section }                          from '../models/section';
-import { Item,
-    LineItem,
-    MotionItem,
-    GroupItem,
-    ReportItem,
-    BillItem
+import {
+        Item,
+        LineItem,
+        MotionItem,
+        GroupItem,
+        ReportItem,
+        BillItem,
+        SubHeadingItem
 }                                           from '../models/items';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 
@@ -29,12 +31,12 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                         <div *ngFor="let item of section.Items; let i = index" dnd-sortable [sortableIndex]="i" [dropEnabled]="true" (onDragEnd)="sortingItems()" (onDragOver)="sortingItems()" (onDropSuccess)="sortingItems()" class="item-li col-md-12">
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
                                 <div class="col-md-1 group-tick-box">
-                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line'" class="group-tick-box">
+                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line' && item.Type != 'Subheading'" class="group-tick-box">
                                         <img class="vcenter" src="content/images/icons/group.png" style="cursor: pointer" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" (click)="addGroup(item, i)">
                                     </div>
                                 </div>
                                 <div class="col-md-1 vcenter">
-                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line'" class="pull-right">
+                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line' && item.Type != 'Subheading'" class="pull-right">
                                         {{item.Sequence}}
                                     </div>
                                     <div *ngIf="item.Type == 'Group'" class="pull-right">
@@ -97,7 +99,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     index: number;
     error: any;
     hasLine: boolean;
-    itemTypes = [{ id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Bill", text: "Bill" }, { id: "Line", text: "Line" }];
+    itemTypes = [{ id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Bill", text: "Bill" }, { id: "Subheading", text: "Subheading" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
 
     constructor() {
@@ -112,7 +114,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     sortingItems(e: any) {
         var sequence = 1;
         this.section.Items.forEach((item) => {
-            if (item.Type != 'Line') {
+            if (item.Type != 'Line' && item.Type != 'Subheading') {
                 if (item.Type == "Group") {
                     var group = (item as GroupItem);
                     group.From = sequence;
@@ -143,6 +145,9 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
                 break;
             case "Motion":
                 item = new MotionItem();
+                break;
+            case "Subheading":
+                item = new SubHeadingItem();
                 break;
         }
         if (item != null) {
