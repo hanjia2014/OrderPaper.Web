@@ -55,7 +55,7 @@ export class OrderPaperSectionOverviewComponent implements OnInit, AfterViewInit
     }
 
     ngAfterViewInit() {
-        $('[data-toggle="tooltip"]').tooltip();
+        (<any>$('[data-toggle="tooltip"]')).tooltip();
     }
 
     selectSection = () => {
