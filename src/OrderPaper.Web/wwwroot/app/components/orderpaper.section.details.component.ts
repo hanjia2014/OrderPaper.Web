@@ -32,7 +32,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                             <div class="row" style="margin-top:10px;" (mouseover)="item.hoverVisible = true" (mouseleave)="item.hoverVisible = false">
                                 <div class="col-md-1 group-tick-box">
                                     <div *ngIf="item.Type != 'Group' && item.Type != 'Line' && item.Type != 'Subheading'" class="group-tick-box">
-                                        <img class="vcenter" src="content/images/icons/group.png" style="cursor: pointer" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" (click)="addGroup(item, i)">
+                                        <img class="vcenter" src="{{imagesPath + 'group.png'}}" style="cursor: pointer" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" (click)="addGroup(item, i)">
                                     </div>
                                 </div>
                                 <div class="col-md-1 vcenter">
@@ -65,7 +65,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                 </span>
                                 <div class="col-md-1 trash-bin-box vcenter">
                                     <div *ngIf="item.Type != 'Group' && item.Type != 'Line'">
-                                        <img (click)="removeItem(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="/content/images/icons/delete.png" style="cursor: pointer">
+                                        <img (click)="removeItem(item, i)" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="{{imagesPath + 'delete.png'}}" style="cursor: pointer">
                                     </div>
                                 </div>
                             </div>

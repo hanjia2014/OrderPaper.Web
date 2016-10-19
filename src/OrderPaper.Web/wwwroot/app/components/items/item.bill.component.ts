@@ -6,8 +6,9 @@
     AfterViewInit,
     Output,
     EventEmitter
-}                               from '@angular/core';
-import { BillItem }             from '../../models/items';
+}                           from '@angular/core';
+import { BillItem }         from '../../models/items';
+import { ItemComponent }    from './item.component';
 
 @Component({
     selector: 'item-bill',
@@ -19,7 +20,7 @@ import { BillItem }             from '../../models/items';
                     </div>
                     <div class="col-md-2">
                         <div class="pull-right">
-                            <img src="../../content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                            <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                             <span>{{item.Type}}</span>
                         </div>
                     </div>
@@ -32,7 +33,7 @@ import { BillItem }             from '../../models/items';
                         </div>
                         <div class="form-group col-md-1">
                             <label>&nbsp;</label>
-                            <img class="form-control undraggable nopadding noborder" height="10" src="/content/images/icons/CPD arrow.png" />
+                            <img class="form-control undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                         </div>
                         <div class="form-group col-md-5 nopadding">
                             <label>CPD</label>
@@ -78,7 +79,7 @@ import { BillItem }             from '../../models/items';
     styles: [],
     providers: []
 })
-export class ItemBillComponent implements OnInit, AfterViewInit{
+export class ItemBillComponent extends ItemComponent implements OnInit, AfterViewInit{
     @Input()
     item: BillItem;
     @Input()

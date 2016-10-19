@@ -6,6 +6,7 @@
     AfterViewInit
 }                               from '@angular/core';
 import { MotionItem }           from '../../models/items';
+import { ItemComponent }        from './item.component';
 
 @Component({
     selector: 'item-motion',
@@ -17,7 +18,7 @@ import { MotionItem }           from '../../models/items';
                         </div>
                         <div class="col-md-2">
                             <div class="pull-right">
-                                <img src="../../content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                                <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                                 <span>{{item.Type}}</span>
                             </div>
                         </div>
@@ -34,7 +35,7 @@ import { MotionItem }           from '../../models/items';
     styles: [],
     providers: []
 })
-export class ItemMotionComponent implements OnInit, AfterViewInit{
+export class ItemMotionComponent extends ItemComponent implements OnInit, AfterViewInit{
     @Input()
     item: MotionItem;
     @Input()
@@ -42,6 +43,7 @@ export class ItemMotionComponent implements OnInit, AfterViewInit{
     isExpand: boolean;
 
     constructor() {
+        super();
     }
     ngOnInit() {
     }

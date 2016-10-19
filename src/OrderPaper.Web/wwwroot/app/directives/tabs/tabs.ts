@@ -1,5 +1,6 @@
-﻿import { Component, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
-import { Tab } from './tab';
+﻿import { Component, ContentChildren, QueryList, AfterContentInit }  from '@angular/core';
+import { Tab }                                                      from './tab';
+import { AppSettings }                                              from '../../settings/app.settings';
 
 @Component({
     selector: 'tabs',
@@ -7,7 +8,7 @@ import { Tab } from './tab';
         <nav class="nav-black">
             <ul class="nav nav-tabs container" style="padding-left: 10%">
                 <li>
-                    <img src="../../../content/images/icons/OP logo.png" width="70" style="margin-left: -110px; margin-right: 20px;">
+                    <img src="{{imagePath + 'OP logo.png'}}" width="70" style="margin-left: -110px; margin-right: 20px;">
                 </li>
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
                     <a class="list-unstyled" style="color:white">{{tab.title}}
@@ -47,6 +48,7 @@ import { Tab } from './tab';
             `]
 })
 export class Tabs implements AfterContentInit {
+    imagePath: string = AppSettings.IMAGE_PATH;
     @ContentChildren(Tab) tabs: QueryList<Tab>;
     // contentChildren are set
     ngAfterContentInit() {

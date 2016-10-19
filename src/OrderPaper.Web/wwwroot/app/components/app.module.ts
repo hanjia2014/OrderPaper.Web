@@ -21,7 +21,6 @@ import { HomeComponent }                                from './home.component';
 import { OrderPaperDetailsComponent }                   from './orderpaper.details.component';
 import { OrderPaperSectionComponent }                   from './orderpaper.section.component';
 import { OrderPaperSectionDetailsComponent }            from './orderpaper.section.details.component';
-import { OrderPaperSectionOverviewComponent }           from './orderpaper.section.overview.component';
 import { ItemBillComponent }                            from './items/item.bill.component';
 import { ItemLineComponent }                            from './items/item.line.component';
 import { ItemReportComponent }                          from './items/item.report.component';
@@ -42,7 +41,6 @@ import { ItemGroupComponent }                           from './items/item.group
         DND_DIRECTIVES,
         Select2Component,
         DatePickerComponent,
-        OrderPaperSectionOverviewComponent,
         MODAL_DIRECTIVES,
         ModalComponent,
         Tabs,
@@ -57,7 +55,6 @@ import { ItemGroupComponent }                           from './items/item.group
         OrderPaperDetailsComponent,
         OrderPaperSectionComponent,
         OrderPaperSectionDetailsComponent,
-        OrderPaperSectionOverviewComponent,
         ItemBillComponent,
         ItemLineComponent,
         ItemReportComponent,

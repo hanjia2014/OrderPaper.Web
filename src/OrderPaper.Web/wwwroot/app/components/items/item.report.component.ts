@@ -4,8 +4,9 @@
     ViewChild,
     Input,
     AfterViewInit
-}                               from '@angular/core';
-import { ReportItem }             from '../../models/items';
+}                           from '@angular/core';
+import { ReportItem }       from '../../models/items';
+import { ItemComponent }    from './item.component';
 
 @Component({
     selector: 'item-report',
@@ -17,7 +18,7 @@ import { ReportItem }             from '../../models/items';
                         </div>
                         <div class="col-md-2">
                             <div class="pull-right">
-                                <img src="../../content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                                <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                                 <span>{{item.Type}}</span>
                             </div>
                         </div>
@@ -34,7 +35,7 @@ import { ReportItem }             from '../../models/items';
     styles: [],
     providers: []
 })
-export class ItemReportComponent implements OnInit, AfterViewInit{
+export class ItemReportComponent extends ItemComponent implements OnInit, AfterViewInit{
     @Input()
     item: ReportItem;
     @Input()
@@ -42,8 +43,10 @@ export class ItemReportComponent implements OnInit, AfterViewInit{
     isExpand: boolean;
 
     constructor() {
+        super();
     }
     ngOnInit() {
+        
     }
 
     ngAfterViewInit() {

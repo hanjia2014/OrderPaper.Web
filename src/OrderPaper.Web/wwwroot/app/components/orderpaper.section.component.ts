@@ -12,17 +12,18 @@
     Output,
     EventEmitter,
     AfterViewInit
-}                                           from '@angular/core';
-import { BaseComponent }                    from './base.component';
-import { OrderPaper }                       from '../models/orderpaper';
-import { Section }                          from '../models/section';
+}                           from '@angular/core';
+import { BaseComponent }    from './base.component';
+import { OrderPaper }       from '../models/orderpaper';
+import { Section }          from '../models/section';
 import { Item,
     LineItem,
     MotionItem,
     GroupItem,
     ReportItem,
     BillItem
-}                                           from '../models/items';
+}                           from '../models/items';
+import { AppSettings }      from '../settings/app.settings';
 
 @Component({
     selector: 'order-paper-section',
@@ -33,9 +34,9 @@ import { Item,
                             <div class="drag-handle">
                                 <a (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <div class="pull-right">
-                                    <img src="../../content/images/icons/dragndrop.png" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
+                                    <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                                     <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
-                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? '/content/images/icons/flag - section on front cover.png' : '/content/images/icons/flag - section not on front cover.png'}}">
+                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'flag - section on front cover.png' : imagesPath + 'flag - section not on front cover.png'}}">
                                     </a>
                                 </div>
                             </div>
@@ -45,7 +46,7 @@ import { Item,
                         </div>
                     </div>
                     <a [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">
-                        <img style="padding: 15px;" src="/content/images/icons/delete.png">
+                        <img style="padding: 15px;" src="{{imagesPath + 'delete.png'}}">
                     </a>
                 </div>
                 `,
@@ -83,9 +84,9 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     onSelectSection: EventEmitter<Section> = new EventEmitter<Section>();
     @Output()
     onDeleteSection: EventEmitter<number> = new EventEmitter<number>();
+    imagesPath: string = AppSettings.IMAGE_PATH;
 
     constructor() {
-
     }
     ngOnInit() {
 

@@ -1,12 +1,14 @@
 ﻿/// <reference path="../../typings/jquery.d.ts" />
 import { AfterViewInit, NgZone }    from '@angular/core';
 import { ITogglable }               from '../interfaces/app.interfaces';
+import { AppSettings }              from '../settings/app.settings';
 
 export abstract class BaseComponent implements AfterViewInit, ITogglable {
     SortableListId: string;
     IsNumberedList: boolean;
     isExpand: boolean;
     private zone: NgZone;
+    imagesPath: string = AppSettings.IMAGE_PATH;
 
     constructor() {
         this.IsNumberedList = true;

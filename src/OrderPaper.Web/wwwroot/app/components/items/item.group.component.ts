@@ -1,5 +1,6 @@
 ﻿import { Component, Input, Output, EventEmitter }       from '@angular/core';
 import { ReportItem, MotionItem, BillItem, GroupItem  } from '../../models/items';
+import { ItemComponent }                                from './item.component';
 
 @Component({
     selector: 'item-group',
@@ -38,7 +39,7 @@ import { ReportItem, MotionItem, BillItem, GroupItem  } from '../../models/items
     styles: [],
     providers: []
 })
-export class ItemGroupComponent {
+export class ItemGroupComponent extends ItemComponent {
     @Input()
     group: GroupItem;
     @Input()
@@ -51,6 +52,7 @@ export class ItemGroupComponent {
     onRemoveGroup = new EventEmitter<GroupItem>();
 
     constructor() {
+        super();
     }
 
     addItems = () => {

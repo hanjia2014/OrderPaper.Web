@@ -5,19 +5,19 @@ import { Observable }                               from 'rxjs/Observable';
 import { OrderPaper }                               from '../models/orderpaper';
 import { OrderPaperWrapper }                        from '../models/orderpaperwrapper';
 import { IOrderPaperService }                       from '../interfaces/app.interfaces';
+import { AppSettings }                              from '../settings/app.settings';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class OrderPaperService implements IOrderPaperService {
-    apiOrderpaperUrl: string = '/api/orderpaper';
 
     constructor(private http: Http) {
         
     }
 
     getOrderPaperList = (): Observable<Array<OrderPaperWrapper>> => {
-        return this.http.get(this.apiOrderpaperUrl).map((res: Response) => {
+        return this.http.get(AppSettings.API_ENDPOINT).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -27,7 +27,7 @@ export class OrderPaperService implements IOrderPaperService {
     }
 
     getOrderPaper = (id: string): Observable<OrderPaperWrapper> => {
-        return this.http.get(this.apiOrderpaperUrl + "/" + id).map((res: Response) => {
+        return this.http.get(AppSettings.API_ENDPOINT + '/' + id).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -47,7 +47,7 @@ export class OrderPaperService implements IOrderPaperService {
         wrapper.Status = orderPaper.Status;
         wrapper.OrderPaperJson = JSON.stringify(orderPaper);
 
-        return this.http.post(this.apiOrderpaperUrl, wrapper, options).map((res: Response) => {
+        return this.http.post(AppSettings.API_ENDPOINT, wrapper, options).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {

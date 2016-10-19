@@ -6,6 +6,7 @@
     AfterViewInit
 }                           from '@angular/core';
 import { SubHeadingItem }   from '../../models/items';
+import { ItemComponent }    from './item.component';
 
 @Component({
     selector: 'item-subheading',
@@ -17,7 +18,7 @@ import { SubHeadingItem }   from '../../models/items';
                         </div>
                         <div class="col-md-2">
                             <div class="pull-right">
-                                <img src="../../content/images/icons/dragndrop.png" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                                <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                                 <span>{{item.Type}}</span>
                             </div>
                         </div>
@@ -34,7 +35,7 @@ import { SubHeadingItem }   from '../../models/items';
     styles: [],
     providers: []
 })
-export class ItemSubheadingComponent implements OnInit, AfterViewInit {
+export class ItemSubheadingComponent extends ItemComponent implements OnInit, AfterViewInit {
     @Input()
     item: SubHeadingItem;
     @Input()
@@ -42,6 +43,7 @@ export class ItemSubheadingComponent implements OnInit, AfterViewInit {
     isExpand: boolean;
 
     constructor() {
+        super();
     }
     ngOnInit() {
     }
