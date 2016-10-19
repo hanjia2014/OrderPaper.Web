@@ -89,6 +89,7 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     onAddGroup = new EventEmitter<BillItem>();
     billTitleOptions: any;
     constructor() {
+        super();
     }
     ngOnInit() {
         this.billTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
