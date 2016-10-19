@@ -69,9 +69,12 @@ import { ItemComponent }    from './item.component';
                             <label>Times of debate (Speeches)</label>
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Speeches" />
                         </div>
+                        <div class="form-group col-md-1">
+                            
+                        </div>
                         <div class="form-group col-md-5 nopadding">
                             <label>Latest details</label>
-                            <input type="text" multiple class="form-control undraggable" [(ngModel)]="item.LatestEvent" />
+                            <textarea class="form-control undraggable" [(ngModel)]="item.LatestEvent" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                 </div>

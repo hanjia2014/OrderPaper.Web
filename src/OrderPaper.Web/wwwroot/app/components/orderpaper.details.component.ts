@@ -155,11 +155,13 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     statusChange = (e: string) => {
-        this.orderPaper.Status = e;
+        if(e != null)
+            this.orderPaper.Status = e;
     }
 
     sittingHoursChange = (e: string) => {
-        this.orderPaper.SittingHours = e;
+        if (e != null)
+            this.orderPaper.SittingHours = e;
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
