@@ -7,28 +7,31 @@ import { ItemComponent }                                from './item.component';
     template: `
                 <div class="group">
                     <div class="row">
-                        <div class="panel-body">
-                            <div class="col-md-2 nopadding">
+                        
+                            <div class="col-md-2">
                                 <input [(ngModel)]="group.From" class="form-control input-sm" placeholder="From" />
                             </div>
-                            <div class="col-md-2 nopadding">
+                            <div class="col-md-2">
                                 <input [(ngModel)]="group.To" class="form-control input-sm" placeholder="To" />
                             </div>
                             <button class="btn btn-primary" [disabled]="validateSequences()" (click)="addItems()">Add</button>
                             <button class="btn btn-danger pull-right" (click)="removeGroup()">Remove</button>
-                        </div>
+                        
                     </div>
                     <div class="row">
-                        <div class="panel-body" dnd-sortable-container [dropZones]="['drop-zone']" [sortableData]="group.Items">
+                        <div dnd-sortable-container [dropZones]="['drop-zone']" [sortableData]="group.Items">
                             <ol class="list-sortable">
-                                <li *ngFor="let item of group.Items; let i = index" dnd-sortable [sortableIndex]="i" class="item-li">
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading"></div>
-                                        <div class="panel-body">
-                                            <span *ngIf="item.Type == 'Motion'">motion</span>
-                                            <span *ngIf="item.Type == 'Bill'">bill</span>
-                                            <span *ngIf="item.Type == 'Report'">report</span>
-                                        </div>
+                                <li class="panel panel-default item-li group-child" *ngFor="let item of group.Items; let i = index" dnd-sortable [sortableIndex]="i">
+                                    <div class="panel-body">
+                                        <span *ngIf="item.Type == 'Bill'">
+                                            <item-bill [index]="i" [item]="item" [isGroupChild]="true" (onAddGroup)="addGroup($event, i)"></item-bill>
+                                        </span>
+                                        <span *ngIf="item.Type == 'Report'">
+                                            <item-report [index]="i" [item]="item" [isGroupChild]="true"></item-report>
+                                        </span>
+                                        <span *ngIf="item.Type == 'Motion'">
+                                            <item-motion [index]="i" [item]="item" [isGroupChild]="true"></item-motion>
+                                        </span>
                                     </div>
                                 </li>
                             </ol>
@@ -36,7 +39,11 @@ import { ItemComponent }                                from './item.component';
                     </div>
                 </div>
                 `,
-    styles: [],
+    styles: [`
+                .group-child{
+                    margin: 15px;
+                }
+            `],
     providers: []
 })
 export class ItemGroupComponent extends ItemComponent {

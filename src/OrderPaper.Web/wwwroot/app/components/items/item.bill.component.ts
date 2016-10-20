@@ -20,7 +20,7 @@ import { ItemComponent }    from './item.component';
                     </div>
                     <div class="col-md-2">
                         <div class="pull-right">
-                            <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                            <img *ngIf="isGroupChild == false" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                             <span>{{item.Type}}</span>
                         </div>
                     </div>
@@ -91,6 +91,9 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     @Output()
     onAddGroup = new EventEmitter<BillItem>();
     billTitleOptions: any;
+    @Input()
+    isGroupChild: boolean = false;
+
     constructor() {
         super();
     }

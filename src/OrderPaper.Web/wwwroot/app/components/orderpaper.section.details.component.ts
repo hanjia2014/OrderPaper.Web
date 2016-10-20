@@ -43,8 +43,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                         {{item.From + '-' + item.To}}
                                     </div>
                                 </div>
-                                <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-warning nopadding col-md-8 item-box' : 'panel panel-default nopadding col-md-8 item-box'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
-                                    <div *ngIf="item.Type == 'Group'" class="panel-heading">Panel Heading</div>
+                                <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-primary nopadding col-md-8 item-box' : 'panel panel-default nopadding col-md-8 item-box'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
                                     <div class="panel-body">
                                         <span *ngIf="item.Type == 'Bill'">
                                             <item-bill [index]="i" [item]="item" (onAddGroup)="addGroup($event, i)"></item-bill>
