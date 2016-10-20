@@ -5,6 +5,7 @@
     IsGrouppedItem: boolean;
     HasLine: boolean;
     IsNew: boolean;
+    IsBusinessItem: boolean;
 
     constructor() {
         this.IsNew = true;
@@ -29,6 +30,7 @@ export class MotionItem extends Item {
     constructor() {
         super();
         this.Type = "Motion";
+        this.IsBusinessItem = true;
     }
 }
 
@@ -48,6 +50,7 @@ export class BillItem extends Item {
     constructor() {
         super();
         this.Type = "Bill";
+        this.IsBusinessItem = true;
     }
 }
 
@@ -58,6 +61,7 @@ export class ReportItem extends Item {
     constructor() {
         super();
         this.Type = "Report";
+        this.IsBusinessItem = true;
     }
 }
 

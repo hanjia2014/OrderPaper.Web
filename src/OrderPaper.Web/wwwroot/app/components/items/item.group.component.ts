@@ -67,7 +67,8 @@ export class ItemGroupComponent extends ItemComponent {
     onAddItems = new EventEmitter<GroupItem>();
     @Output()
     onRemoveGroup = new EventEmitter<GroupItem>();
-    sequenceOptions: [{ id: "1", text: "1" }, { id: "2", text: "2" }];
+    @Input()
+    sequenceOptions: any = [];
 
     constructor() {
         super();
