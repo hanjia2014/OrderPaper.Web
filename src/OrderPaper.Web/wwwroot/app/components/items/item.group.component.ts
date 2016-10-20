@@ -15,7 +15,9 @@ import { ItemComponent }                                from './item.component';
                                 <input [(ngModel)]="group.To" class="form-control input-sm" placeholder="To" />
                             </div>
                             <button class="btn btn-primary" [disabled]="validateSequences()" (click)="addItems()">Add</button>
-                            <button class="btn btn-danger pull-right" (click)="removeGroup()">Remove</button>
+                            <a class="pull-right" style="cursor: pointer; margin-right: 15px">
+                                <img (click)="removeGroup()" src="{{imagesPath + 'delete.png'}}">
+                            </a>
                         
                     </div>
                     <div class="row">
