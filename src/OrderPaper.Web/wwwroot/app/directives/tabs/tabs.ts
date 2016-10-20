@@ -1,6 +1,13 @@
-﻿import { Component, ContentChildren, QueryList, AfterContentInit }  from '@angular/core';
-import { Tab }                                                      from './tab';
-import { AppSettings }                                              from '../../settings/app.settings';
+﻿import {
+    Component,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    Output,
+    EventEmitter
+}                       from '@angular/core';
+import { Tab }          from './tab';
+import { AppSettings }  from '../../settings/app.settings';
 
 @Component({
     selector: 'tabs',
@@ -11,9 +18,12 @@ import { AppSettings }                                              from '../../
                     <img src="{{imagePath + 'OP logo.png'}}" width="70" style="margin-left: -110px; margin-right: 20px;">
                 </li>
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
-                    <a class="list-unstyled" style="color:white">{{tab.title}}
+                    <a class="list-unstyled content-tab" style="color:white">{{tab.title}}
                     </a>
                     <span [style.background-color]="tab.active ? '#263a55' : '#142840'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
+                </li>
+                <li id="test" class="pull-right" style="padding-right: 30%">
+                    <a class="btn btn-parliament new-order-paper" (click)="createNewOrderPaper()">New Order Paper</a>
                 </li>
             </ul>
         </nav>
@@ -35,20 +45,34 @@ import { AppSettings }                                              from '../../
             .nav-tabs > li > a:hover{
                 border-color: none;
             }
+            
             .nav > li > a:focus, .nav > li > a:hover {
                 text-decoration: none;
                 background-color: #142840;
             }
+
             .nav-tabs > li > a{
                 border: 1px solid #142840;
             }
             .nav > li > a {
                 padding-bottom: 6px;
             }
+            .new-order-paper {
+                margin-top:10px; 
+                border-radius: 4px;
+                border-color: #abded2 !important;
+            }
+            a.btn.btn-parliament.new-order-paper:hover {
+                border-color: #abded2 !important;
+                color: #333 !important;
+                background-color: #abded2 !important;
+            }
             `]
 })
 export class Tabs implements AfterContentInit {
     imagePath: string = AppSettings.IMAGE_PATH;
+    @Output()
+    onCreateNewOrderPaper = new EventEmitter();
     @ContentChildren(Tab) tabs: QueryList<Tab>;
     // contentChildren are set
     ngAfterContentInit() {
@@ -72,5 +96,9 @@ export class Tabs implements AfterContentInit {
 
             tab.onActiveChange.next(tab.title);
         }
+    }
+
+    createNewOrderPaper = () => {
+        this.onCreateNewOrderPaper.emit();
     }
 }
