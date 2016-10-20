@@ -6,19 +6,24 @@ import { ItemComponent }                                from './item.component';
     selector: 'item-group',
     template: `
                 <div class="group">
+                    <p>
+                        <span>
+                            Group
+                        </span>
+                        <a class="pull-right" style="cursor: pointer;">
+                            <img (click)="removeGroup()" src="{{imagesPath + 'delete.png'}}">
+                        </a>
+                    </p>
                     <div class="row">
-                        
-                            <div class="col-md-2">
-                                <input [(ngModel)]="group.From" class="form-control input-sm" placeholder="From" />
-                            </div>
-                            <div class="col-md-2">
-                                <input [(ngModel)]="group.To" class="form-control input-sm" placeholder="To" />
-                            </div>
-                            <button class="btn btn-primary" [disabled]="validateSequences()" (click)="addItems()">Add</button>
-                            <a class="pull-right" style="cursor: pointer; margin-right: 15px">
-                                <img (click)="removeGroup()" src="{{imagesPath + 'delete.png'}}">
-                            </a>
-                        
+                        <div class="col-md-2">
+                            <input [(ngModel)]="group.From" class="form-control input-sm" placeholder="From" />
+                        </div>
+                        <div class="col-md-2">
+                            <input [(ngModel)]="group.To" class="form-control input-sm" placeholder="To" />
+                        </div>
+                        <a (click)="addItems()">
+                            Select
+                        </a>
                     </div>
                     <div class="row">
                         <div dnd-sortable-container [dropZones]="['drop-zone']" [sortableData]="group.Items">
@@ -45,6 +50,9 @@ import { ItemComponent }                                from './item.component';
                 .group-child{
                     margin: 15px;
                 }
+                a{
+                    cursor: pointer;
+                }
             `],
     providers: []
 })
@@ -59,6 +67,7 @@ export class ItemGroupComponent extends ItemComponent {
     onAddItems = new EventEmitter<GroupItem>();
     @Output()
     onRemoveGroup = new EventEmitter<GroupItem>();
+    sequenceOptions: [{ id: "1", text: "1" }, { id: "2", text: "2" }];
 
     constructor() {
         super();
@@ -77,5 +86,10 @@ export class ItemGroupComponent extends ItemComponent {
         if (this.group.To == null) return true;
         if (this.group.From >= this.group.To) return true;
         return false;
+    }
+
+    sequenceFromChange = (e: string) => {
+        if (e != null)
+            this.group.From = Number(e);
     }
 }
