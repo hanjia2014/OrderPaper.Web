@@ -39,7 +39,7 @@ import { AppSettings }      from '../settings/app.settings';
                                     </a>
                                     <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                                     <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
-                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'flag - section on front cover.png' : imagesPath + 'Not on front cover.png'}}">
+                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'on front cover.png' : imagesPath + 'Not on front cover.png'}}">
                                     </a>
                                 </div>
                             </div>
