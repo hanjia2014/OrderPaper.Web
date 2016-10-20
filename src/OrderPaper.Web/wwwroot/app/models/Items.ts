@@ -39,7 +39,8 @@ export class BillItem extends Item {
     IsCurrentSittingWeek: boolean;
     IsFollowingSittingWeek: boolean;
     IsMajorityAmendments: boolean;
-    IsExtendedSittingHours: boolean;
+    IsConsiderationItem: boolean;
+    IsBlank: boolean;
     Indication: string;
     Speeches: string;
     LatestEvent: string;

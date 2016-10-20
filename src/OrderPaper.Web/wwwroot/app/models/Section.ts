@@ -2,7 +2,7 @@
 
 export class Section {
     IsFrontPage: boolean;
-    Include: boolean;
+    IsIncluded: boolean;
     Name: string;
     Items: Array<Item>;
     Groups: Array<Array<Item>>;

@@ -33,7 +33,7 @@ import { ItemComponent }    from './item.component';
                         </div>
                         <div class="form-group col-md-1">
                             <label>&nbsp;</label>
-                            <img class="form-control undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            <img class="form-control undraggable nopadding noborder" height="10" src="{{imagesPath + 'left-arrow.png'}}" />
                         </div>
                         <div class="form-group col-md-5 nopadding">
                             <label>CPD</label>
@@ -43,23 +43,23 @@ import { ItemComponent }    from './item.component';
                     <div class="row nopadding">
                         <div class="form-group col-md-12 nopadding">
                             <div class="row nopadding">
-                                <input type="radio" [(ngModel)]="item.Indication" id="{{index + '-option1'}}" value="Bill's committee stage indicated for current sitting week" />
+                                <input type="checkbox" [(ngModel)]="item.IsCurrentSittingWeek" id="{{index + '-option1'}}" value="Bill's committee stage indicated for current sitting week" />
                                 <span>Bill's committee stage indicated for current sitting week</span>
                             </div>
                             <div class="row nopadding">
-                                <input type="radio" [(ngModel)]="item.Indication" id="{{index + '-option2'}}" name="Bill's committee stage indicated for following sitting week" value="Bill's committee stage indicated for following sitting week" />
+                                <input type="checkbox" [(ngModel)]="item.IsFollowingSittingWeek" id="{{index + '-option2'}}" name="Bill's committee stage indicated for following sitting week" value="Bill's committee stage indicated for following sitting week" />
                                 <span>Bill's committee stage indicated for following sitting week</span>
                             </div>
                             <div class="row nopadding">
-                                <input type="radio" [(ngModel)]="item.Indication" id="{{index + '-option3'}}" name="Bill contains majority amendments" value="Bill contains majority amendments" />
+                                <input type="checkbox" [(ngModel)]="item.IsMajorityAmendments" id="{{index + '-option3'}}" name="Bill contains majority amendments" value="Bill contains majority amendments" />
                                 <span>Bill contains majority amendments</span>
                             </div>
                             <div class="row nopadding">
-                                <input type="radio" [(ngModel)]="item.Indication" id="{{index + '-option4'}}" name="Item for consideration during extended" value="Item for consideration during extended" />
+                                <input type="checkbox" [(ngModel)]="item.IsConsiderationItem" id="{{index + '-option4'}}" name="Item for consideration during extended" value="Item for consideration during extended" />
                                 <span>Item for consideration during extended</span>
                             </div>
                             <div class="row nopadding">
-                                <input type="radio" [(ngModel)]="item.Indication" id="{{index + '-option5'}}" name="Blank (stage not showen on Order Paper)" value="Blank (stage not showen on Order Paper)" />
+                                <input type="checkbox" [(ngModel)]="item.IsBlank" id="{{index + '-option5'}}" name="Blank (stage not showen on Order Paper)" value="Blank (stage not showen on Order Paper)" />
                                 <span>Blank (stage not showen on Order Paper)</span>
                             </div>
                         </div>
