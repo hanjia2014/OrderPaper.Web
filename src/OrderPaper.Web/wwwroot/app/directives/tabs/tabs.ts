@@ -99,6 +99,7 @@ export class Tabs implements AfterContentInit {
     }
 
     createNewOrderPaper = () => {
+        this.tabs.forEach(tab => tab.active = tab.title == 'History');
         this.onCreateNewOrderPaper.emit();
     }
 }
