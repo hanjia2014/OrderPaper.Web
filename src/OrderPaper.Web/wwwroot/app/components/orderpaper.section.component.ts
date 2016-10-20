@@ -34,11 +34,11 @@ import { AppSettings }      from '../settings/app.settings';
                             <div class="drag-handle">
                                 <a (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <div class="pull-right">
-                                    <a>
+                                    <span style="cursor: pointer; cursor: hand;" >
                                         <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px; margin-right: 10px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
-                                    </a>
-                                    <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
-                                    <a data-placement="left" data-toggle="tooltip" data-original-title="Tooltip on top">
+                                    </span>
+                                    <img style="cursor: move;" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
+                                    <a>
                                         <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'on front cover.png' : imagesPath + 'Not on front cover.png'}}">
                                     </a>
                                 </div>
@@ -57,23 +57,7 @@ import { AppSettings }      from '../settings/app.settings';
                a{
                     cursor: pointer;
                 }
-                .collapsable {
-                    display: inline-block;
-                    overflow: hidden;
-                    height: 0;
-                    transition: height 1s ease;
-                    -webkit-transition: height 1s;        
-                    -moz-transition: height 1s;        
-                    -o-transition: height 1s;         
-                }
-            `],
-    animations: [
-        trigger('openClose', [
-            state('false', style({ height: '0px' })),
-            state('true', style({ height: AUTO_STYLE })),
-            transition('false <=> true', [ animate(100000) ])
-        ])
-    ],
+            `]
 })
 export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     @Input()
