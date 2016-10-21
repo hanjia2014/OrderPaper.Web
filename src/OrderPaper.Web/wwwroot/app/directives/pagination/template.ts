@@ -69,7 +69,7 @@ export const DEFAULT_STYLES = `
       background: #e6e6e6; }
   .ng2-pagination .current {
     padding: 0.1875rem 0.625rem;
-    background: #2199e8;
+    background: #2ebcc5;
     color: #fefefe;
     cursor: default; }
   .ng2-pagination .disabled {
