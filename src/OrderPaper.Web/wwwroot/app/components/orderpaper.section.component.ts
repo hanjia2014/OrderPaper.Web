@@ -43,7 +43,7 @@ import { AppSettings }      from '../settings/app.settings';
                                     </a>
                                 </div>
                             </div>
-                            <div id="{{index + '-section'}}" class="initially-hidden">
+                            <div id="{{index + '-section'}}" class="initially-hidden" style="width: 100%; margin-top: 15px;">
                                 <order-paper-section-details [index]="index" [section]="section"></order-paper-section-details>
                             </div>
                         </div>
