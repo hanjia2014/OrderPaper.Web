@@ -139,9 +139,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     selectOrderPaper = (id: string) => {
         this.orderPaperService.getOrderPaper(id).subscribe(
             (data: OrderPaperWrapper) => {
-                if (this.selectedOrderPaper == null) {
-                    this.selectedOrderPaper = new OrderPaper();
-                }
+                this.selectedOrderPaper = new OrderPaper();
                 var op = JSON.parse(data.OrderPaperJson);
                 (<any>Object).assign(this.selectedOrderPaper, op);
             },

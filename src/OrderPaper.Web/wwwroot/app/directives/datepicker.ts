@@ -54,7 +54,7 @@ export class DatePickerComponent implements AfterViewInit {
         var result = ""
         var result = input.replace(pattern, (match, p1, p2, p3) => {
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            result = p3 + "-" + months[(p1 - 1)] + "-" + (p2 < 10 ? "0" + p2 : p2);
+            result = p3 + "-" + p1 + "-" + (p2 < 10 ? "0" + p2 : p2);
             return result;
         });
 
