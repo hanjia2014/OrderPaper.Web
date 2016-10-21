@@ -61,9 +61,13 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 <div *ngIf="orderPaper.Id == null" class="pull-left">
                                     <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
                                 </div>
+                                <div *ngIf="orderPaper.Id != null" class="pull-left">
+                                    <div style="background-image: url('{{imagesPath + 'Progress arrow.png'}}')">
+                                        <img src="{{imagesPath + 'Preview progress not highlighted.png'}}">
+                                    </div>
+                                </div>
                                 <div class="pull-right">
                                     <a class="btn btn-parliament" (click)="save($event)">Save</a>
-                                    <a class="btn btn-parliament">Generate preview Order Papers</a>
                                 </div>
                             </div>
                         </div>

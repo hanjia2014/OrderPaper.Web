@@ -35,10 +35,10 @@ import { OrderPaperService }         from '../services/app.services';
                                             </a>
                                         </td>
                                         <td>
-                                            {{summary.Number}}
+                                            {{summary.Status}}
                                         </td>
                                         <td>
-                                            {{summary.Status}}
+                                            {{summary.Number}}
                                         </td>
                                         <td>
                                             <a>
