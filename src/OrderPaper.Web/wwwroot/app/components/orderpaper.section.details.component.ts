@@ -185,8 +185,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     }
 
     addItemsToGroup = (group: GroupItem, index: number) => {
-        var originalIndex = index;
-
+        var newIndex = index;
         this.removeGroup(group, index);
 
         var newGroup = new GroupItem();
@@ -196,6 +195,9 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         for (var i = this.section.Items.length - 1; i >= 0; i--) {
             var item = this.section.Items[i];
             if (item.Sequence >= newGroup.From && item.Sequence <= newGroup.To) {
+                if (item.Sequence == newGroup.From) {
+                    newIndex = i;
+                }
                 newGroup.Items.push(item);
                 this.section.Items.splice(i, 1);
             }
@@ -203,7 +205,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
 
         newGroup.Items = newGroup.Items.reverse();
 
-        this.section.Items.splice(originalIndex, 0, newGroup);
+        this.section.Items.splice(newIndex, 0, newGroup);
     }
 
     private getSequence = () => {
@@ -217,7 +219,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
             else if (item.Type == "Group") {
                 var group = <GroupItem>item;
                 for (var j = 0; j < group.Items.length; j++) {
-                    var item = this.section.Items[j];
+                    var item = group.Items[j];
                     var sequence = item.Sequence.toString();
                     list.push({ id: sequence, text: sequence });
                 }

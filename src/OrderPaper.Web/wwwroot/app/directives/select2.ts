@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewIn
 
 @Component({
     selector: 'select2',
-    template: `<input id="{{id}}" [style.width]= "width" class="{{cssClass=='' ? '' : cssClass}}"/>`,
+    template: `{{label}} <input id="{{id}}" [style.width]= "width" class="{{cssClass=='' ? '' : cssClass}}"/>`,
     styles: [],
     providers: []
 })
@@ -28,6 +28,8 @@ export class Select2Component implements AfterViewInit {
     cssClass: string;
     @Input()
     width: string;
+    @Input()
+    label: string;
 
     @Output() selected = new EventEmitter();
 

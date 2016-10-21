@@ -15,11 +15,11 @@ import { ItemComponent }                                from './item.component';
                         </a>
                     </p>
                     <div class="row">
-                        <div class="col-md-2">
-                            <input [(ngModel)]="group.From" class="form-control input-sm" placeholder="From" />
+                        <div class="col-md-4">
+                            <select2 [id]="groupIndex + '-group-from'" [label]="'From: '" [initialValue]="group.From" [width]="'125px'" [placeholder]="'From'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceFromChange($event)"></select2>
                         </div>
-                        <div class="col-md-2">
-                            <input [(ngModel)]="group.To" class="form-control input-sm" placeholder="To" />
+                        <div class="col-md-4">
+                            <select2 [id]="groupIndex + '-group-to'" [label]="'To: '" [initialValue]="group.To" [width]="'125px'" [placeholder]="'To'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceToChange($event)"></select2>
                         </div>
                         <a (click)="addItems()">
                             Select
@@ -92,5 +92,10 @@ export class ItemGroupComponent extends ItemComponent {
     sequenceFromChange = (e: string) => {
         if (e != null)
             this.group.From = Number(e);
+    }
+
+    sequenceToChange = (e: string) => {
+        if (e != null)
+            this.group.To = Number(e);
     }
 }
