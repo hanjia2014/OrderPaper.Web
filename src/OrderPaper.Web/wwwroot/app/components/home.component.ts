@@ -68,7 +68,7 @@ import { OrderPaperService }         from '../services/app.services';
                             </div>
                         </tab>
                     </tabs>
-                    <div style="background-color: #fdfdfd">
+                    <div style="background-color: #edecec">
                         <div class="container" style="padding-left: 10%;">
                             <order-paper-details [orderPaper]="selectedOrderPaper"></order-paper-details>
                         </div>

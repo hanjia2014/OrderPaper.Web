@@ -1,6 +1,11 @@
 ﻿body {
     background-color: #fdfdfd;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
 .panel-heading {
     /*cursor: move;*/
     min-height: 30px;

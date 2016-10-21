@@ -46,7 +46,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>             
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperSittingHours'" [enableSearch]="false" [initialValue]="orderPaper.SittingHours" [multiple]="false" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
-                                <img src="{{imagesPath + 'time.png'}}">
+                                <!--<img src="{{imagesPath + 'time.png'}}">-->
                             </div>             
                             <div class="col-md-2">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [width]="'125px'" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
@@ -62,11 +62,20 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                     <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
                                 </div>
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
-                                    <div style="background-image: url('{{imagesPath + 'Progress arrow.png'}}')">
-                                        <img src="{{imagesPath + 'Preview progress not highlighted.png'}}">
+                                    <div class="pointer" style="display: inline">
+                                        <img src="{{imagesPath + 'preview not highlighted with arrow.png'}}">
+                                    </div>
+                                    <div class="pointer" style="display: inline">
+                                        <img src="{{imagesPath + 'word not highlighted with arrow.png'}}">
+                                    </div>
+                                    <div class="pointer" style="display: inline">
+                                        <img src="{{imagesPath + 'print not highlighted with arrow.png'}}">
+                                    </div>
+                                    <div class="pointer" style="display: inline">
+                                        <img src="{{imagesPath + 'publish not highlighted with arrow.png'}}">
                                     </div>
                                 </div>
-                                <div class="pull-right">
+                                <div class="pull-right" style="padding-top: 10px;">
                                     <a class="btn btn-parliament" (click)="save($event)">Save</a>
                                 </div>
                             </div>
