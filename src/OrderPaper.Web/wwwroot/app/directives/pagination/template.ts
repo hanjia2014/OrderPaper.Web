@@ -70,7 +70,7 @@ export const DEFAULT_STYLES = `
     cursor: default; }
   .ng2-pagination .disabled {
     padding: 0.1875rem 0.625rem;
-    color: #cacaca;
+    color: white;
     cursor: default; } 
     .ng2-pagination .disabled:hover {
       background: transparent; }
