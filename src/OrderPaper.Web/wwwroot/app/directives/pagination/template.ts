@@ -53,20 +53,16 @@ export const DEFAULT_STYLES = `
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    font-size: 0.875rem;
     margin-right: 0.0625rem;
     border-radius: 0; }
   .ng2-pagination li {
     display: inline-block; }
   .ng2-pagination a,
   .ng2-pagination button {
-    color: #0a0a0a; 
+    color: white; 
     display: block;
     padding: 0.1875rem 0.625rem;
     border-radius: 0; }
-    .ng2-pagination a:hover,
-    .ng2-pagination button:hover {
-      background: #e6e6e6; }
   .ng2-pagination .current {
     padding: 0.1875rem 0.625rem;
     background: #2ebcc5;
@@ -81,7 +77,7 @@ export const DEFAULT_STYLES = `
   .ng2-pagination .ellipsis::after {
     content: '…';
     padding: 0.1875rem 0.625rem;
-    color: #0a0a0a; }
+    color: white; }
 
 .ng2-pagination .pagination-previous a::before,
 .ng2-pagination .pagination-previous.disabled::before { 
