@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../typings/bootstrap.v3.datetimepicker.d.ts" />
-import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewInit }    from '@angular/core';
-import { AppSettings }                                                                  from '../settings/app.settings';
+import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewInit, SimpleChanges } from '@angular/core';
+import { AppSettings }                                                                              from '../settings/app.settings';
 
 @Component({
     selector: 'date-picker',
@@ -26,9 +26,7 @@ export class DatePickerComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         if (this.initialValue) {
-            var date = new Date(this.initialValue.toString());
-            var dateStr = this.IncludeTime ? date.toLocaleString() : date.toLocaleDateString();
-            this.selectedDate = this.getFormattedDate(dateStr);
+            this.setDateValue();
         }
 
         var options = {
@@ -59,5 +57,19 @@ export class DatePickerComponent implements AfterViewInit {
         });
 
         return result;
+    }
+
+    private setDateValue() {
+        var date = new Date(this.initialValue.toString());
+        var dateStr = this.IncludeTime ? date.toLocaleString() : date.toLocaleDateString();
+        this.selectedDate = this.getFormattedDate(dateStr);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['initialValue'].currentValue == undefined)
+            this.selectedDate = null;
+        else {
+            this.setDateValue();
+        }
     }
 }

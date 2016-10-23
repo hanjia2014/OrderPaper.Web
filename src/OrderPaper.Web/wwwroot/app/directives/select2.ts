@@ -1,5 +1,5 @@
 ﻿/// <reference path="../../typings/select2.d.ts" />
-import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewInit, SimpleChanges } from '@angular/core';
 
 @Component({
     selector: 'select2',
@@ -74,6 +74,14 @@ export class Select2Component implements AfterViewInit {
             $("#" + this.id).val(this.initialValue).trigger("change");
         }
     }
+
+    ngOnChanges(changes: SimpleChanges) {
+        //if (changes['initialValue'] != null && changes['initialValue'].currentValue == undefined) {
+        //    var input = $("#" + this.id);
+        //    input.select2('data', null);
+        //}
+    }
+
     constructor() {
         
     }
