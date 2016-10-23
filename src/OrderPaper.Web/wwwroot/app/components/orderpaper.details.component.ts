@@ -62,17 +62,17 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                     <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
                                 </div>
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
-                                    <div class="pointer" style="display: inline">
-                                        <img src="{{imagesPath + 'preview not highlighted with arrow.png'}}">
+                                    <div style="display: inline">
+                                        <img class="pointer" src="{{imagesPath + 'preview not highlighted with arrow.png'}}">
                                     </div>
-                                    <div class="pointer" style="display: inline">
-                                        <img src="{{imagesPath + 'word not highlighted with arrow.png'}}">
+                                    <div style="display: inline">
+                                        <img class="pointer" src="{{imagesPath + 'word not highlighted with arrow.png'}}">
                                     </div>
-                                    <div class="pointer" style="display: inline">
-                                        <img src="{{imagesPath + 'print not highlighted with arrow.png'}}">
+                                    <div style="display: inline">
+                                        <img class="pointer" src="{{imagesPath + 'print not highlighted with arrow.png'}}">
                                     </div>
-                                    <div class="pointer" style="display: inline">
-                                        <img src="{{imagesPath + 'publish not highlighted with arrow.png'}}">
+                                    <div style="display: inline">
+                                        <img class="pointer" src="{{imagesPath + 'publish not highlighted with arrow.png'}}">
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
