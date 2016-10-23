@@ -34,7 +34,7 @@ import { AppSettings }      from '../settings/app.settings';
                             <div class="drag-handle">
                                 <a (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <div class="pull-right">
-                                    <span style="cursor: pointer; cursor: hand;" >
+                                    <span style="cursor: pointer; cursor: hand;">
                                         <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px; margin-right: 10px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
                                     </span>
                                     <img style="cursor: move;" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
@@ -80,7 +80,6 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        //$('[data-toggle="tooltip"]').tooltip();
     }
 
     selectSection = () => {
