@@ -76,10 +76,12 @@ export class Select2Component implements AfterViewInit {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        //if (changes['initialValue'] != null && changes['initialValue'].currentValue == undefined) {
-        //    var input = $("#" + this.id);
-        //    input.select2('data', null);
-        //}
+        if (changes['initialValue'] != null && changes['initialValue'].currentValue == undefined) {
+            $("#" + this.id).select2('val', '');
+        }
+        else if (changes['initialValue'] != null && changes['initialValue'].currentValue != undefined) {
+            $("#" + this.id).select2('val', changes['initialValue'].currentValue);
+        }
     }
 
     constructor() {
