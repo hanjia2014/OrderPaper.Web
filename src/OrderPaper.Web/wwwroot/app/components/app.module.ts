@@ -15,6 +15,7 @@ import { Sortable }                                     from '../directives/sort
 import { Collapse }                                     from '../directives/collapse';
 import { Ng2PaginationModule }                          from '../directives/pagination/ng2-pagination';
 import { FroalaEditorDirective, FroalaViewDirective }   from '../directives/froala-editor/froala.directives';
+import { NKDatetimeModule }                             from '../directives/datetime/ng2-datetime.module';
 import { routing }                                      from './app.routes';
 import { MasterComponent }                              from './master.component';
 import { HomeComponent }                                from './home.component';
@@ -34,6 +35,7 @@ import { ItemGroupComponent }                           from './items/item.group
         HttpModule,
         FormsModule,
         Ng2PaginationModule,
+        NKDatetimeModule,
         routing
     ],
     declarations:

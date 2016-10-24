@@ -43,6 +43,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <div class="row">
                             <div class="col-md-3">
                                 <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
+                                <!--<datetime [timepicker]="false" [(ngModel)]="orderPaper.SittingDay" [initialValue]="orderPaper.SittingDay" [datepicker]="{ format: 'd M yyyy' }"></datetime>-->
                             </div>             
                             <div class="col-md-3">
                                 <select2 [id]="'orderPaperSittingHours'" [enableSearch]="false" [initialValue]="orderPaper.SittingHours" [multiple]="false" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
