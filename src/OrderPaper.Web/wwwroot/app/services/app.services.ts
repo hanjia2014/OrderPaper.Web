@@ -17,7 +17,7 @@ export class OrderPaperService implements IOrderPaperService {
     }
 
     getOrderPaperList = (): Observable<Array<OrderPaperWrapper>> => {
-        return this.http.get(AppSettings.API_ENDPOINT + location.search).map((res: Response) => {
+        return this.http.get(AppSettings.API_ENDPOINT + AppSettings.SP_HOST).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -27,7 +27,7 @@ export class OrderPaperService implements IOrderPaperService {
     }
 
     getOrderPaper = (id: string): Observable<OrderPaperWrapper> => {
-        return this.http.get(AppSettings.API_ENDPOINT + '/' + id + location.search).map((res: Response) => {
+        return this.http.get(AppSettings.API_ENDPOINT + '/' + id + AppSettings.SP_HOST).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -47,7 +47,7 @@ export class OrderPaperService implements IOrderPaperService {
         wrapper.Status = orderPaper.Status;
         wrapper.OrderPaperJson = JSON.stringify(orderPaper);
 
-        return this.http.post(AppSettings.API_ENDPOINT + location.search, wrapper, options).map((res: Response) => {
+        return this.http.post(AppSettings.API_ENDPOINT + AppSettings.SP_HOST, wrapper, options).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
