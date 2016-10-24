@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--custom-->
-    <link href="content/css/screen.css" rel="stylesheet" />
+    <!--<link href="content/css/screen.css" rel="stylesheet" />-->
     <!--jquery-->
     <script src="content/scripts/vendors/tether.min.js"></script>
     <script src="content/scripts/vendors/jquery-1.12.4.min.js"></script>
@@ -49,8 +49,13 @@
     <base href="/">
 </head>
 <body>
-    <div class="container body-content">
+    <div>
         <app>loading...</app>
     </div>
+    <script>
+        $(function () {
+            $(document).tooltip();
+        });
+    </script>
 </body>
 </html>

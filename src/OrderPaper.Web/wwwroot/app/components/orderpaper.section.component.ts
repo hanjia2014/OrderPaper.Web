@@ -34,11 +34,11 @@ import { AppSettings }      from '../settings/app.settings';
                             <div class="drag-handle">
                                 <a (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <div class="pull-right">
-                                    <span style="cursor: pointer; cursor: hand;">
+                                    <span title="Include in order paper" style="cursor: pointer; cursor: hand;">
                                         <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px; margin-right: 10px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
                                     </span>
                                     <img style="cursor: move;" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
-                                    <a>
+                                    <a title="Show on front page">
                                         <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'on front cover.png' : imagesPath + 'Not on front cover.png'}}">
                                     </a>
                                 </div>
