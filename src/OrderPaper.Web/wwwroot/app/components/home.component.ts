@@ -142,6 +142,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 this.selectedOrderPaper = new OrderPaper();
                 var op = JSON.parse(data.OrderPaperJson);
                 (<any>Object).assign(this.selectedOrderPaper, op);
+                this.selectedOrderPaper.Id = data.Id;
             },
             (err: any) => this.error = err);
     }
