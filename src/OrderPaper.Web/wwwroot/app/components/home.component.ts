@@ -1,8 +1,9 @@
-﻿import { Component, OnInit, NgZone } from '@angular/core';
-import { BaseComponent }             from './base.component';
-import { OrderPaper }                from '../models/orderpaper';
-import { OrderPaperWrapper }         from '../models/orderpaperwrapper';
-import { OrderPaperService }         from '../services/app.services';
+﻿import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { BaseComponent }                        from './base.component';
+import { Tabs }                                 from '../directives/tabs/tabs';
+import { OrderPaper }                           from '../models/orderpaper';
+import { OrderPaperWrapper }                    from '../models/orderpaperwrapper';
+import { OrderPaperService }                    from '../services/app.services';
 
 @Component({
     selector: 'home',
@@ -106,6 +107,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
     error: any;
     orderPaperSummary: Array<OrderPaperWrapper> = new Array<OrderPaperWrapper>();
     listElm: HTMLElement = document.getElementById("spinner");
+    @ViewChild(Tabs)
+    tabs: Tabs;
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -137,6 +140,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 (<any>Object).assign(this.selectedOrderPaper, op);
                 this.selectedOrderPaper.Id = data.Id;
                 this.spinner.stop();
+                this.tabs.collapseAll();
             },
             (err: any) => this.error = err);
     }

@@ -49,7 +49,7 @@ import { AppSettings }      from '../settings/app.settings';
                         </div>
                     </div>
                     <a [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">
-                        <img style="padding: 15px;" src="{{imagesPath + 'delete.png'}}">
+                        <img style="padding: 15px;" title="Delete section" src="{{imagesPath + 'delete.png'}}">
                     </a>
                 </div>
                 `,

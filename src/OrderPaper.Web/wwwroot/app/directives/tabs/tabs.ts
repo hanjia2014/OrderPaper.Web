@@ -102,4 +102,8 @@ export class Tabs implements AfterContentInit {
         this.tabs.forEach(tab => tab.active = tab.title == 'History');
         this.onCreateNewOrderPaper.emit();
     }
+
+    collapseAll = () => {
+        this.tabs.forEach(tab => tab.active = false);
+    }
 }
