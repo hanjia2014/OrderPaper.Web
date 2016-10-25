@@ -29,7 +29,7 @@ import { AppSettings }      from '../settings/app.settings';
     selector: 'order-paper-section',
     template: `
                 <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
-                    <div class="col-md-8 panel panel-default margin-left-15" [class.highlight-section]="isSelected">
+                    <div class="col-md-11 panel panel-default margin-left-15" [class.highlight-section]="isSelected">
                         <div class="panel-body no-padding-left">
                             <div class="drag-handle">
                                 <a (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>

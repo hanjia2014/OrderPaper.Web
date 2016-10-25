@@ -82,7 +82,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 </div>
                             </div>
                         </div>
-                        <div class="container row" style="margin-top: 30px;">
+                        <div class="container row detail-block">
                             <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
                                 <li *ngFor="let section of orderPaper.Sections; let i = index" class="item-li">
                                     <order-paper-section [section]="section" [index]="i" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event, i)" (onDeleteSection)="deleteSection($event)"></order-paper-section>

@@ -6,6 +6,13 @@
 .highlight-section {
     border-color: #f5bc11;
 }
+.detail-block{
+    margin-top: 30px;
+    margin-left: -40px;
+    padding-top: 15px;
+    background-color: white;
+    width: 850px;
+}
 
 .group-icon{
     cursor: pointer; 
