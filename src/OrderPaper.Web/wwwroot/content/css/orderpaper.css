@@ -2,6 +2,11 @@
     background-color: #edecec;
 }
 
+.ui-sortable-helper,
+.highlight-section {
+    border-color: #f5bc11;
+}
+
 .pointer {
     cursor: pointer;
 }
@@ -65,25 +70,25 @@ ol, ul {
 }
 
 .btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-      touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
 .btn-parliament {
@@ -92,17 +97,17 @@ ol, ul {
     background-color: white;
 }
 
-.btn-parliament:hover {
-    border-color: #abded2;
-    color: #333;
-    background-color: #abded2;
-}
+    .btn-parliament:hover {
+        border-color: #abded2;
+        color: #333;
+        background-color: #abded2;
+    }
 
-.btn-parliament:active {
-    border-color: #abded2;
-    color: #333;
-    background-color: #abded2;
-}
+    .btn-parliament:active {
+        border-color: #abded2;
+        color: #333;
+        background-color: #abded2;
+    }
 
 .initially-hidden {
     display: none;
