@@ -10,6 +10,7 @@ import { Response }                         from '@angular/http';
 import { BaseComponent }                    from './base.component';
 import { OrderPaperSectionComponent }       from './orderpaper.section.component';
 import { OrderPaperService }                from '../services/app.services';
+import { AppSettings }                      from '../settings/app.settings';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section }                          from '../models/section';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
@@ -64,16 +65,16 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 </div>
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + 'preview not highlighted with arrow.png'}}">
+                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Progress' ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + 'word not highlighted with arrow.png'}}">
+                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Word' ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + 'print not highlighted with arrow.png'}}">
+                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Print' ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + 'publish not highlighted with arrow.png'}}">
+                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Publish' ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png')}}">
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
@@ -131,6 +132,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
+
     }
 
     ngAfterViewInit() {
@@ -144,10 +146,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 $('.item-li').attr("draggable", "true");
                 console.log("blur");
             });
-
+        
         //$('.item-li').draggable({ cancel: 'a' });
     }
-
     dateChange = (value: Date) => {
         this.orderPaper.SittingDay = value;
     }
