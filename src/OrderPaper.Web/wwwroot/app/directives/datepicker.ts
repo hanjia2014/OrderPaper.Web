@@ -18,19 +18,19 @@ export class DatePickerComponent implements AfterViewInit {
     @Input()
     IncludeTime: boolean;
     @Input()
-    initialValue: Date;
+    initialValue: string;
     @Output()
-    onValueChange = new EventEmitter<Date>();
+    onValueChange = new EventEmitter<string>();
     imagePath: string = AppSettings.IMAGE_PATH;
     selectedDate: string;
 
     ngAfterViewInit() {
         if (this.initialValue) {
-            this.setDateValue();
+            this.selectedDate = this.initialValue;
         }
 
         var options = {
-            format: this.IncludeTime ? 'YYYY-MMM-DD HH:mm:ss' : 'YYYY-MMM-DD',
+            format: this.IncludeTime ? 'DD-MMM-YYYY HH:mm:ss' : 'DD-MMM-YYYY',
             pick12HourFormat: true,
             pickTime: this.IncludeTime,
         };
@@ -38,9 +38,7 @@ export class DatePickerComponent implements AfterViewInit {
         var elem = $("#" + this.id);
         elem.datetimepicker(options).on("change", (e: any) => {
             var date = e.delegateTarget.children[0].value;
-
-
-            this.onValueChange.next(new Date(date));
+            this.onValueChange.next(date);
         });
     }
     constructor() {
@@ -55,17 +53,11 @@ export class DatePickerComponent implements AfterViewInit {
         return year + '-' + months[month - 1] + '-' + day;
     }
 
-    private setDateValue() {
-        var date = new Date(this.initialValue.toString());
-        var dateStr = this.IncludeTime ? date.toLocaleString() : date.toLocaleDateString();
-        this.selectedDate = this.getFormattedDate(date);
-    }
-
     ngOnChanges(changes: SimpleChanges) {
         if (changes['initialValue'].currentValue == undefined)
             this.selectedDate = null;
         else {
-            this.setDateValue();
+            this.selectedDate = this.initialValue;
         }
     }
 }

@@ -149,7 +149,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         
         //$('.item-li').draggable({ cancel: 'a' });
     }
-    dateChange = (value: Date) => {
+    dateChange = (value: string) => {
         this.orderPaper.SittingDay = value;
     }
 

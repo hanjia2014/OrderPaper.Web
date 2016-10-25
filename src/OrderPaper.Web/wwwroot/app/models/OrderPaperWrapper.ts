@@ -1,6 +1,6 @@
 ﻿export class OrderPaperWrapper {
     Id: number;
-    SittingDay: Date;
+    SittingDay: string;
     Status: string;
     Number: number;
     OrderPaperJson: string;

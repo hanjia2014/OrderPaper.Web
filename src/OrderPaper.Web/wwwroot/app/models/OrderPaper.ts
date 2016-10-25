@@ -4,7 +4,7 @@ import { Section }                                  from './Section';
 
 export class OrderPaper {
     Id: number;
-    SittingDay: Date;
+    SittingDay: string;
     Status: string;
     Number: number;
     SittingHours: string;

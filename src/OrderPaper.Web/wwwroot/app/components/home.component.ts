@@ -31,7 +31,7 @@ import { OrderPaperService }         from '../services/app.services';
                                                 <span style="margin-right: 5px;">
                                                     <img src="{{imagesPath + 'open.png'}}">
                                                 </span>
-                                                {{summary.SittingDay | date: 'dd-MMM-yyyy'}}
+                                                {{summary.SittingDay}}
                                             </a>
                                         </td>
                                         <td>
