@@ -65,16 +65,16 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 </div>
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Progress' ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
+                                        <img class="pointer" (click)="progress('Progress')" src="{{imagesPath + (orderPaper.Progress == 'Progress' ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Word' ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png')}}">
+                                        <img class="pointer" (click)="progress('Word')" src="{{imagesPath + (orderPaper.Progress == 'Word' ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Print' ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png')}}">
+                                        <img class="pointer" (click)="progress('Print')" src="{{imagesPath + (orderPaper.Progress == 'Print' ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" src="{{imagesPath + (orderPaper.Progress == 'Publish' ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png')}}">
+                                        <img class="pointer" (click)="progress('Publish')" src="{{imagesPath + (orderPaper.Progress == 'Publish' ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png')}}">
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
@@ -205,6 +205,10 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     cancel = () => {
         this.deletingType = "orderpaper";
         this.modal.open();
+    }
+
+    progress = (value: string) => {
+        this.orderPaper.Progress = value;
     }
     //modal
     opened() {
