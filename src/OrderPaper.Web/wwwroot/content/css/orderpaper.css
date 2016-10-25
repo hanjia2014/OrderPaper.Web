@@ -7,6 +7,12 @@
     border-color: #f5bc11;
 }
 
+.group-icon{
+    cursor: pointer; 
+    position: absolute; 
+    z-index: 2;
+}
+
 .pointer {
     cursor: pointer;
 }
