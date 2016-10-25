@@ -23,7 +23,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                     <div *ngIf="orderPaper">
                         <div class="row">
                             <div class="col-md-3">
-                                <h3>Order paper details</h3>
+                                <h3>Order Paper details</h3>
                                 <br/>
                             </div>
                         </div>
@@ -32,7 +32,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Date
                             </div>
                             <div class="col-md-3">
-                                Sitting Hours
+                                Sitting hours
                             </div>
                             <div class="col-md-2">
                                 Status

@@ -18,34 +18,34 @@ import { OrderPaperService }         from '../services/app.services';
                                 <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
                                         <tr class="header-green-text">
+                                            <th>Number</th>
                                             <th>Sitting day</th>
                                             <th>Status</th>
-                                            <th>Number</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let summary of orderPaperSummary | paginate: { itemsPerPage: 15, currentPage: p }" class="header-white-text" [class.header-select-highlight]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id">
-                                        <td>
-                                            <a class="header-table-link" (click)="selectOrderPaper(summary.Id)">
-                                                <span style="margin-right: 5px;">
-                                                    <img src="{{imagesPath + 'open.png'}}">
-                                                </span>
-                                                {{summary.SittingDay}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            {{summary.Status}}
-                                        </td>
-                                        <td>
-                                            {{summary.Number}}
-                                        </td>
-                                        <td>
-                                            <a>
-                                                <img src="{{imagesPath + 'delete.png'}}" (click)="deleteOrderPaper(summary.Id)">
-                                            </a>
-                                        </td>
-                                      </tr>
+                                        <tr *ngFor="let summary of orderPaperSummary | paginate: { itemsPerPage: 15, currentPage: p }" class="header-white-text" [class.header-select-highlight]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id">
+                                            <td>
+                                                {{summary.Number}}
+                                            </td>
+                                            <td>
+                                                <a class="header-table-link" (click)="selectOrderPaper(summary.Id)">
+                                                    <span style="margin-right: 5px;">
+                                                        <img src="{{imagesPath + 'open.png'}}">
+                                                    </span>
+                                                    {{summary.SittingDay}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{summary.Status}}
+                                            </td>
+                                            <td>
+                                                <a>
+                                                    <img src="{{imagesPath + 'delete.png'}}" (click)="deleteOrderPaper(summary.Id)">
+                                                </a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <div id="spinner"></div>
@@ -55,17 +55,6 @@ import { OrderPaperService }         from '../services/app.services';
                             </div>
                         </tab>
                         <tab [title]="'Search'" (onActiveChange)="onCheckTabMode($event)">
-                            <vertical-menu></vertical-menu>
-                        </tab>
-                        <tab [title]="'Preview'" (onActiveChange)="onCheckTabMode($event)">
-                            <div class=" form row">
-                                <a class="btn btn-lg save-button pull-right" (click)="printPreview($event)">
-                                    <span class="glyphicon glyphicon-print"></span> Print
-                                </a>
-                                <a class="btn btn-lg save-button pull-left" (click)="openPreview($event)">
-                                    <span class="glyphicon glyphicon-print"></span> Open
-                                </a>
-                            </div>
                         </tab>
                     </tabs>
                     <div style="background-color: #edecec">
