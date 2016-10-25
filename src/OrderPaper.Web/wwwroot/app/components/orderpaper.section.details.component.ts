@@ -138,12 +138,15 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
                 break;
             case "Bill":
                 item = new BillItem();
+                (<BillItem>item).Sequence = this.getNextSequenceNumber();
                 break;
             case "Report":
                 item = new ReportItem();
+                (<ReportItem>item).Sequence = this.getNextSequenceNumber();
                 break;
             case "Motion":
                 item = new MotionItem();
+                (<MotionItem>item).Sequence = this.getNextSequenceNumber();
                 break;
             case "Subheading":
                 item = new SubHeadingItem();
@@ -151,6 +154,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         }
         if (item != null) {
             this.section.Items.push(item);
+            this.getSequence();
         }
     }
     deleteLine = (line: LineItem, index: number) => {
@@ -208,20 +212,36 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         this.section.Items.splice(newIndex, 0, newGroup);
     }
 
+    private getNextSequenceNumber = () => {
+        if (this.section.Items == null || this.section.Items.length == 0)
+            return 1;
+        for (var i = this.section.Items.length - 1; i >= 0; i--) {
+            var item = this.section.Items[i];
+            if (item.IsBusinessItem)
+                return item.Sequence + 1;
+            if (item.Type == "Group")
+                return (<GroupItem>item).To + 1;
+        }
+    }
+
     private getSequence = () => {
         var list = [];
         for (var i = 0; i < this.section.Items.length; i++) {
             var item = this.section.Items[i];
             if (item.IsBusinessItem) {
-                var sequence = item.Sequence.toString();
-                list.push({ id: sequence, text: sequence });
+                if (item.Sequence != null) {
+                    var sequence = item.Sequence.toString();
+                    list.push({ id: sequence, text: sequence });
+                }
             }
             else if (item.Type == "Group") {
                 var group = <GroupItem>item;
                 for (var j = 0; j < group.Items.length; j++) {
                     var item = group.Items[j];
-                    var sequence = item.Sequence.toString();
-                    list.push({ id: sequence, text: sequence });
+                    if (item.Sequence != null) {
+                        var sequence = item.Sequence.toString();
+                        list.push({ id: sequence, text: sequence });
+                    }
                 }
             }
         }

@@ -35,7 +35,7 @@ export class Select2Component implements AfterViewInit {
 
     ngAfterViewInit() {
         var options = {
-            placeholder: this.placeholder ? this.placeholder : "Please select",
+            placeholder: this.placeholder ? this.placeholder : "Select",
             dropdownAutoWidth: true,
             allowClear: true,
             data: this.data,
