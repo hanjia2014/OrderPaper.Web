@@ -48,7 +48,7 @@ import { OrderPaperService }         from '../services/app.services';
                                       </tr>
                                     </tbody>
                                 </table>
-                                
+                                <div id="spinner"></div>
                                 <div *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0">
                                     <pagination-controls class="pull-right" (pageChange)="p = $event"></pagination-controls>
                                 </div>
@@ -116,6 +116,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     selectedOrderPaper: OrderPaper;
     error: any;
     orderPaperSummary: Array<OrderPaperWrapper> = new Array<OrderPaperWrapper>();
+    listElm: HTMLElement = document.getElementById("spinner");
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -125,9 +126,11 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     getOrderPaperSummary = () => {
+        this.spinner.spin(this.listElm);
         this.orderPaperService.getOrderPaperList().subscribe(
             (data: Array<OrderPaperWrapper>) => {
                 (<any>Object).assign(this.orderPaperSummary, data);
+                this.spinner.stop();
             },
             (err: any) => this.error = err);
     }
@@ -137,12 +140,14 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     selectOrderPaper = (id: string) => {
+        this.spinner.spin(this.listElm);
         this.orderPaperService.getOrderPaper(id).subscribe(
             (data: OrderPaperWrapper) => {
                 this.selectedOrderPaper = new OrderPaper();
                 var op = JSON.parse(data.OrderPaperJson);
                 (<any>Object).assign(this.selectedOrderPaper, op);
                 this.selectedOrderPaper.Id = data.Id;
+                this.spinner.stop();
             },
             (err: any) => this.error = err);
     }

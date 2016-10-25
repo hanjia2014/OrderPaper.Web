@@ -1,4 +1,5 @@
-﻿/// <reference path="../../typings/jquery.d.ts" />
+﻿/// <reference path="../../typings/spin.d.ts" />
+/// <reference path="../../typings/jquery.d.ts" />
 import { AfterViewInit, NgZone }    from '@angular/core';
 import { ITogglable }               from '../interfaces/app.interfaces';
 import { AppSettings }              from '../settings/app.settings';
@@ -9,6 +10,7 @@ export abstract class BaseComponent implements AfterViewInit, ITogglable {
     isExpand: boolean;
     private zone: NgZone;
     imagesPath: string = AppSettings.IMAGE_PATH;
+    spinner: Spinner = new Spinner({ radius: 10 });
 
     constructor() {
         this.IsNumberedList = true;
