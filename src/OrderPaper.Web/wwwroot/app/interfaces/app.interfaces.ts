@@ -11,4 +11,5 @@ export interface IOrderPaperService {
     getOrderPaperList: () => Observable<OrderPaperWrapper[]>;
     getOrderPaper: (id: string) => Observable<OrderPaperWrapper>;
     save: (orderPaper: OrderPaper) => Observable<Response>;
+    update: (orderPaper: OrderPaper) => Observable<Response>;
 }

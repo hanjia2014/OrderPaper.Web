@@ -193,9 +193,23 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     save = (e: any) => {
+        if (this.orderPaper.Id != null) {
+            this.update(e);
+            return;
+        }
         var paperString = JSON.stringify(this.orderPaper);
         e.preventDefault();
         this.orderPaperService.save(this.orderPaper).subscribe(
+            (data: Response) => {
+
+            },
+            (err: any) => this.error = err);
+    }
+
+    update = (e: any) => {
+        var paperString = JSON.stringify(this.orderPaper);
+        e.preventDefault();
+        this.orderPaperService.update(this.orderPaper).subscribe(
             (data: Response) => {
 
             },
