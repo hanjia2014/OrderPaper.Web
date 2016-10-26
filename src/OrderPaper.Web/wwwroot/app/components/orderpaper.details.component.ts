@@ -87,8 +87,8 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Sections
                             </span>
                             <br/>
-                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [data]="dummySectionOptions" [disableMultipleSelection]="true"></select2>
-                            <a class="pointer">Add section</a>
+                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [data]="dummySectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
+                            <a class="pointer" (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
                             <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
@@ -123,6 +123,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     dummySectionOptions = [{ id: "option 1", text: "option 1" }, { id: "option 2", text: "option 2" }];
     sectionDeleteIndex: number;
     isRemoveVisible: boolean;
+    addSection: string;
     //modal
     @ViewChild('modal')
     modal: ModalComponent;
@@ -183,9 +184,18 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.orderPaper.Status = e;
     }
 
+    addSectionChange = (e: string) => {
+        if (e != null)
+            this.addSection = e;
+    }
+
     sittingHoursChange = (e: string) => {
         if (e != null)
             this.orderPaper.SittingHours = e;
+    }
+
+    addSelectedSection = () => {
+        console.log(this.addSection);
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
