@@ -83,6 +83,14 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                         </div>
                         <div class="container row detail-block">
+                            <span>
+                                Sections
+                            </span>
+                            <br/>
+                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [data]="dummySectionOptions" [disableMultipleSelection]="true"></select2>
+                            <a class="pointer">Add section</a>
+                            <div class="spacer">
+                            </div>
                             <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
                                 <li *ngFor="let section of orderPaper.Sections; let i = index" class="item-li">
                                     <order-paper-section [section]="section" [index]="i" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event, i)" (onDeleteSection)="deleteSection($event)"></order-paper-section>
@@ -112,6 +120,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     sittingHoursOptions = [{ id: "2pm - 6pm", text: "2pm - 6pm" }, { id: "7:30pm - 10pm", text: "7:30pm - 10pm" }];
+    dummySectionOptions = [{ id: "option 1", text: "option 1" }, { id: "option 2", text: "option 2" }];
     sectionDeleteIndex: number;
     isRemoveVisible: boolean;
     //modal
