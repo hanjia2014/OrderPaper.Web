@@ -8,10 +8,11 @@
 }
 .detail-block{
     margin-top: 30px;
-    margin-left: -40px;
+    margin-left: -50px;
     padding-top: 15px;
     background-color: white;
-    width: 850px;
+    width: 880px;
+    padding-left:40px;
 }
 
 .group-icon{
