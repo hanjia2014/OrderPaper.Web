@@ -154,7 +154,6 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         }
         if (item != null) {
             this.section.Items.push(item);
-            this.getSequence();
         }
     }
     deleteLine = (line: LineItem, index: number) => {
