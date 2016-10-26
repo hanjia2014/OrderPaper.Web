@@ -2,4 +2,5 @@
 
 export class ItemComponent {
     imagesPath: string = AppSettings.IMAGE_PATH;
+    toggleId: string;
 }

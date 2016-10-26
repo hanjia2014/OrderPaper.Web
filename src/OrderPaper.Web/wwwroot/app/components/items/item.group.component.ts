@@ -31,13 +31,13 @@ import { ItemComponent }                                from './item.component';
                                 <li class="panel panel-default item-li group-child" *ngFor="let item of group.Items; let i = index" dnd-sortable [sortableIndex]="i">
                                     <div class="panel-body">
                                         <span *ngIf="item.Type == 'Bill'">
-                                            <item-bill [index]="i" [item]="item" [isGroupChild]="true"></item-bill>
+                                            <item-bill [index]="i" [item]="item" [groupIndex]="groupIndex" [isGroupChild]="true"></item-bill>
                                         </span>
                                         <span *ngIf="item.Type == 'Report'">
-                                            <item-report [index]="i" [item]="item" [isGroupChild]="true"></item-report>
+                                            <item-report [index]="i" [item]="item" [groupIndex]="groupIndex" [isGroupChild]="true"></item-report>
                                         </span>
                                         <span *ngIf="item.Type == 'Motion'">
-                                            <item-motion [index]="i" [item]="item" [isGroupChild]="true"></item-motion>
+                                            <item-motion [index]="i" [item]="item" [groupIndex]="groupIndex" [isGroupChild]="true"></item-motion>
                                         </span>
                                     </div>
                                 </li>

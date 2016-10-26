@@ -14,7 +14,7 @@ import { ItemComponent }    from './item.component';
                 <div class="report">
                     <div class="row">
                         <div class="col-md-10">
-                            <a href="#" (click)="toggle($event, index + '-report')">{{item.Title}}</a>
+                            <a href="#" (click)="toggle($event, toggleId)">{{item.Title}}</a>
                         </div>
                         <div class="col-md-2">
                             <div class="pull-right">
@@ -23,7 +23,7 @@ import { ItemComponent }    from './item.component';
                             </div>
                         </div>
                     </div>
-                    <div id="{{index + '-report'}}" class="initially-hidden">
+                    <div id="{{toggleId}}" class="initially-hidden">
                         <br />
                         <div class="form-group col-md-5 nopadding">
                             <label>Title</label>
@@ -43,12 +43,19 @@ export class ItemReportComponent extends ItemComponent implements OnInit, AfterV
     isExpand: boolean;
     @Input()
     isGroupChild: boolean = false;
-
+    @Input()
+    groupIndex: number;
+    
     constructor() {
         super();
     }
     ngOnInit() {
-        
+        if (this.isGroupChild) {
+            this.toggleId = this.index + '-' + this.groupIndex + '-report';
+        }
+        else {
+            this.toggleId = this.index + '-report';
+        }
     }
 
     ngAfterViewInit() {

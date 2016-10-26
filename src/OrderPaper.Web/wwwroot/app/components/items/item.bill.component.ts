@@ -16,7 +16,7 @@ import { ItemComponent }    from './item.component';
             <div class="bill">
                 <div class="row">
                     <div class="col-md-10">
-                        <a href="#" (click)="toggle($event, index + '-bill')">{{item.Title}}</a>
+                        <a href="#" (click)="toggle($event, toggleId)">{{item.Title}}</a>
                     </div>
                     <div class="col-md-2">
                         <div class="pull-right">
@@ -25,7 +25,7 @@ import { ItemComponent }    from './item.component';
                         </div>
                     </div>
                 </div>
-                <div id="{{index + '-bill'}}" class="initially-hidden">
+                <div id="{{toggleId}}" class="initially-hidden">
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding">
                             <label>Title</label>
@@ -93,12 +93,21 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     billTitleOptions: any;
     @Input()
     isGroupChild: boolean = false;
+    @Input()
+    groupIndex: number;
 
     constructor() {
         super();
     }
     ngOnInit() {
         this.billTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
+
+        if (this.isGroupChild) {
+            this.toggleId = this.index + '-' + this.groupIndex + '-bill';
+        }
+        else {
+            this.toggleId = this.index + '-bill';
+        }
     }
 
     addGroup() {
