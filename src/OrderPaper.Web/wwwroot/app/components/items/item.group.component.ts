@@ -31,7 +31,7 @@ import { ItemComponent }                                from './item.component';
                                 <li class="panel panel-default item-li group-child" *ngFor="let item of group.Items; let i = index" dnd-sortable [sortableIndex]="i">
                                     <div class="panel-body">
                                         <span *ngIf="item.Type == 'Bill'">
-                                            <item-bill [index]="i" [item]="item" [isGroupChild]="true" (onAddGroup)="addGroup($event, i)"></item-bill>
+                                            <item-bill [index]="i" [item]="item" [isGroupChild]="true"></item-bill>
                                         </span>
                                         <span *ngIf="item.Type == 'Report'">
                                             <item-report [index]="i" [item]="item" [isGroupChild]="true"></item-report>
