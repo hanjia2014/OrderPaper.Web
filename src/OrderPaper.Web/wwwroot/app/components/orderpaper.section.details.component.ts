@@ -154,6 +154,13 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         }
         if (item != null) {
             this.section.Items.push(item);
+            //this is for refresh 'From' and 'To' for existing group item(s)
+            for (var i = this.section.Items.length - 1; i >= 0; i--) {
+                var next = this.section.Items[i];
+                if (next.Type == 'Group') {
+                    this.addItemsToGroup(<GroupItem>next, i);
+                }
+            }
         }
     }
     deleteLine = (line: LineItem, index: number) => {
