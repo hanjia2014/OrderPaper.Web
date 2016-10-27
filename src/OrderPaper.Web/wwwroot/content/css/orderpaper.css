@@ -1,6 +1,9 @@
 ﻿body {
     background-color: #edecec;
 }
+a {
+    cursor: pointer;
+}
 
 .ui-sortable-helper,
 .highlight-section {

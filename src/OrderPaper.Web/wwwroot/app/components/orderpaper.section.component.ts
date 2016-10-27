@@ -87,8 +87,11 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
         }
     }
     sectionChange = (e: string) => {
-        if (e != null)
+        if (e != null) {
             this.updatedSectionSelect = e;
+            //might remove later
+            this.section.Name = e;
+        }
     }
     ngAfterViewInit() {
     }

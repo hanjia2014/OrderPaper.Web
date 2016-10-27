@@ -7,6 +7,8 @@ export class Section {
     Items: Array<Item>;
     Groups: Array<Array<Item>>;
     GroupItems: Array<GroupItem>;
+    Details: string;
+    Speeches: string;
     constructor() {
         this.Items = new Array<Item>();
         this.Groups = new Array<Array<Item>>();

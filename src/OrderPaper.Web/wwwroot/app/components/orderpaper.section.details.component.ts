@@ -17,12 +17,25 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
     selector: 'order-paper-section-details',
     template: `
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="col-md-6">
-                            <select2 [id]="index + '-item-types'" [width]="'125px'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                    <div class="col-md-10" style="padding-left: 90px;">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <span>Details</span>
+                                <br />
+                                <textarea class="form-control" [(ngModel)]="section.Details" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="col-md-5">
+                                <span>Speeches</span>
+                                <br />
+                                <textarea class="form-control" [(ngModel)]="section.Speeches" cols="30" rows="5"></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <a class="btn btn-default" (click)="addItem()">Add Item</a>
+                        <div class="spacer"></div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <select2 [id]="index + '-item-types'" [width]="'125px'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                                <a (click)="addItem()">Add Item</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +111,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     index: number;
     error: any;
     hasLine: boolean;
-    itemTypes = [{ id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Bill", text: "Bill" }, { id: "Subheading", text: "Subheading" }, { id: "Line", text: "Line" }];
+    itemTypes = [{ id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Bill", text: "Bill" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
 
     constructor() {

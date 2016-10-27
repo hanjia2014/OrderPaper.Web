@@ -88,7 +88,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </span>
                             <br/>
                             <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [data]="dummySectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
-                            <a class="pointer" (click)="addSelectedSection()">Add section</a>
+                            <a (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
                             <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
