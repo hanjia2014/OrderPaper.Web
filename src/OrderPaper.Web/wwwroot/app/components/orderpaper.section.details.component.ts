@@ -49,11 +49,13 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                     </div>
                                 </div>
                                 <div class="col-md-1 vcenter">
-                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line' && item.Type != 'Subheading'" class="pull-right">
-                                        {{item.Sequence}}
-                                    </div>
-                                    <div *ngIf="item.Type == 'Group'" class="pull-right">
-                                        {{item.From + '-' + item.To}}
+                                    <div *ngIf="isAboveLine(i)">
+                                        <div *ngIf="item.Type != 'Group' && item.Type != 'Line' && item.Type != 'Subheading'" class="pull-right">
+                                            {{item.Sequence}}
+                                        </div>
+                                        <div *ngIf="item.Type == 'Group'" class="pull-right">
+                                            {{item.From + '-' + item.To}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-primary nopadding col-md-8 item-box' : 'panel panel-default nopadding col-md-8 item-box'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
@@ -116,7 +118,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     @Input()
     index: number;
     error: any;
-    hasLine: boolean;
+    hasLine: boolean = false;
     itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
 
@@ -125,6 +127,16 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     }
     ngOnInit() {
 
+    }
+
+    isAboveLine(index: number): boolean {
+        if (this.hasLine == false) return true;
+        for (var i = 0; i < this.section.Items.length; i++) {
+            if (this.section.Items[i].Type == "Line") {
+                return index < i;
+            }
+        }
+        return true;
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
