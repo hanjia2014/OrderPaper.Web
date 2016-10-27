@@ -6,6 +6,7 @@
     HasLine: boolean;
     IsNew: boolean;
     IsBusinessItem: boolean;
+    Details: string;
 
     constructor() {
         this.IsNew = true;
@@ -46,7 +47,6 @@ export class BillItem extends Item {
     Indication: string;
     Speeches: string;
     LatestEvent: string;
-    Details: string;
 
     constructor() {
         super();
