@@ -77,6 +77,12 @@ import { ItemComponent }    from './item.component';
                             <span>Stage</span>
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Stage" />
                         </div>
+                        <div class="form-group col-md-1">
+                        </div>
+                        <div class="form-group col-md-5 nopadding">
+                            <span>Details</span>
+                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Details" />
+                        </div>
                     </div>
                     <div class="spacer"></div>
                     <div class="row nopadding">
@@ -106,14 +112,14 @@ import { ItemComponent }    from './item.component';
                     <div class="spacer"></div>
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding">
-                            <span>Times of debate (Speeches)</span>
+                            <span>Speeches</span>
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Speeches" />
                         </div>
                         <div class="form-group col-md-1">
                             
                         </div>
                         <div class="form-group col-md-5 nopadding">
-                            <span>Latest details</span>
+                            <span>Latest event</span>
                             <textarea class="form-control undraggable" [(ngModel)]="item.LatestEvent" cols="30" rows="5"></textarea>
                         </div>
                     </div>

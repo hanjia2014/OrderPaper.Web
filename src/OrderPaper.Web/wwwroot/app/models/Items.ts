@@ -46,6 +46,7 @@ export class BillItem extends Item {
     Indication: string;
     Speeches: string;
     LatestEvent: string;
+    Details: string;
 
     constructor() {
         super();
