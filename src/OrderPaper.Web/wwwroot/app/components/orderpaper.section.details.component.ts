@@ -152,8 +152,10 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         var item = null;
         switch (this.selectedItemType) {
             case "Line":
-                item = new LineItem();
-                this.hasLine = true;
+                if (this.hasLine == false) {
+                    item = new LineItem();
+                    this.hasLine = true;
+                }
                 break;
             case "Bill":
                 item = new BillItem();
