@@ -33,7 +33,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                         <div class="spacer"></div>
                         <div class="row">
                             <div class="col-md-10">
-                                <select2 [id]="index + '-item-types'" [width]="'125px'" [enableSearch]="false" [multiple]="false" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                                <select2 [id]="index + '-item-types'" [width]="'125px'" [enableSearch]="false" [multiple]="false" [initialValue]="'Bill'" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
                                 <a (click)="addItem()">Add Item</a>
                             </div>
                         </div>
