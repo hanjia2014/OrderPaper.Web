@@ -12,6 +12,7 @@ import { LineItem }                                 from '../../models/items';
                 color: #f00; 
                 background-color: #f00; 
                 height: 10px;
+                margin-top: 0px;
             }`],
     providers: []
 })
