@@ -4,8 +4,10 @@ import { LineItem }                                 from '../../models/items';
 @Component({
     selector: 'item-line',
     template: ` <div class="red-line">
-                    <span class="pull-right" (click)="delete()">Delete</span>
-                    <hr/>
+                    <!--<span class="pull-right" (click)="delete()">Delete</span>-->
+                    <div class="row">
+                        <hr/>
+                    </div>
                 </div>
                 `,
     styles: [`.red-line hr{

@@ -74,11 +74,11 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                         </span>
                                     </div>
                                 </div>
-                                <span *ngIf="item.Type == 'Line'">
+                                <span *ngIf="item.Type == 'Line'" class="col-md-8 item-box">
                                     <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
                                 </span>
-                                <div class="col-md-1 trash-bin-box vcenter">
-                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line'">
+                                <div class="col-md-1 trash-bin-box" [class.vcenter]="item.Type != 'Line'">
+                                    <div *ngIf="item.Type != 'Group'">
                                         <img (click)="removeItem(item, i)" title="Delete item" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="{{imagesPath + 'delete.png'}}" style="cursor: pointer">
                                     </div>
                                 </div>
@@ -223,6 +223,9 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     }
 
     removeItem = (item: Item, index: number) => {
+        if (item.Type == "Line")
+            this.hasLine = false;
+
         this.section.Items.splice(index, 1);
         this.sortingItems(null);
     }
