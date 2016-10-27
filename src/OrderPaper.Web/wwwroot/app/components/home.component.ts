@@ -26,7 +26,7 @@ import { OrderPaperService }                    from '../services/app.services';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let summary of orderPaperSummary | paginate: { itemsPerPage: 15, currentPage: p }" class="header-white-text" [class.header-select-highlight]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id">
+                                        <tr *ngFor="let summary of orderPaperSummary | paginate: { itemsPerPage: 15, currentPage: p }; let i = index" class="header-white-text" [class.header-select-highlight]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id">
                                             <td>
                                                 {{summary.Number}}
                                             </td>
@@ -43,7 +43,7 @@ import { OrderPaperService }                    from '../services/app.services';
                                             </td>
                                             <td>
                                                 <a>
-                                                    <img src="{{imagesPath + 'delete.png'}}" (click)="deleteOrderPaper(summary.Id)">
+                                                    <img src="{{imagesPath + 'delete.png'}}" (click)="deleteOrderPaper(summary, i)">
                                                 </a>
                                             </td>
                                         </tr>
@@ -147,6 +147,17 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     createNewOrderPaper = () => {
         this.selectOrderPaper("-1");
+    }
+
+    deleteOrderPaper = (summary: OrderPaperWrapper, index: number) => {
+        this.orderPaperService.delete(summary.Id.toString()).subscribe(
+            (data: boolean) => {
+                if (data) {
+                    this.orderPaperSummary.splice(index, 1);
+                }
+            },
+            (err: any) => this.error = err
+        );
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }

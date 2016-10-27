@@ -69,8 +69,9 @@ namespace OrderPapers.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            return id > 0;
         }
     }
 }

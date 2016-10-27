@@ -26,20 +26,59 @@ import { ItemComponent }    from './item.component';
                     </div>
                 </div>
                 <div id="{{toggleId}}" class="initially-hidden">
+                    <div class="spacer"></div>
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding">
-                            <label>Title</label>
+                            <span>Title</span>
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
                         </div>
                         <div class="form-group col-md-1">
                             <label>&nbsp;</label>
-                            <img class="form-control undraggable nopadding noborder" height="10" src="{{imagesPath + 'left-arrow.png'}}" />
+                            <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                         </div>
                         <div class="form-group col-md-5 nopadding">
-                            <label>CPD</label>
+                            <span>CPD</span>
                             <select2 [id]="index + 'bill-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
                         </div>
                     </div>
+                    <div class="spacer"></div>
+                    <div class="row nopadding">
+                        <div class="form-group col-md-5 nopadding">
+                            <span>Number</span>
+                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Number" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label>&nbsp;</label>
+                            <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                        </div>
+                        <div class="form-group col-md-5 nopadding">
+                            <span>CPD</span>
+                            <select2 [id]="index + 'bill-number-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="row nopadding">
+                        <div class="form-group col-md-5 nopadding">
+                            <span>Member</span>
+                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Member" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label>&nbsp;</label>
+                            <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                        </div>
+                        <div class="form-group col-md-5 nopadding">
+                            <span>CPD</span>
+                            <select2 [id]="index + 'bill-member-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="row nopadding">
+                        <div class="form-group col-md-5 nopadding">
+                            <span>Stage</span>
+                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Stage" />
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
                     <div class="row nopadding">
                         <div class="form-group col-md-12 nopadding">
                             <div class="row nopadding">
@@ -64,16 +103,17 @@ import { ItemComponent }    from './item.component';
                             </div>
                         </div>
                     </div>
+                    <div class="spacer"></div>
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding">
-                            <label>Times of debate (Speeches)</label>
+                            <span>Times of debate (Speeches)</span>
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Speeches" />
                         </div>
                         <div class="form-group col-md-1">
                             
                         </div>
                         <div class="form-group col-md-5 nopadding">
-                            <label>Latest details</label>
+                            <span>Latest details</span>
                             <textarea class="form-control undraggable" [(ngModel)]="item.LatestEvent" cols="30" rows="5"></textarea>
                         </div>
                     </div>

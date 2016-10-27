@@ -36,6 +36,16 @@ export class OrderPaperService implements IOrderPaperService {
         });
     }
 
+    delete = (id: string): Observable<boolean> => {
+        return this.http.delete(AppSettings.API_ENDPOINT + '/' + id + AppSettings.SP_HOST).map((res: Response) => {
+            if (res.status != 200) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+    }
+
     save(orderPaper: OrderPaper): Observable<Response> {
         var body = JSON.stringify({ name: "AA" });
         let headers = new Headers({ 'Content-Type': 'application/json' });
