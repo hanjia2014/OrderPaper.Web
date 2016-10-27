@@ -146,7 +146,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     createNewOrderPaper = () => {
-        this.selectedOrderPaper = new OrderPaper();
+        this.selectOrderPaper("-1");
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
