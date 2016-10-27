@@ -4,6 +4,7 @@ import { Tabs }                                 from '../directives/tabs/tabs';
 import { OrderPaper }                           from '../models/orderpaper';
 import { OrderPaperWrapper }                    from '../models/orderpaperwrapper';
 import { OrderPaperService }                    from '../services/app.services';
+import { ModalComponent }                       from '../directives/modal/modal';
 
 @Component({
     selector: 'home',
@@ -63,6 +64,16 @@ import { OrderPaperService }                    from '../services/app.services';
                             <order-paper-details [orderPaper]="selectedOrderPaper"></order-paper-details>
                         </div>
                     </div>
+                    <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+                       (onOpen)="opened()" [cssClass]="cssClass" #modal>
+                        <modal-header [show-close]="true">
+                            <h4 class="modal-title">Confirm to delete</h4>
+                        </modal-header>
+                        <modal-body>
+                            Are you sure to delete the Order Paper?
+                        </modal-body>
+                        <modal-footer [show-default-buttons]="true"></modal-footer>
+                    </modal>
                 </div>
                 `,
     styles: [`
@@ -109,6 +120,12 @@ export class HomeComponent extends BaseComponent implements OnInit {
     listElm: HTMLElement = document.getElementById("spinner");
     @ViewChild(Tabs)
     tabs: Tabs;
+    //modal
+    @ViewChild('modal')
+    modal: ModalComponent;
+
+    deletedSummary: OrderPaperWrapper;
+    deletedIndex: number;
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -150,15 +167,36 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     deleteOrderPaper = (summary: OrderPaperWrapper, index: number) => {
-        this.orderPaperService.delete(summary.Id.toString()).subscribe(
+        this.deletedSummary = summary;
+        this.deletedIndex = index;
+        this.modal.open();
+    }
+
+    updateSequence(oldIndex: number, newIndex: number) { }
+
+    //modal
+    opened() {
+
+    }
+
+    navigate() {
+
+    }
+
+    open() {
+        this.modal.open();
+    }
+    closed() {
+        this.orderPaperService.delete(this.deletedSummary.Id.toString()).subscribe(
             (data: boolean) => {
                 if (data) {
-                    this.orderPaperSummary.splice(index, 1);
+                    this.orderPaperSummary.splice(this.deletedIndex, 1);
                 }
             },
             (err: any) => this.error = err
         );
     }
+    dismissed() {
 
-    updateSequence(oldIndex: number, newIndex: number) { }
+    }
 }
