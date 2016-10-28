@@ -11,9 +11,9 @@ import { LineItem }                                 from '../../models/items';
                 </div>
                 `,
     styles: [`.red-line hr{
-                color: #f00; 
-                background-color: #f00; 
-                height: 10px;
+                color: #696969; 
+                background-color: #696969; 
+                height: 8px;
                 margin-top: 0px;
             }`],
     providers: []
