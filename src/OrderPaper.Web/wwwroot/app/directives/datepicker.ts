@@ -54,10 +54,12 @@ export class DatePickerComponent implements AfterViewInit {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['initialValue'].currentValue == undefined)
-            this.selectedDate = null;
-        else {
-            this.selectedDate = this.initialValue;
+        if (changes['initialValue'] != null) {
+            if (changes['initialValue'].currentValue == undefined)
+                this.selectedDate = null;
+            else {
+                this.selectedDate = this.initialValue;
+            }
         }
     }
 }

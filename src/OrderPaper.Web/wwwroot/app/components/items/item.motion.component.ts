@@ -24,10 +24,73 @@ import { ItemComponent }        from './item.component';
                         </div>
                     </div>
                     <div id="{{toggleId}}" class="initially-hidden">
-                        <br />
-                        <div class="form-group col-md-5 nopadding">
-                            <label>Title</label>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Title"/>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Title</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="index + 'motion-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Member</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Member" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="index + 'motion-member-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
+                            </div>
+                        </div>
+
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Motion</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Motion" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="index + 'motion-motion-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
+                            </div>
+                        </div>
+
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Date</span>
+                                <date-picker [id]="groupIndex + '-' + index + '-date'" [IncludeTime]="false" [initialValue]="item.Date" (onValueChange)="dateChange($event)"></date-picker>
+                            </div>
+                        </div>
+
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Speeches</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Speeches" />
+                            </div>
+                            <div class="form-group col-md-1">
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Details</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Details" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,11 +108,14 @@ export class ItemMotionComponent extends ItemComponent implements OnInit, AfterV
     isGroupChild: boolean = false;
     @Input()
     groupIndex: number;
+    motionTitleOptions: any;
 
     constructor() {
         super();
     }
     ngOnInit() {
+        this.motionTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
+
         if (this.isGroupChild) {
             this.toggleId = this.index + '-' + this.groupIndex + '-motion';
         }
@@ -74,5 +140,9 @@ export class ItemMotionComponent extends ItemComponent implements OnInit, AfterV
         this.isExpand = !this.isExpand;
         var eleId = "#" + eleId;
         $(eleId).slideToggle();
+    }
+
+    dateChange = (value: string) => {
+        this.item.Date = value;
     }
 }

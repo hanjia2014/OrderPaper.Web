@@ -24,10 +24,72 @@ import { ItemComponent }    from './item.component';
                         </div>
                     </div>
                     <div id="{{toggleId}}" class="initially-hidden">
-                        <br />
-                        <div class="form-group col-md-5 nopadding">
-                            <label>Title</label>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Title"/>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Title</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="index + 'report-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Shoulder</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Shoulder" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="index + 'report-shoulder-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Committee</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Committee" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="index + 'report-committee-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Latest event</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.LatestEvent" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="index + 'report-latestevent-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding">
+                                <span>Details</span>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Details" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,11 +107,14 @@ export class ItemReportComponent extends ItemComponent implements OnInit, AfterV
     isGroupChild: boolean = false;
     @Input()
     groupIndex: number;
-    
+    reportTitleOptions: any;
+
     constructor() {
         super();
     }
     ngOnInit() {
+        this.reportTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
+
         if (this.isGroupChild) {
             this.toggleId = this.index + '-' + this.groupIndex + '-report';
         }

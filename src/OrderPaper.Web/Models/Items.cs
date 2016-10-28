@@ -13,7 +13,7 @@ namespace OrderPapers.Models
     public class MotionItem : Item
     {
         public DateTime Date { get; set; }
-        public string Summary { get; set; }
+        public string Details { get; set; }
         public string Member { get; set; }
         public string Speeches { get; set; }
         public string Motion { get; set; }
@@ -27,6 +27,7 @@ namespace OrderPapers.Models
         public string Number { get; set; }
         public string Member { get; set; }
         public string Stage { get; set; }
+        public string Details { get; set; }
         public bool IsCurrentSittingWeek { get; set; }
         public bool IsFollowingSittingWeek { get; set; }
         public bool IsMajorityAmendments { get; set; }

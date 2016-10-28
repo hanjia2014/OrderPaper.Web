@@ -23,8 +23,7 @@ export class SubHeadingItem extends Item {
 }
 
 export class MotionItem extends Item {
-    Date: Date;
-    Summary: string;
+    Date: string;
     Member: string;
     Speeches: string;
     Motion: string;
