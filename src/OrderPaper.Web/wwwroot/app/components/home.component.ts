@@ -20,7 +20,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                                 <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
                                         <tr class="header-green-text">
-                                            <th>Number</th>
+                                            <th>OP Number</th>
                                             <th>Sitting day</th>
                                             <th>Status</th>
                                             <th>Delete</th>

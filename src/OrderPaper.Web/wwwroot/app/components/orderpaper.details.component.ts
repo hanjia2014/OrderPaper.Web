@@ -38,7 +38,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Status
                             </div>
                             <div class="col-md-1">
-                                Number
+                                OP Number
                             </div>
                         </div>
                         <div class="row">
@@ -78,7 +78,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
-                                    <a class="btn btn-parliament" (click)="save($event)">Save</a>
+                                    <a class="btn btn-parliament" (click)="save($event)">Save OP</a>
                                 </div>
                             </div>
                         </div>

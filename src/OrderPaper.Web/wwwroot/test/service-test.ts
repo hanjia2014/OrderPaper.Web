@@ -2,7 +2,6 @@
 import { inject, TestBed, async }       from '@angular/core/testing';
 import { ReflectiveInjector }           from '@angular/core';
 import { MockBackend, MockConnection }  from '@angular/http/testing';
-import { OrderPaperService }            from '../app/services/app.services';
 import {
     BrowserDynamicTestingModule,
     platformBrowserDynamicTesting
@@ -17,6 +16,8 @@ import {
     RequestMethod,
     HttpModule
 }                                       from '@angular/http';
+import { OrderPaperService }            from '../app/services/app.services';
+import { OrderPaperWrapper }            from '../app/models/orderpaperwrapper';
 
 describe('service test', () => {
     beforeEach(() => {
@@ -44,6 +45,14 @@ describe('service test', () => {
         orderPaperService.getOrderPaperList().subscribe(
             (data: any) => {
                 expect(data.length).toEqual(2);
+            },
+            (err: any) => this.error = err);
+    })));
+
+    it('get the most recent order paper', async(inject([OrderPaperService], (orderPaperService: OrderPaperService) => {
+        orderPaperService.getOrderPaper('-1').subscribe(
+            (data: OrderPaperWrapper) => {
+                expect(data != null).toEqual(true);
             },
             (err: any) => this.error = err);
     })));
