@@ -37,7 +37,7 @@ import { AppSettings }      from '../settings/app.settings';
                                 </select2>
                                 <div class="pull-right">
                                     <a *ngIf="isSelected" (click)="toggle($event, index + '-section', true)">
-                                        <img src="{{imagesPath + 'chevron collapsing.png'}}">
+                                        <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
                                     </a>
                                     <span title="Include in order paper" style="cursor: pointer; cursor: hand;">
                                         <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px; margin-right: 10px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
