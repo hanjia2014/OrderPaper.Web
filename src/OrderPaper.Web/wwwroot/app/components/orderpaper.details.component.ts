@@ -212,10 +212,11 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     save = (e: any) => {
-        if (this.orderPaper.Id != null) {
+        if (this.orderPaper.Id != null && this.orderPaper.Id != -1) {
             this.update(e);
             return;
         }
+        this.orderPaper.Id = null;
         var paperString = JSON.stringify(this.orderPaper);
         e.preventDefault();
         this.orderPaperService.save(this.orderPaper).subscribe(

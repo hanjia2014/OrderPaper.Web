@@ -23,6 +23,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                                             <th>OP Number</th>
                                             <th>Sitting day</th>
                                             <th>Status</th>
+                                            <th>Version</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
@@ -41,6 +42,8 @@ import { ModalComponent }                       from '../directives/modal/modal'
                                             </td>
                                             <td>
                                                 {{summary.Status}}
+                                            </td>
+                                            <td>
                                             </td>
                                             <td>
                                                 <a>
@@ -155,7 +158,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 this.selectedOrderPaper = new OrderPaper();
                 var op = JSON.parse(data.OrderPaperJson);
                 (<any>Object).assign(this.selectedOrderPaper, op);
-                this.selectedOrderPaper.Id = data.Id;
+                this.selectedOrderPaper.Id = id == "-1" ? -1 : data.Id;
                 this.spinner.stop();
                 this.tabs.collapseAll();
             },

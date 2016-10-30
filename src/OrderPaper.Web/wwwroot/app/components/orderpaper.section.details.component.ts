@@ -16,6 +16,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 @Component({
     selector: 'order-paper-section-details',
     template: `
+                <div id="spinner"></div>
                 <div class="row">
                     <div class="col-md-10" style="padding-left: 90px;">
                         <div class="row">
@@ -121,6 +122,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     hasLine: boolean = false;
     itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
+    listElm: HTMLElement = document.getElementById("spinner");
 
     constructor() {
         super();
