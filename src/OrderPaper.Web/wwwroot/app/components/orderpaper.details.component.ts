@@ -82,6 +82,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 </div>
                             </div>
                         </div>
+                        <div id="saveSpinner"></div>
                         <div class="container row detail-block">
                             <span>
                                 Sections
@@ -124,6 +125,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     sectionDeleteIndex: number;
     isRemoveVisible: boolean;
     addSection: string;
+    spinElm: HTMLElement;
     //modal
     @ViewChild('modal')
     modal: ModalComponent;
@@ -142,7 +144,6 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
-
     }
 
     ngAfterViewInit() {
@@ -212,16 +213,18 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     save = (e: any) => {
+        this.spinElm = document.getElementById("saveSpinner");
         if (this.orderPaper.Id != null && this.orderPaper.Id != -1) {
             this.update(e);
             return;
         }
+        this.spinner.spin(this.spinElm);
         this.orderPaper.Id = null;
         var paperString = JSON.stringify(this.orderPaper);
         e.preventDefault();
         this.orderPaperService.save(this.orderPaper).subscribe(
             (data: Response) => {
-
+                this.spinner.stop();
             },
             (err: any) => this.error = err);
     }
@@ -229,9 +232,10 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     update = (e: any) => {
         var paperString = JSON.stringify(this.orderPaper);
         e.preventDefault();
+        this.spinner.spin(this.spinElm);
         this.orderPaperService.update(this.orderPaper).subscribe(
             (data: Response) => {
-
+                this.spinner.stop();
             },
             (err: any) => this.error = err);
     }

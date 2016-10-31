@@ -58,7 +58,8 @@ export class OrderPaperService implements IOrderPaperService {
         wrapper.OrderPaperJson = JSON.stringify(orderPaper);
 
         return this.http.post(AppSettings.API_ENDPOINT + AppSettings.SP_HOST, wrapper, options).map((res: Response) => {
-            if (res.status != 200) {
+            //OK or CREATED
+            if (res.status != 200 || res.status != 201) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
                 var result = res.json();
@@ -79,7 +80,8 @@ export class OrderPaperService implements IOrderPaperService {
         wrapper.OrderPaperJson = JSON.stringify(orderPaper);
 
         return this.http.put(AppSettings.API_ENDPOINT + '/' + orderPaper.Id + AppSettings.SP_HOST, wrapper, options).map((res: Response) => {
-            if (res.status != 200) {
+            //OK or CREATED
+            if (res.status != 200 || res.status != 201) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
                 var result = res.json();

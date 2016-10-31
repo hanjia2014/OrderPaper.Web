@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using OrderPapers.Models;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -52,19 +54,24 @@ namespace OrderPapers.Controllers
 
         // POST api/values
         [HttpPost]
-        public bool Post([FromBody]OrderPaperWrapper value)
+        public HttpResponseMessage Post([FromBody]OrderPaperWrapper value)
         {
             var json = JsonConvert.SerializeObject(value);
             var doc = JsonConvert.DeserializeXNode(json, "OrderPaper");
-            return value != null;
+            HttpResponseMessage response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.Created;
+            return response;
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]OrderPaperWrapper value)
+        public HttpResponseMessage Put(int id, [FromBody]OrderPaperWrapper value)
         {
             var json = JsonConvert.SerializeObject(value);
             var doc = JsonConvert.DeserializeXNode(json, "OrderPaper");
+            HttpResponseMessage response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.Created;
+            return response;
         }
 
         // DELETE api/values/5
