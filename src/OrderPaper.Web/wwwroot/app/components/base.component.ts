@@ -10,7 +10,7 @@ export abstract class BaseComponent implements AfterViewInit, ITogglable {
     isExpand: boolean;
     private zone: NgZone;
     imagesPath: string = AppSettings.IMAGE_PATH;
-    spinner: Spinner = new Spinner({ radius: 10 });
+    spinner: Spinner = new Spinner({ radius: 10, color: '#2ebcc5' });
 
     constructor() {
         this.IsNumberedList = true;

@@ -16,7 +16,6 @@ import { ModalComponent }                       from '../directives/modal/modal'
                                 <div>
                                     <h3 class="header-green-text pull-left">Order Papers history</h3>
                                 </div>
-                                
                                 <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
                                         <tr class="header-green-text">
@@ -134,6 +133,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
         super();
     }
     ngOnInit() {
+        this.listElm = document.getElementById("spinner");
         this.getOrderPaperSummary();
     }
 
@@ -156,8 +156,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.orderPaperService.getOrderPaper(id).subscribe(
             (data: OrderPaperWrapper) => {
                 this.selectedOrderPaper = new OrderPaper();
-                var op = JSON.parse(data.OrderPaperJson);
-                (<any>Object).assign(this.selectedOrderPaper, op);
+                if (data.OrderPaperJson != null && data.OrderPaperJson != "") {
+                    var op = JSON.parse(data.OrderPaperJson);
+                    (<any>Object).assign(this.selectedOrderPaper, op);
+                }
                 this.selectedOrderPaper.Id = id == "-1" ? -1 : data.Id;
                 this.spinner.stop();
                 this.tabs.collapseAll();
