@@ -59,4 +59,19 @@ describe('item test', () => {
         section.Items.push(new BillItem());
         expect(section.Items[0].Type).toEqual("Bill");
     })));
+
+    it('should create motion item', async(inject([Section], (section: Section) => {
+        section.Items.push(new MotionItem());
+        expect(section.Items[0].Type).toEqual("Motion");
+    })));
+
+    it('should create report item', async(inject([Section], (section: Section) => {
+        section.Items.push(new ReportItem());
+        expect(section.Items[0].Type).toEqual("Report");
+    })));
+
+    it('should create line item', async(inject([Section], (section: Section) => {
+        section.Items.push(new LineItem());
+        expect(section.Items[0].Type).toEqual("Line");
+    })));
 });
