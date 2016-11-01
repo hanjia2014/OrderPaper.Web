@@ -85,7 +85,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Sections
                             </span>
                             <br/>
-                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
+                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [allowFreeText]="true" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
                             <a (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
@@ -118,7 +118,8 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     sittingHoursOptions = [{ id: "2pm to 6pm and 7:30pm to 10pm", text: "2pm to 6pm and 7:30pm to 10pm" }, { id: "2pm to 6pm", text: "2pm to 6pm" }];
-    sectionOptions = [];
+    @Input()
+    sectionOptions: any;
     sectionDeleteIndex: number;
     isRemoveVisible: boolean;
     addSection: string;
@@ -141,17 +142,6 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
-        this.spinElm = document.getElementById("saveSpinner");
-        this.spinner.spin(this.spinElm);
-        this.orderPaperService.getSectionSummaryList().subscribe(
-            (data: Array<SectionSummary>) => {
-                data.forEach((option: SectionSummary) => {
-                    this.sectionOptions.push({id: option.Id, text: option.Text});
-                });
-                this.sectionOptions = data;
-                this.spinner.stop();
-            },
-            (err: any) => this.error = err);
     }
 
     ngAfterViewInit() {
@@ -193,9 +183,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.orderPaper.Status = e;
     }
 
-    addSectionChange = (e: string) => {
+    addSectionChange = (e: Array<string>) => {
         if (e != null)
-            this.addSection = e;
+            this.addSection = e[0];
     }
 
     sittingHoursChange = (e: Array<string>) => {
@@ -204,6 +194,16 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
 
     addSelectedSection = () => {
         console.log(this.addSection);
+        console.log(this.isFreeTextSection());
+    }
+
+    private isFreeTextSection = (): boolean => {
+        var isFreeText = true;
+        this.sectionOptions.forEach(item => {
+            if (item.id == this.addSection)
+                isFreeText = false;
+        });
+        return isFreeText;
     }
 
     checkMandatory(): boolean {

@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { BaseComponent }                        from './base.component';
 import { Tabs }                                 from '../directives/tabs/tabs';
+import { Section, SectionSummary }              from '../models/section';
 import { OrderPaper }                           from '../models/orderpaper';
 import { OrderPaperWrapper }                    from '../models/orderpaperwrapper';
 import { OrderPaperService }                    from '../services/app.services';
@@ -63,7 +64,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                     </tabs>
                     <div style="background-color: #edecec">
                         <div class="container" style="padding-left: 10%;">
-                            <order-paper-details [orderPaper]="selectedOrderPaper"></order-paper-details>
+                            <order-paper-details [orderPaper]="selectedOrderPaper" [sectionOptions]="sectionOptions"></order-paper-details>
                         </div>
                     </div>
                     <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
@@ -125,7 +126,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     //modal
     @ViewChild('modal')
     modal: ModalComponent;
-
+    sectionOptions = [];
     deletedSummary: OrderPaperWrapper;
     deletedIndex: number;
 
@@ -135,6 +136,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         this.listElm = document.getElementById("spinner");
         this.getOrderPaperSummary();
+        this.getSectionSummary();
     }
 
     getOrderPaperSummary = () => {
@@ -142,6 +144,17 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.orderPaperService.getOrderPaperList().subscribe(
             (data: Array<OrderPaperWrapper>) => {
                 (<any>Object).assign(this.orderPaperSummary, data);
+                this.spinner.stop();
+            },
+            (err: any) => this.error = err);
+    }
+
+    getSectionSummary = () => {
+        this.orderPaperService.getSectionSummaryList().subscribe(
+            (data: Array<SectionSummary>) => {
+                data.forEach((option: SectionSummary) => {
+                    this.sectionOptions.push({id: option.Id, text: option.Text});
+                });
                 this.spinner.stop();
             },
             (err: any) => this.error = err);
