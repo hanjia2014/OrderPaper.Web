@@ -12,7 +12,7 @@ import { OrderPaperSectionComponent }       from './orderpaper.section.component
 import { OrderPaperService }                from '../services/app.services';
 import { AppSettings }                      from '../settings/app.settings';
 import { OrderPaper }                       from '../models/orderpaper';
-import { Section }                          from '../models/section';
+import { Section, SectionSummary }          from '../models/section';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 import { ModalComponent }                   from '../directives/modal/modal';
 
@@ -85,7 +85,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Sections
                             </span>
                             <br/>
-                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [data]="dummySectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
+                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
                             <a (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
@@ -118,7 +118,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     sittingHoursOptions = [{ id: "2pm to 6pm and 7:30pm to 10pm", text: "2pm to 6pm and 7:30pm to 10pm" }, { id: "2pm to 6pm", text: "2pm to 6pm" }];
-    dummySectionOptions = [{ id: "option 1", text: "option 1" }, { id: "option 2", text: "option 2" }];
+    sectionOptions = [];
     sectionDeleteIndex: number;
     isRemoveVisible: boolean;
     addSection: string;
@@ -141,6 +141,17 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
+        this.spinElm = document.getElementById("saveSpinner");
+        this.spinner.spin(this.spinElm);
+        this.orderPaperService.getSectionSummaryList().subscribe(
+            (data: Array<SectionSummary>) => {
+                data.forEach((option: SectionSummary) => {
+                    this.sectionOptions.push({id: option.Id, text: option.Text});
+                });
+                this.sectionOptions = data;
+                this.spinner.stop();
+            },
+            (err: any) => this.error = err);
     }
 
     ngAfterViewInit() {

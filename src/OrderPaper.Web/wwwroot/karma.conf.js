@@ -33,7 +33,8 @@ module.exports = function (config) {
 
             //jquery
             'content/scripts/vendors/jquery-1.12.4.min.js',
-
+            //spin
+            'content/scripts/vendors/spin.min.js',
             // RxJs.
             { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
             { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },

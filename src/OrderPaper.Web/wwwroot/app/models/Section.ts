@@ -15,3 +15,8 @@ export class Section {
         this.GroupItems = new Array<GroupItem>();
     }
 }
+
+export class SectionSummary {
+    Id: number;
+    Text: string;
+}

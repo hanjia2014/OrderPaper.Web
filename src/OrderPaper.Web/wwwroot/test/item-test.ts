@@ -28,6 +28,7 @@ import {
     LineItem,
     GroupItem
 }                                               from '../app/models/items';
+import { Section }                              from '../app/models/section';
 import { OrderPaper }                           from '../app/models/orderpaper';
 import { OrderPaperSectionDetailsComponent }    from '../app/components/orderpaper.section.details.component';
 
@@ -40,8 +41,7 @@ describe('item test', () => {
             .configureTestingModule({
             providers: [
                 OrderPaperService,
-                OrderPaperSectionDetailsComponent,
-                Spinner,
+                Section,
                 MockBackend,
                 BaseRequestOptions,
                 { provide: ConnectionBackend, useClass: MockBackend },
@@ -55,13 +55,8 @@ describe('item test', () => {
     });
     
 
-    it('should create bill item', async(inject([OrderPaperSectionDetailsComponent, Spinner], (sectionDetailsComponent: OrderPaperSectionDetailsComponent) => {
-        expect(sectionDetailsComponent).toBeDefined();
-
-        //sectionDetailsComponent.selectedItemType = "Bill";
-        //sectionDetailsComponent.addItem();
-        //var lastIndex = sectionDetailsComponent.section.Items.length - 1;
-        //var item = sectionDetailsComponent.section.Items[lastIndex];
-        //expect(item.Type).toEqual("Bill");
+    it('should create bill item', async(inject([Section], (section: Section) => {
+        section.Items.push(new BillItem());
+        expect(section.Items[0].Type).toEqual("Bill");
     })));
 });

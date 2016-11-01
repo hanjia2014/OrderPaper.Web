@@ -4,18 +4,20 @@ import { Http, Response, Headers, RequestOptions }  from '@angular/http';
 import { Observable }                               from 'rxjs/Observable';
 import { OrderPaper }                               from '../models/orderpaper';
 import { OrderPaperWrapper }                        from '../models/orderpaperwrapper';
-import { IOrderPaperService }                       from '../interfaces/app.interfaces';
+import { Section, SectionSummary }                  from '../models/section';
+import { IOrderPaperService, ISectionService }      from '../interfaces/app.interfaces';
 import { AppSettings }                              from '../settings/app.settings';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class OrderPaperService implements IOrderPaperService {
+export class OrderPaperService implements IOrderPaperService, ISectionService {
 
     constructor(private http: Http) {
         
     }
 
+    //IOrderPaperService
     getOrderPaperList = (): Observable<Array<OrderPaperWrapper>> => {
         return this.http.get(AppSettings.API_ENDPOINT + AppSettings.SP_HOST).map((res: Response) => {
             if (res.status != 200) {
@@ -88,6 +90,27 @@ export class OrderPaperService implements IOrderPaperService {
                 return res.json();
             }
         })
+    }
+
+    //ISectionService
+    getSectionSummaryList = (): Observable<Array<SectionSummary>> => {
+        return this.http.get(AppSettings.API_SECTION_ENDPOINT + AppSettings.SP_HOST).map((res: Response) => {
+            if (res.status != 200) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+
+    getSectionDetails = (id: number): Observable<Section> => {
+        return this.http.get(AppSettings.API_SECTION_ENDPOINT + '/' + id + AppSettings.SP_HOST).map((res: Response) => {
+            if (res.status != 200) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
     }
 
     private extractData(res: Response) {
