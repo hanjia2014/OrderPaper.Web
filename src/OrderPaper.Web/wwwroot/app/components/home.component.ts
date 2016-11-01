@@ -156,11 +156,21 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.orderPaperService.getOrderPaper(id).subscribe(
             (data: OrderPaperWrapper) => {
                 this.selectedOrderPaper = new OrderPaper();
+                var nextNumber = 0;
                 if (data.OrderPaperJson != null && data.OrderPaperJson != "") {
                     var op = JSON.parse(data.OrderPaperJson);
                     (<any>Object).assign(this.selectedOrderPaper, op);
+                    if (this.selectedOrderPaper != null) {
+                        nextNumber = parseInt(this.selectedOrderPaper.Number.toString()) + 1;
+                    }
                 }
                 this.selectedOrderPaper.Id = id == "-1" ? -1 : data.Id;
+                if (id == "-1") {
+                    this.selectedOrderPaper.SittingDay = data.SittingDay;
+                    this.selectedOrderPaper.Status = "Provisional";
+                    this.selectedOrderPaper.SittingHours = "2pm to 6pm and 7:30pm to 10pm";
+                    this.selectedOrderPaper.Number = nextNumber == 0 ? 1 : nextNumber;
+                }
                 this.spinner.stop();
                 this.tabs.collapseAll();
             },

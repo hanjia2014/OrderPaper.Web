@@ -35,7 +35,7 @@ export class Select2Component implements AfterViewInit {
 
     ngAfterViewInit() {
         var options = {
-            placeholder: this.placeholder ? this.placeholder : "Select",
+            placeholder: this.initialValue != null && this.initialValue != "" ? "" : this.placeholder ? this.placeholder : "Select",
             dropdownAutoWidth: true,
             allowClear: true,
             data: this.data,
@@ -71,7 +71,12 @@ export class Select2Component implements AfterViewInit {
         }
 
         if (this.initialValue != null && this.initialValue != "") {
-            $("#" + this.id).val(this.initialValue).trigger("change");
+            if (this.multiple) {
+                var elem = $("#" + this.id);
+                elem.data().select2.updateSelection([{ id: this.initialValue, text: this.initialValue}]);
+            } else {
+                $("#" + this.id).val(this.initialValue).trigger("change");
+            }
         }
     }
 
@@ -80,7 +85,14 @@ export class Select2Component implements AfterViewInit {
             $("#" + this.id).select2('val', '');
         }
         else if (changes['initialValue'] != null && changes['initialValue'].currentValue != undefined) {
-            $("#" + this.id).select2('val', changes['initialValue'].currentValue);
+            if (this.multiple) {
+                if (this.disableMultipleSelection) {
+
+                }
+            }
+            else {
+                $("#" + this.id).select2('val', changes['initialValue'].currentValue);
+            }
         }
     }
 

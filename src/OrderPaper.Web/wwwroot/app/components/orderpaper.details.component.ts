@@ -44,25 +44,21 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <div class="row">
                             <div class="col-md-3">
                                 <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
-                                <!--<datetime [timepicker]="false" [(ngModel)]="orderPaper.SittingDay" [initialValue]="orderPaper.SittingDay" [datepicker]="{ format: 'd M yyyy' }"></datetime>-->
                             </div>             
                             <div class="col-md-3">
-                                <select2 [id]="'orderPaperSittingHours'" [enableSearch]="false" [initialValue]="orderPaper.SittingHours" [multiple]="false" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
+                                <select2 [id]="'orderPaperSittingHours'" [initialValue]="orderPaper.SittingHours" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
                                 <!--<img src="{{imagesPath + 'time.png'}}">-->
                             </div>             
                             <div class="col-md-2">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [width]="'125px'" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
                             </div>             
                             <div class="col-md-1">
-                                <input class="form-control input-sm" [(ngModel)]="orderPaper.Number" />
+                                <input class="form-control input-sm" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [(ngModel)]="orderPaper.Number" />
                             </div>
                         </div>
                         <br />
                         <div class="row">
                             <div class="col-md-9">
-                                <div *ngIf="orderPaper.Id == null" class="pull-left">
-                                    <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
-                                </div>
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
                                     <div style="display: inline">
                                         <img class="pointer" title="Preview" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.Progress == 'Preview' ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
@@ -78,7 +74,8 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
-                                    <a class="btn btn-parliament" (click)="save($event)">Save OP</a>
+                                    <a class="btn btn-parliament" [ngClass]='{disabled: checkMandatory()}' (click)="save($event)">Save OP</a>
+                                    <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +103,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <h4 class="modal-title">Confirm to delete</h4>
                     </modal-header>
                     <modal-body>
-                        Are you sure to delete the {{deletingType=='section' ? 'section' : 'order paper'}}?
+                        Are you sure to exist without saving changes?
                     </modal-body>
                     <modal-footer [show-default-buttons]="true"></modal-footer>
                 </modal>
@@ -120,7 +117,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     selectedSection: Section;
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
-    sittingHoursOptions = [{ id: "2pm - 6pm", text: "2pm - 6pm" }, { id: "7:30pm - 10pm", text: "7:30pm - 10pm" }];
+    sittingHoursOptions = [{ id: "2pm to 6pm and 7:30pm to 10pm", text: "2pm to 6pm and 7:30pm to 10pm" }, { id: "2pm to 6pm", text: "2pm to 6pm" }];
     dummySectionOptions = [{ id: "option 1", text: "option 1" }, { id: "option 2", text: "option 2" }];
     sectionDeleteIndex: number;
     isRemoveVisible: boolean;
@@ -190,13 +187,19 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.addSection = e;
     }
 
-    sittingHoursChange = (e: string) => {
-        if (e != null)
-            this.orderPaper.SittingHours = e;
+    sittingHoursChange = (e: Array<string>) => {
+        this.orderPaper.SittingHours = e != null && e.length > 0 ? e[0] : '';
     }
 
     addSelectedSection = () => {
         console.log(this.addSection);
+    }
+
+    checkMandatory(): boolean {
+        return this.orderPaper.Number == null || this.orderPaper.Number.toString() == ''
+            || this.orderPaper.SittingDay == null || this.orderPaper.SittingDay == ''
+            || this.orderPaper.SittingHours == null || this.orderPaper.SittingHours == ''
+            || this.orderPaper.Status == null || this.orderPaper.Status == '';
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }
