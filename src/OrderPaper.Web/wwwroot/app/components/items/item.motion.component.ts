@@ -36,7 +36,7 @@ import { ItemComponent }        from './item.component';
                             </div>
                             <div class="form-group col-md-5 nopadding">
                                 <span>CPD</span>
-                                <select2 [id]="index + 'motion-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -51,7 +51,7 @@ import { ItemComponent }        from './item.component';
                             </div>
                             <div class="form-group col-md-5 nopadding">
                                 <span>CPD</span>
-                                <select2 [id]="index + 'motion-member-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-member-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@ import { ItemComponent }        from './item.component';
                             </div>
                             <div class="form-group col-md-5 nopadding">
                                 <span>CPD</span>
-                                <select2 [id]="index + 'motion-motion-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-motion-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
 
@@ -75,7 +75,7 @@ import { ItemComponent }        from './item.component';
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding">
                                 <span>Date</span>
-                                <date-picker [id]="groupIndex + '-' + index + '-date'" [IncludeTime]="false" [initialValue]="item.Date" (onValueChange)="dateChange($event)"></date-picker>
+                                <date-picker [id]="sectionIndex + '-' + groupIndex + '-' + index + '-date'" [IncludeTime]="false" [initialValue]="item.Date" (onValueChange)="dateChange($event)"></date-picker>
                             </div>
                         </div>
 
@@ -109,6 +109,8 @@ export class ItemMotionComponent extends ItemComponent implements OnInit, AfterV
     @Input()
     groupIndex: number;
     motionTitleOptions: any;
+    @Input()
+    sectionIndex: number;
 
     constructor() {
         super();
@@ -117,10 +119,10 @@ export class ItemMotionComponent extends ItemComponent implements OnInit, AfterV
         this.motionTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
 
         if (this.isGroupChild) {
-            this.toggleId = this.index + '-' + this.groupIndex + '-motion';
+            this.toggleId = this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-motion';
         }
         else {
-            this.toggleId = this.index + '-motion';
+            this.toggleId = this.sectionIndex + '-' + this.index + '-motion';
         }
     }
 

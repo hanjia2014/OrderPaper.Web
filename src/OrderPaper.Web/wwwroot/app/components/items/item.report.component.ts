@@ -36,7 +36,7 @@ import { ItemComponent }    from './item.component';
                             </div>
                             <div class="form-group col-md-5 nopadding">
                                 <span>CPD</span>
-                                <select2 [id]="index + 'report-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -51,7 +51,7 @@ import { ItemComponent }    from './item.component';
                             </div>
                             <div class="form-group col-md-5 nopadding">
                                 <span>CPD</span>
-                                <select2 [id]="index + 'report-shoulder-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-shoulder-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -66,7 +66,7 @@ import { ItemComponent }    from './item.component';
                             </div>
                             <div class="form-group col-md-5 nopadding">
                                 <span>CPD</span>
-                                <select2 [id]="index + 'report-committee-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-committee-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -81,7 +81,7 @@ import { ItemComponent }    from './item.component';
                             </div>
                             <div class="form-group col-md-5 nopadding">
                                 <span>CPD</span>
-                                <select2 [id]="index + 'report-latestevent-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-latestevent-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -108,6 +108,8 @@ export class ItemReportComponent extends ItemComponent implements OnInit, AfterV
     @Input()
     groupIndex: number;
     reportTitleOptions: any;
+    @Input()
+    sectionIndex: number;
 
     constructor() {
         super();
@@ -116,10 +118,10 @@ export class ItemReportComponent extends ItemComponent implements OnInit, AfterV
         this.reportTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
 
         if (this.isGroupChild) {
-            this.toggleId = this.index + '-' + this.groupIndex + '-report';
+            this.toggleId = this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-report';
         }
         else {
-            this.toggleId = this.index + '-report';
+            this.toggleId = this.sectionIndex + '-' + this.index + '-report';
         }
     }
 

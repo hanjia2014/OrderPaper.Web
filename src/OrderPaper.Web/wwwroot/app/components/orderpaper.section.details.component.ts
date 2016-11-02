@@ -59,16 +59,16 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-primary nopadding col-md-8 item-box' : 'panel panel-default nopadding col-md-8 item-box'}}" [class.new-item]="item.IsNew && item.Type != 'Group'">
+                                <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-primary nopadding col-md-8 item-box' : 'panel panel-default nopadding col-md-8 item-box'}}">
                                     <div class="panel-body">
                                         <span *ngIf="item.Type == 'Bill'">
-                                            <item-bill [index]="i" [item]="item"></item-bill>
+                                            <item-bill [sectionIndex]="index" [index]="i" [item]="item"></item-bill>
                                         </span>
                                         <span *ngIf="item.Type == 'Report'">
-                                            <item-report [index]="i" [item]="item"></item-report>
+                                            <item-report [sectionIndex]="index" [index]="i" [item]="item"></item-report>
                                         </span>
                                         <span *ngIf="item.Type == 'Motion'">
-                                            <item-motion [index]="i" [item]="item"></item-motion>
+                                            <item-motion [sectionIndex]="index" [index]="i" [item]="item"></item-motion>
                                         </span>
                                         <span *ngIf="item.Type == 'Group'">
                                             <item-group [group]="item" [sequenceOptions]="getSequence()" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
@@ -128,7 +128,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         super();
     }
     ngOnInit() {
-
+        this.selectedItemType = 'Bill';
     }
 
     isAboveLine(index: number): boolean {

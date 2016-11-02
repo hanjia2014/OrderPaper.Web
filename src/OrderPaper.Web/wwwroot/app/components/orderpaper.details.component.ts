@@ -38,7 +38,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Status
                             </div>
                             <div class="col-md-1">
-                                OP Number
+                                Number
                             </div>
                         </div>
                         <div class="row">
@@ -85,7 +85,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Sections
                             </span>
                             <br/>
-                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions, General debate'" [allowFreeText]="true" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
+                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions ...'" [allowFreeText]="true" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
                             <a (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
@@ -103,7 +103,12 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         <h4 class="modal-title">Confirm to delete</h4>
                     </modal-header>
                     <modal-body>
-                        Are you sure to exist without saving changes?
+                        <div *ngIf="deletingType == 'orderpaper'">
+                            Are you sure to exist without saving changes?
+                        </div>
+                        <div *ngIf="deletingType == 'section'">
+                            Are you sure to delete this section?
+                        </div>
                     </modal-body>
                     <modal-footer [show-default-buttons]="true"></modal-footer>
                 </modal>
@@ -194,7 +199,13 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
 
     addSelectedSection = () => {
         console.log(this.addSection);
-        console.log(this.isFreeTextSection());
+        if (this.isFreeTextSection()) {
+            var section = new Section();
+            section.Name = this.addSection;
+            this.orderPaper.Sections.push(section);
+        }
+        else {
+        }
     }
 
     private isFreeTextSection = (): boolean => {

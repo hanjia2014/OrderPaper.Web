@@ -59,7 +59,10 @@ export class Select2Component implements AfterViewInit {
         }
 
         $("#" + this.id).select2(options).on("change", (e: any) => {
-            this.selected.next(e.val);
+            if (e.val == null && this.initialValue != null && this.initialValue != "")
+                this.selected.next(this.initialValue);
+            else
+                this.selected.next(e.val);
         });
 
         if (this.disableMultipleSelection) {

@@ -38,7 +38,7 @@ import { ItemComponent }    from './item.component';
                         </div>
                         <div class="form-group col-md-5 nopadding">
                             <span>CPD</span>
-                            <select2 [id]="index + 'bill-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
+                            <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'bill-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
                         </div>
                     </div>
                     <div class="spacer"></div>
@@ -53,7 +53,7 @@ import { ItemComponent }    from './item.component';
                         </div>
                         <div class="form-group col-md-5 nopadding">
                             <span>CPD</span>
-                            <select2 [id]="index + 'bill-number-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
+                            <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'bill-number-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
                         </div>
                     </div>
                     <div class="spacer"></div>
@@ -68,7 +68,7 @@ import { ItemComponent }    from './item.component';
                         </div>
                         <div class="form-group col-md-5 nopadding">
                             <span>CPD</span>
-                            <select2 [id]="index + 'bill-member-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
+                            <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'bill-member-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
                         </div>
                     </div>
                     <div class="spacer"></div>
@@ -141,6 +141,8 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     isGroupChild: boolean = false;
     @Input()
     groupIndex: number;
+    @Input()
+    sectionIndex: number;
 
     constructor() {
         super();
@@ -149,10 +151,10 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
         this.billTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
 
         if (this.isGroupChild) {
-            this.toggleId = this.index + '-' + this.groupIndex + '-bill';
+            this.toggleId = this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-bill';
         }
         else {
-            this.toggleId = this.index + '-bill';
+            this.toggleId = this.sectionIndex + '-' + this.index + '-bill';
         }
     }
 
