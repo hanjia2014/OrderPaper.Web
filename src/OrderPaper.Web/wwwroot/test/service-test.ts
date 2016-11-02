@@ -64,4 +64,13 @@ describe('service test', () => {
             },
             (err: any) => this.error = err);
     })));
+
+    it('get the section details', async(inject([OrderPaperService], (orderPaperService: OrderPaperService) => {
+        orderPaperService.getSectionDetails("1").subscribe(
+            (data: any) => {
+                expect(data != null).toEqual(true);
+            },
+            (err: any) => this.error = err);
+    })));
+
 });

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using OrderPapers.Models;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Net;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,7 +27,7 @@ namespace OrderPapers.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            var section = new Section { Name = "Section" + id.ToString() };
+            var section = new { Id = id, Text = "Section" + id.ToString() };
             return JsonConvert.SerializeObject(section);
         }
     }

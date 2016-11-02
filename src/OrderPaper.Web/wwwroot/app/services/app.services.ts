@@ -103,7 +103,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService {
         });
     }
 
-    getSectionDetails = (id: number): Observable<Section> => {
+    getSectionDetails = (id: string): Observable<any> => {
         return this.http.get(AppSettings.API_SECTION_ENDPOINT + '/' + id + AppSettings.SP_HOST).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);

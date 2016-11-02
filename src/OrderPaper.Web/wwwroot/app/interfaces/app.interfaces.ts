@@ -18,5 +18,5 @@ export interface IOrderPaperService {
 
 export interface ISectionService {
     getSectionSummaryList: () => Observable<SectionSummary[]>;
-    getSectionDetails: (id: number) => Observable<Section>;
+    getSectionDetails: (id: string) => Observable<Section>;
 }

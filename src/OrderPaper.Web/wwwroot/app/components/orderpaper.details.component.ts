@@ -95,6 +95,29 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 </li>  
                             </ul>
                         </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div *ngIf="orderPaper.Id != null" class="pull-left">
+                                    <div style="display: inline">
+                                        <img class="pointer" title="Preview" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.Progress == 'Preview' ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
+                                    </div>
+                                    <div style="display: inline">
+                                        <img class="pointer" title="Word" (click)="progress('Word')" src="{{imagesPath + (orderPaper.Progress == 'Word' ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png')}}">
+                                    </div>
+                                    <div style="display: inline">
+                                        <img class="pointer" title="Print" (click)="progress('Print')" src="{{imagesPath + (orderPaper.Progress == 'Print' ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png')}}">
+                                    </div>
+                                    <div style="display: inline">
+                                        <img class="pointer" title="Publish" (click)="progress('Publish')" src="{{imagesPath + (orderPaper.Progress == 'Publish' ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png')}}">
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="padding-top: 10px;">
+                                    <a class="btn btn-parliament" [ngClass]='{disabled: checkMandatory()}' (click)="save($event)">Save OP</a>
+                                    <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
@@ -198,13 +221,28 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     addSelectedSection = () => {
-        console.log(this.addSection);
         if (this.isFreeTextSection()) {
             var section = new Section();
             section.Name = this.addSection;
             this.orderPaper.Sections.push(section);
         }
         else {
+            //fetch from api
+            this.spinElm = document.getElementById("saveSpinner");
+            this.spinner.spin(this.spinElm);
+            this.orderPaperService.getSectionDetails(this.addSection).subscribe(
+                (data: any) => {
+                    if (data != null) {
+                        var section = new Section();
+                        section.Name = data.Text;
+                        this.orderPaper.Sections.push(section);
+                        this.spinner.stop();
+                    }
+                },
+                (err: any) => {
+                    this.error = err;
+                    this.spinner.stop();
+                });
         }
     }
 
