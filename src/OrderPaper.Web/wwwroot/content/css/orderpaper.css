@@ -5,13 +5,18 @@ a {
     cursor: pointer;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
+.footer {
     width: 100%;
+    position: relative;
     height: 100px;
-    margin: 0 auto;
+    clear: both;
+    top: 100%;
+    overflow: hidden;
+    text-align: center;
     background-color: #3b3b3b;
+    min-width: 60px;
+    bottom: 0;
+    margin-top: 20px;
 }
 
 .inactive {

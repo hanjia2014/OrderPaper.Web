@@ -62,7 +62,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                         <tab [title]="'Search'" (onActiveChange)="onCheckTabMode($event)">
                         </tab>
                     </tabs>
-                    <div style="background-color: #edecec">
+                    <div style="background-color: #edecec;">
                         <div class="container" style="padding-left: 10%;">
                             <order-paper-details [orderPaper]="selectedOrderPaper" [sectionOptions]="sectionOptions"></order-paper-details>
                         </div>
@@ -77,6 +77,11 @@ import { ModalComponent }                       from '../directives/modal/modal'
                         </modal-body>
                         <modal-footer [show-default-buttons]="true"></modal-footer>
                     </modal>
+                </div>
+                <div class="footer">
+                    <div style="margin-top: 40px;">
+                        <img *ngIf="selectedOrderPaper != null" src="{{imagesPath + 'smiley.png'}}" height="23">
+                    </div>
                 </div>
                 `,
     styles: [`
