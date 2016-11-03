@@ -18,17 +18,17 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
     template: `
                 <div id="spinner"></div>
                 <div class="row">
-                    <div class="col-md-10" style="padding-left: 90px;">
+                    <div class="col-md-11" style="padding-left: 90px;">
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <span>Details</span>
                                 <br />
-                                <textarea class="form-control" [(ngModel)]="section.Details" cols="30" rows="5"></textarea>
+                                <textarea class="form-control" [(ngModel)]="section.Details" cols="40" rows="5"></textarea>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <span>Speeches</span>
                                 <br />
-                                <textarea class="form-control" [(ngModel)]="section.Speeches" cols="30" rows="5"></textarea>
+                                <textarea class="form-control" [(ngModel)]="section.Speeches" cols="40" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="spacer"></div>

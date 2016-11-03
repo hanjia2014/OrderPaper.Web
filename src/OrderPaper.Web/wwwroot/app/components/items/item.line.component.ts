@@ -14,8 +14,8 @@ import { AppSettings }                              from '../../settings/app.set
                 </div>
                 `,
     styles: [`.item-line hr{
-                color: #696969; 
-                background-color: #696969; 
+                color: #3b3b3b; 
+                background-color: #3b3b3b; 
                 height: 8px;
                 margin-top: 0px;
             }
