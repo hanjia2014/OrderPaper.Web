@@ -48,7 +48,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService {
         });
     }
 
-    save(orderPaper: OrderPaper): Observable<Response> {
+    save(orderPaper: OrderPaper): Observable<OrderPaperWrapper> {
         var body = JSON.stringify({ name: "AA" });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

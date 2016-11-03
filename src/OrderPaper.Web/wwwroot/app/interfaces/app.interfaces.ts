@@ -11,7 +11,7 @@ export interface ITogglable {
 export interface IOrderPaperService {
     getOrderPaperList: () => Observable<OrderPaperWrapper[]>;
     getOrderPaper: (id: string) => Observable<OrderPaperWrapper>;
-    save: (orderPaper: OrderPaper) => Observable<Response>;
+    save: (orderPaper: OrderPaper) => Observable<OrderPaperWrapper>;
     update: (orderPaper: OrderPaper) => Observable<Response>;
     delete: (id: string) => Observable<boolean>;
 }

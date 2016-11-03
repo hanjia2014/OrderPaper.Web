@@ -13,6 +13,7 @@ import { OrderPaperService }                from '../services/app.services';
 import { AppSettings }                      from '../settings/app.settings';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section, SectionSummary }          from '../models/section';
+import { OrderPaperWrapper }                from '../models/orderpaperwrapper';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 import { ModalComponent }                   from '../directives/modal/modal';
 
@@ -290,7 +291,14 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         var paperString = JSON.stringify(this.orderPaper);
         e.preventDefault();
         this.orderPaperService.save(this.orderPaper).subscribe(
-            (data: Response) => {
+            (data: OrderPaperWrapper) => {
+                if (data.OrderPaperJson != null && data.OrderPaperJson != "") {
+                    var op = JSON.parse(data.OrderPaperJson);
+                    (<any>Object).assign(this.orderPaper, op);
+                    if (data.Id != null) {
+                        this.orderPaper.Id = data.Id;
+                    }
+                }
                 this.spinner.stop();
             },
             (err: any) => this.error = err);
