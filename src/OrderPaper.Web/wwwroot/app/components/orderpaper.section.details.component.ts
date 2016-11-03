@@ -119,7 +119,6 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     @Input()
     index: number;
     error: any;
-    hasLine: boolean = false;
     itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
     listElm: HTMLElement = document.getElementById("spinner");
@@ -131,8 +130,17 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         this.selectedItemType = 'Bill';
     }
 
+    hasLineAlready = (): boolean => {
+        var found = false;
+        this.section.Items.forEach(item => {
+            if (item.Type == "Line")
+                found = true;
+        });
+        return found;
+    }
+
     isAboveLine(index: number): boolean {
-        if (this.hasLine == false) return true;
+        if (this.hasLineAlready() == false) return true;
         for (var i = 0; i < this.section.Items.length; i++) {
             if (this.section.Items[i].Type == "Line") {
                 return index < i;
@@ -166,9 +174,8 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         var item = null;
         switch (this.selectedItemType) {
             case "Line":
-                if (this.hasLine == false) {
+                if (this.hasLineAlready() == false) {
                     item = new LineItem();
-                    this.hasLine = true;
                 }
                 break;
             case "Bill":
@@ -200,7 +207,6 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     }
     deleteLine = (line: LineItem, index: number) => {
         this.section.Items.splice(index, 1);
-        this.hasLine = false;
     }
 
     addGroup = (item: Item, index: number) => {
@@ -225,9 +231,6 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     }
 
     removeItem = (item: Item, index: number) => {
-        if (item.Type == "Line")
-            this.hasLine = false;
-
         this.section.Items.splice(index, 1);
         this.sortingItems(null);
     }
