@@ -7,6 +7,7 @@ export class Section {
     Items: Array<Item>;
     Groups: Array<Array<Item>>;
     GroupItems: Array<GroupItem>;
+    SubHeading: string;
     Details: string;
     Speeches: string;
     constructor() {

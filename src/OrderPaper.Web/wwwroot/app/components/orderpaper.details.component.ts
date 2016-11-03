@@ -235,6 +235,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                     if (data != null) {
                         var section = new Section();
                         section.Name = data.Text;
+                        section.SubHeading = data.SubHeading;
+                        section.Details = data.Details;
+                        section.Speeches = data.Speeches;
                         this.orderPaper.Sections.push(section);
                         this.spinner.stop();
                     }
