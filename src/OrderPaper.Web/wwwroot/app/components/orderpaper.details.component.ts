@@ -28,10 +28,10 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 Date
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 Sitting hours
                             </div>
                             <div class="col-md-2">
@@ -42,12 +42,11 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
+                            <div class="col-md-2">
+                                <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [width]="'150px'" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
-                            <div class="col-md-3">
-                                <select2 [id]="'orderPaperSittingHours'" [initialValue]="orderPaper.SittingHours" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
-                                <!--<img src="{{imagesPath + 'time.png'}}">-->
+                            <div class="col-md-4">
+                                <select2 [id]="'orderPaperSittingHours'" [width]="'300px'" [initialValue]="orderPaper.SittingHours" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
                             </div>             
                             <div class="col-md-2">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [width]="'125px'" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>

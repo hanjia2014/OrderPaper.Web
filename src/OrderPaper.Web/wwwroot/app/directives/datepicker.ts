@@ -4,9 +4,8 @@ import { AppSettings }                                                          
 
 @Component({
     selector: 'date-picker',
-    template: `<div class="input-group date" style="max-width: 250px" id="{{id}}">
+    template: `<div class="input-group date" [style.width]="width" style="max-width: 250px" id="{{id}}">
                     <input type="text" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
-
                     <span class="input-group-addon" style="background-color: white"><img src="{{imagePath + 'calendar.png'}}" width="15"></span>
                 </div>`,
     styles: [],
@@ -19,6 +18,8 @@ export class DatePickerComponent implements AfterViewInit {
     IncludeTime: boolean;
     @Input()
     initialValue: string;
+    @Input()
+    width: string;
     @Output()
     onValueChange = new EventEmitter<string>();
     imagePath: string = AppSettings.IMAGE_PATH;
