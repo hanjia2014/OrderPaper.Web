@@ -14,6 +14,12 @@ footer {
     background-color: #3b3b3b;
 }
 
+.inactive {
+    pointer-events: none;
+    cursor: default;
+    color: gray;
+} 
+
 .ui-sortable-helper,
 .highlight-section {
     border-color: #f5bc11;

@@ -85,7 +85,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </span>
                             <br/>
                             <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions ...'" [allowFreeText]="true" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
-                            <a (click)="addSelectedSection()">Add section</a>
+                            <a [class.inactive]="addSection==null || addSection==''" (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
                             <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
@@ -220,31 +220,33 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     addSelectedSection = () => {
-        if (this.isFreeTextSection()) {
-            var section = new Section();
-            section.Name = this.addSection;
-            this.orderPaper.Sections.push(section);
-        }
-        else {
-            //fetch from api
-            this.spinElm = document.getElementById("saveSpinner");
-            this.spinner.spin(this.spinElm);
-            this.orderPaperService.getSectionDetails(this.addSection).subscribe(
-                (data: any) => {
-                    if (data != null) {
-                        var section = new Section();
-                        section.Name = data.Text;
-                        section.SubHeading = data.SubHeading;
-                        section.Details = data.Details;
-                        section.Speeches = data.Speeches;
-                        this.orderPaper.Sections.push(section);
+        if (this.addSection != null && this.addSection != '') {
+            if (this.isFreeTextSection()) {
+                var section = new Section();
+                section.Name = this.addSection;
+                this.orderPaper.Sections.push(section);
+            }
+            else {
+                //fetch from api
+                this.spinElm = document.getElementById("saveSpinner");
+                this.spinner.spin(this.spinElm);
+                this.orderPaperService.getSectionDetails(this.addSection).subscribe(
+                    (data: any) => {
+                        if (data != null) {
+                            var section = new Section();
+                            section.Name = data.Text;
+                            section.SubHeading = data.SubHeading;
+                            section.Details = data.Details;
+                            section.Speeches = data.Speeches;
+                            this.orderPaper.Sections.push(section);
+                            this.spinner.stop();
+                        }
+                    },
+                    (err: any) => {
+                        this.error = err;
                         this.spinner.stop();
-                    }
-                },
-                (err: any) => {
-                    this.error = err;
-                    this.spinner.stop();
-                });
+                    });
+            }
         }
     }
 
