@@ -5,6 +5,15 @@ a {
     cursor: pointer;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    margin: 0 auto;
+    background-color: #3b3b3b;
+}
+
 .ui-sortable-helper,
 .highlight-section {
     border-color: #f5bc11;
