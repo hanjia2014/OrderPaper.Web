@@ -33,7 +33,7 @@ import { AppSettings }      from '../settings/app.settings';
                         <div class="panel-body no-padding-left">
                             <div class="drag-handle">
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
-                                <select2 *ngIf="isSelected" [id]="index + '-section-list'" [enableSearch]="false" [multiple]="false" [initialValue]="section.Name" [data]="dummySectionList" (selected)="sectionChange($event)">
+                                <select2 *ngIf="isSelected" [id]="index + '-section-list'" [enableSearch]="false" [multiple]="false" [initialValue]="section.Name" [data]="availableSections" (selected)="sectionChange($event)">
                                 </select2>
                                 <div class="pull-right">
                                     <a *ngIf="isSelected" (click)="toggle($event, index + '-section', true)">
@@ -72,18 +72,24 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     isSelected: boolean;
     @Input()
     index: number;
+    @Input()
+    sectionOptions: any;
     @Output()
     onSelectSection: EventEmitter<Section> = new EventEmitter<Section>();
     @Output()
     onDeleteSection: EventEmitter<number> = new EventEmitter<number>();
     imagesPath: string = AppSettings.IMAGE_PATH;
-    dummySectionList = [{ id: "section one", text: "section one" }, { id: "section two", text: "section two" }];
     updatedSectionSelect: string;
+    availableSections: any;
     constructor() {
     }
     ngOnInit() {
-        if (this.section != null) {
-            this.dummySectionList.push({ id: this.section.Name, text: this.section.Name });
+        if (this.section != null && this.sectionOptions != null) {
+            this.availableSections = [];
+            this.sectionOptions.forEach(option => {
+                this.availableSections.push({ id: option.id, text: option.text });
+            });
+            this.availableSections.push({ id: this.section.Name, text: this.section.Name });
         }
     }
     sectionChange = (e: string) => {
