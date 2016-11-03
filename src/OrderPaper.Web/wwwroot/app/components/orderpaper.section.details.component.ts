@@ -79,7 +79,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                                     <item-line [line]="section" (onDeleteLine)="deleteLine($event, i)"></item-line>
                                 </span>
                                 <div class="col-md-1 trash-bin-box" [class.vcenter]="item.Type != 'Line'">
-                                    <div *ngIf="item.Type != 'Group'">
+                                    <div *ngIf="item.Type != 'Group' && item.Type != 'Line'">
                                         <img (click)="removeItem(item, i)" title="Delete item" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'" src="{{imagesPath + 'delete.png'}}" style="cursor: pointer">
                                     </div>
                                 </div>
