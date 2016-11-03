@@ -15,15 +15,16 @@ import { AppSettings }  from '../../settings/app.settings';
         <nav class="nav-black">
             <ul class="nav nav-tabs container" style="padding-left: 10%">
                 <li>
-                    <img src="{{imagePath + 'OP logo.png'}}" width="70" style="margin-left: -110px; margin-right: 20px;">
+                    <img src="{{imagesPath + 'OP logo.png'}}" width="70" style="margin-left: -110px; margin-right: 20px;">
                 </li>
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
                     <a class="list-unstyled content-tab" style="color:white">{{tab.title}}
                     </a>
                     <span [style.background-color]="tab.active ? '#263a55' : '#142840'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
                 </li>
-                <li id="test" class="pull-right" style="padding-right: 30%">
-                    <a class="btn btn-parliament new-order-paper" (click)="createNewOrderPaper()">New Order Paper</a>
+                <li>
+                    <!--<a class="btn btn-parliament new-order-paper" (click)="createNewOrderPaper()">New Order Paper</a>-->
+                    <img (click)="createNewOrderPaper()" title="Create new order paper" style="padding-top:10px;" class="pointer" src="{{imagesPath + 'add new op.png'}}">
                 </li>
             </ul>
         </nav>
@@ -70,10 +71,10 @@ import { AppSettings }  from '../../settings/app.settings';
             `]
 })
 export class Tabs implements AfterContentInit {
-    imagePath: string = AppSettings.IMAGE_PATH;
     @Output()
     onCreateNewOrderPaper = new EventEmitter();
     @ContentChildren(Tab) tabs: QueryList<Tab>;
+    imagesPath: string = AppSettings.IMAGE_PATH;
     // contentChildren are set
     ngAfterContentInit() {
         // get all active tabs

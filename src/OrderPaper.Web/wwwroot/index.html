@@ -52,5 +52,12 @@
     <div>
         <app>loading...</app>
     </div>
+    <script>
+        $(document).on('mouseup', 'input:text, textarea', function (e) {
+            $(this).blur();
+
+            $(this).focus();
+        });
+    </script>
 </body>
 </html>
