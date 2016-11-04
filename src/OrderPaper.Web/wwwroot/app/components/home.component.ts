@@ -78,11 +78,11 @@ import { ModalComponent }                       from '../directives/modal/modal'
                         <modal-footer [show-default-buttons]="true"></modal-footer>
                     </modal>
                 </div>
-                <div class="footer">
+                <!--<div class="footer">
                     <div style="margin-top: 40px;">
                         <img *ngIf="selectedOrderPaper != null" src="{{imagesPath + 'smiley.png'}}" height="23">
                     </div>
-                </div>
+                </div>-->
                 `,
     styles: [`
                 a{
