@@ -66,7 +66,7 @@ export const DEFAULT_STYLES = `
   .ng2-pagination .current {
     padding: 0.1875rem 0.625rem;
     background: #2ebcc5;
-    color: #fefefe;
+    color: #263a55;
     cursor: default; }
   .ng2-pagination .disabled {
     padding: 0.1875rem 0.625rem;
