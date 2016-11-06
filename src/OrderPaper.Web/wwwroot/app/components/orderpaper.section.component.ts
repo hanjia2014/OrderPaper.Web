@@ -130,6 +130,14 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
                         this.section.Details = data.Details;
                         this.section.Speeches = data.Speeches;
                         this.spinner.stop();
+
+                        if (this.availableSections != null) {
+                            for (var i = this.availableSections.length - 1; i >= 0; i--) {
+                                var option = this.availableSections[i];
+                                if(option.id == option.text)
+                                    this.availableSections.splice(i, 1);
+                            }
+                        }
                     }
                 },
                 (err: any) => {
