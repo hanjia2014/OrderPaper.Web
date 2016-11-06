@@ -5,7 +5,7 @@ import { AppSettings }                                                          
 @Component({
     selector: 'date-picker',
     template: `<div class="input-group date" [style.width]="width" style="max-width: 250px" id="{{id}}">
-                    <input type="text" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
+                    <input type="text" style="background-color: white" readonly='true' [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
                     <span class="input-group-addon" style="background-color: white"><img src="{{imagePath + 'calendar.png'}}" width="15"></span>
                 </div>`,
     styles: [],
