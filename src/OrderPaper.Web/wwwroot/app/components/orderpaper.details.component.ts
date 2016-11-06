@@ -224,6 +224,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         if (this.addSection != null && this.addSection != '') {
             if (this.isFreeTextSection()) {
                 var section = new Section();
+                section.Id = this.addSection;
                 section.Name = this.addSection;
                 this.orderPaper.Sections.push(section);
             }
@@ -235,6 +236,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                     (data: any) => {
                         if (data != null) {
                             var section = new Section();
+                            section.Id = data.Id.toString();
                             section.Name = data.Text;
                             section.SubHeading = data.SubHeading;
                             section.Details = data.Details;

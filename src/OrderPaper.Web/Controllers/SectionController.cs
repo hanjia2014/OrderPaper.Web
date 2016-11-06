@@ -27,7 +27,27 @@ namespace OrderPapers.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            var section = new { Id = id, Text = "Section" + id.ToString() };
+            var idStr = id.ToString();
+            var name = string.Empty;
+            switch (id)
+            {
+                case 1:
+                    name = "Section One";
+                    break;
+                case 2:
+                    name = "Section Two";
+                    break;
+                case 3:
+                    name = "Section Three";
+                    break;
+                case 4:
+                    name = "Section Four";
+                    break;
+                case 5:
+                    name = "Section Five";
+                    break;
+            }
+            var section = new { Id = id, Text = name, Details="this is the details for " +  idStr, Speeches= "this is the details for " + idStr };
             return JsonConvert.SerializeObject(section);
         }
     }

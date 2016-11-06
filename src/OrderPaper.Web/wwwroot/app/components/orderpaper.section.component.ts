@@ -33,7 +33,7 @@ import { AppSettings }      from '../settings/app.settings';
                         <div class="panel-body no-padding-left">
                             <div class="drag-handle">
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
-                                <select2 *ngIf="isSelected" [id]="index + '-section-list'" [enableSearch]="false" [multiple]="false" [initialValue]="section.Name" [data]="availableSections" (selected)="sectionChange($event)">
+                                <select2 *ngIf="isSelected" [id]="index + '-section-list'" [enableSearch]="false" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
                                 </select2>
                                 <div class="pull-right">
                                     <a *ngIf="isSelected" (click)="toggle($event, index + '-section', true)">
@@ -81,6 +81,10 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     imagesPath: string = AppSettings.IMAGE_PATH;
     updatedSectionSelect: string;
     availableSections: any;
+    spinElm: HTMLElement;
+    spinner: Spinner = new Spinner({ radius: 10, color: '#2ebcc5' });
+    error: any;
+
     constructor() {
     }
     ngOnInit() {
@@ -89,16 +93,30 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
             this.sectionOptions.forEach(option => {
                 this.availableSections.push({ id: option.id, text: option.text });
             });
-            this.availableSections.push({ id: this.section.Name, text: this.section.Name });
+            if (this.isFreeTextSection())
+                this.availableSections.push({ id: this.section.Name, text: this.section.Name });
         }
     }
     sectionChange = (e: string) => {
         if (e != null) {
             this.updatedSectionSelect = e;
-            //might remove later
-            this.section.Name = e;
+            this.section.Id = e;
+            this.availableSections.forEach(option => {
+                if (option.id == e)
+                    this.section.Name = option.text;
+            });
         }
     }
+
+    private isFreeTextSection = (): boolean => {
+        var isFreeText = true;
+        this.sectionOptions.forEach(item => {
+            if (item.id == this.section.Id)
+                isFreeText = false;
+        });
+        return isFreeText;
+    }
+
     ngAfterViewInit() {
     }
 
