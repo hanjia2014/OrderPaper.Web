@@ -117,6 +117,26 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     }
 
     selectedSection = () => {
+        //fetch from api
+        if (this.isFreeTextSection() == false) {
+            this.spinElm = document.getElementById("saveSpinner");
+            this.spinner.spin(this.spinElm);
+            this.orderPaperService.getSectionDetails(this.section.Id).subscribe(
+                (data: any) => {
+                    if (data != null) {
+                        this.section.Id = data.Id.toString();
+                        this.section.Name = data.Text;
+                        this.section.SubHeading = data.SubHeading;
+                        this.section.Details = data.Details;
+                        this.section.Speeches = data.Speeches;
+                        this.spinner.stop();
+                    }
+                },
+                (err: any) => {
+                    this.error = err;
+                    this.spinner.stop();
+                });
+        }
     }
 
     private isFreeTextSection = (): boolean => {
