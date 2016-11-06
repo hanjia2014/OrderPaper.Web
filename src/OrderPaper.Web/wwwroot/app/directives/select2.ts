@@ -40,7 +40,6 @@ export class Select2Component implements AfterViewInit {
             allowClear: true,
             data: this.data,
             multiple: this.multiple,
-            maximumInputLength: 30,
             width: 'resolve',
             //Allow manually entered text in drop down.
             createSearchChoice: (term, data) => {
