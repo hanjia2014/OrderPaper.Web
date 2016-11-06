@@ -12,18 +12,19 @@
     Output,
     EventEmitter,
     AfterViewInit
-}                           from '@angular/core';
-import { BaseComponent }    from './base.component';
-import { OrderPaper }       from '../models/orderpaper';
-import { Section }          from '../models/section';
+}                               from '@angular/core';
+import { BaseComponent }        from './base.component';
+import { OrderPaper }           from '../models/orderpaper';
+import { Section }              from '../models/section';
 import { Item,
     LineItem,
     MotionItem,
     GroupItem,
     ReportItem,
     BillItem
-}                           from '../models/items';
-import { AppSettings }      from '../settings/app.settings';
+}                               from '../models/items';
+import { AppSettings }          from '../settings/app.settings';
+import { OrderPaperService }    from '../services/app.services';
 
 @Component({
     selector: 'order-paper-section',
@@ -35,6 +36,7 @@ import { AppSettings }      from '../settings/app.settings';
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <select2 *ngIf="isSelected" [id]="index + '-section-list'" [enableSearch]="false" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
                                 </select2>
+                                <a *ngIf="isSelected" (click)="selectedSection()">Add section</a>
                                 <div class="pull-right">
                                     <a *ngIf="isSelected" (click)="toggle($event, index + '-section', true)">
                                         <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
@@ -62,7 +64,8 @@ import { AppSettings }      from '../settings/app.settings';
                a{
                     cursor: pointer;
                 }
-            `]
+            `],
+    providers: [OrderPaperService]
 })
 export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     @Input()
@@ -85,18 +88,23 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     spinner: Spinner = new Spinner({ radius: 10, color: '#2ebcc5' });
     error: any;
 
-    constructor() {
+    constructor(private orderPaperService: OrderPaperService) {
     }
     ngOnInit() {
         if (this.section != null && this.sectionOptions != null) {
-            this.availableSections = [];
-            this.sectionOptions.forEach(option => {
-                this.availableSections.push({ id: option.id, text: option.text });
-            });
+            this.cloneSectionList();
             if (this.isFreeTextSection())
                 this.availableSections.push({ id: this.section.Name, text: this.section.Name });
         }
     }
+
+    cloneSectionList = () => {
+        this.availableSections = [];
+        this.sectionOptions.forEach(option => {
+            this.availableSections.push({ id: option.id, text: option.text });
+        });
+    }
+
     sectionChange = (e: string) => {
         if (e != null) {
             this.updatedSectionSelect = e;
@@ -106,6 +114,9 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
                     this.section.Name = option.text;
             });
         }
+    }
+
+    selectedSection = () => {
     }
 
     private isFreeTextSection = (): boolean => {
