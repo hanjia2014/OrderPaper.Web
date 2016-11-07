@@ -71,10 +71,12 @@ import { ModalComponent }                       from '../directives/modal/modal'
                     <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                         <modal-header [show-close]="true">
-                            <h4 class="modal-title">Confirm to delete</h4>
+                            <h4 class="modal-title" *ngIf="modalType == modalType_Delete">Confirm to delete</h4>
+                            <h4 class="modal-title" *ngIf="modalType == modalType_Save">Confirm to save</h4>
                         </modal-header>
                         <modal-body>
-                            Are you sure to delete the Order Paper?
+                            <div *ngIf="modalType == modalType_Delete">Are you sure to delete the Order Paper?</div>
+                            <div *ngIf="modalType == modalType_Save">Are you sure to open another Order Paper without saving the current Order Paper?</div>
                         </modal-body>
                         <modal-footer [show-default-buttons]="true"></modal-footer>
                     </modal>
@@ -139,6 +141,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     modalType: string;
     modalType_Save: string = "Saving confirm";
     modalType_Delete: string = "Deleting confirm";
+    modal_selected_id: string;
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -182,8 +185,15 @@ export class HomeComponent extends BaseComponent implements OnInit {
     selectOrderPaper = (id: string) => {
         if (this.selectedOrderPaper != null && this.selectedop != null && this.selectedop.Saved == false) {
             this.modalType = this.modalType_Save;
+            this.modal_selected_id = id;
+            this.modal.open();
         }
+        else {
+            this.downloadOrderPaper(id);
+        }
+    }
 
+    private downloadOrderPaper = (id: string) => {
         this.spinner.spin(this.listElm);
         this.orderPaperService.getOrderPaper(id).subscribe(
             (data: OrderPaperWrapper) => {
@@ -250,6 +260,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
             );
         }
         else if (this.modalType == this.modalType_Save) {
+            this.downloadOrderPaper(this.modal_selected_id);
         }
     }
     dismissed() {
