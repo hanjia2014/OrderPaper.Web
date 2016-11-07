@@ -135,6 +135,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     sectionOptions = [];
     deletedSummary: OrderPaperWrapper;
     deletedIndex: number;
+    selectedop: SelectedOP = null;
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
