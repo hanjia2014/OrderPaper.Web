@@ -18,12 +18,12 @@ import { ItemComponent }                                from './item.component';
                         <div class="col-md-4">
                             <select2 [id]="groupIndex + '-group-from'" [label]="'From: '" [initialValue]="group.From" [width]="'125px'" [placeholder]="'From'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceFromChange($event)"></select2>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <select2 [id]="groupIndex + '-group-to'" [label]="'To: '" [initialValue]="group.To" [width]="'125px'" [placeholder]="'To'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceToChange($event)"></select2>
+                            <a (click)="addItems()">
+                                Select
+                            </a>
                         </div>
-                        <a (click)="addItems()">
-                            Select
-                        </a>
                     </div>
                     <div class="row">
                         <div dnd-sortable-container [dropZones]="['drop-zone']" [sortableData]="group.Items">
