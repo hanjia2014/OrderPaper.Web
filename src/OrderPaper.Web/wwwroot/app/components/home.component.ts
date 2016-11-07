@@ -64,7 +64,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                     </tabs>
                     <div style="background-color: #edecec;">
                         <div class="container" style="padding-left: 10%;">
-                            <order-paper-details [orderPaper]="selectedOrderPaper" [sectionOptions]="sectionOptions"></order-paper-details>
+                            <order-paper-details [orderPaper]="selectedOrderPaper" (onSave)="updateSectionHistory()" [sectionOptions]="sectionOptions"></order-paper-details>
                         </div>
                     </div>
                     <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
@@ -142,6 +142,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.listElm = document.getElementById("spinner");
         this.getOrderPaperSummary();
         this.getSectionSummary();
+    }
+
+    updateSectionHistory = () => {
+        this.getOrderPaperSummary();
     }
 
     getOrderPaperSummary = () => {

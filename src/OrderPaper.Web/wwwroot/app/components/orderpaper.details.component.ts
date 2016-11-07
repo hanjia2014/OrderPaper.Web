@@ -2,6 +2,8 @@
     AfterViewInit,
     OnInit,
     Input,
+    Output,
+    EventEmitter,
     ViewChild,
     ViewChildren,
     QueryList
@@ -142,6 +144,8 @@ import { ModalComponent }                   from '../directives/modal/modal';
 export class OrderPaperDetailsComponent extends BaseComponent implements OnInit, AfterViewInit {
     @Input()
     orderPaper: OrderPaper;
+    @Output()
+    onSave = new EventEmitter();
     selectedSection: Section;
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
@@ -301,6 +305,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                         this.orderPaper.Id = data.Id;
                     }
                 }
+                this.onSave.next();
                 this.spinner.stop();
             },
             (err: any) => this.error = err);
@@ -312,6 +317,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         this.spinner.spin(this.spinElm);
         this.orderPaperService.update(this.orderPaper).subscribe(
             (data: Response) => {
+                this.onSave.next();
                 this.spinner.stop();
             },
             (err: any) => this.error = err);
