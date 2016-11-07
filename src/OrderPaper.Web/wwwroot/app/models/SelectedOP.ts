@@ -1,4 +1,4 @@
 ﻿export class SelectedOP {
-    Id: string;
+    Id: number;
     Saved: boolean;
 }

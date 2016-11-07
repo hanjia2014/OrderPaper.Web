@@ -65,7 +65,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                     </tabs>
                     <div style="background-color: #edecec;">
                         <div class="container" style="padding-left: 10%;">
-                            <order-paper-details [orderPaper]="selectedOrderPaper" (onSave)="updateSectionHistory()" [sectionOptions]="sectionOptions"></order-paper-details>
+                            <order-paper-details [orderPaper]="selectedOrderPaper" (onSave)="orderPaperSaveCallback()" [sectionOptions]="sectionOptions"></order-paper-details>
                         </div>
                     </div>
                     <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
@@ -135,7 +135,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
     sectionOptions = [];
     deletedSummary: OrderPaperWrapper;
     deletedIndex: number;
-    selectedop: SelectedOP = null;
+    selectedop: SelectedOP = new SelectedOP();
+    modalType: string;
+    modalType_Save: string = "Saving confirm";
+    modalType_Delete: string = "Deleting confirm";
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -146,8 +149,9 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.getSectionSummary();
     }
 
-    updateSectionHistory = () => {
+    orderPaperSaveCallback = () => {
         this.getOrderPaperSummary();
+        this.selectedop.Saved = true;
     }
 
     getOrderPaperSummary = () => {
@@ -176,6 +180,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     selectOrderPaper = (id: string) => {
+        if (this.selectedOrderPaper != null && this.selectedop != null && this.selectedop.Saved == false) {
+            this.modalType = this.modalType_Save;
+        }
+
         this.spinner.spin(this.listElm);
         this.orderPaperService.getOrderPaper(id).subscribe(
             (data: OrderPaperWrapper) => {
@@ -195,6 +203,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
                     this.selectedOrderPaper.SittingHours = "2pm to 6pm and 7:30pm to 10pm";
                     this.selectedOrderPaper.Number = nextNumber == 0 ? 1 : nextNumber;
                 }
+
+                this.selectedop.Id = this.selectedOrderPaper.Id;
+                this.selectedop.Saved = false;
+
                 this.spinner.stop();
                 this.tabs.collapseAll();
             },
@@ -206,6 +218,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     deleteOrderPaper = (summary: OrderPaperWrapper, index: number) => {
+        this.modalType = this.modalType_Delete;
         this.deletedSummary = summary;
         this.deletedIndex = index;
         this.modal.open();
@@ -226,14 +239,18 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.modal.open();
     }
     closed() {
-        this.orderPaperService.delete(this.deletedSummary.Id.toString()).subscribe(
-            (data: boolean) => {
-                if (data) {
-                    this.orderPaperSummary.splice(this.deletedIndex, 1);
-                }
-            },
-            (err: any) => this.error = err
-        );
+        if (this.modalType == this.modalType_Delete) {
+            this.orderPaperService.delete(this.deletedSummary.Id.toString()).subscribe(
+                (data: boolean) => {
+                    if (data) {
+                        this.orderPaperSummary.splice(this.deletedIndex, 1);
+                    }
+                },
+                (err: any) => this.error = err
+            );
+        }
+        else if (this.modalType == this.modalType_Save) {
+        }
     }
     dismissed() {
 
