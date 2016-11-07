@@ -3,6 +3,7 @@ import { BaseComponent }                        from './base.component';
 import { Tabs }                                 from '../directives/tabs/tabs';
 import { Section, SectionSummary }              from '../models/section';
 import { OrderPaper }                           from '../models/orderpaper';
+import { SelectedOP }                           from '../models/selectedop';
 import { OrderPaperWrapper }                    from '../models/orderpaperwrapper';
 import { OrderPaperService }                    from '../services/app.services';
 import { ModalComponent }                       from '../directives/modal/modal';
