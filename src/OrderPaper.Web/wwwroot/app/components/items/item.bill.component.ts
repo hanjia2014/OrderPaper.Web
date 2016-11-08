@@ -81,7 +81,7 @@ import { ItemComponent }    from './item.component';
                         </div>
                         <div class="form-group col-md-5 nopadding">
                             <span>Details</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Details" />
+                            <textarea class="form-control undraggable" [(ngModel)]="item.Details" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="spacer"></div>
@@ -101,7 +101,7 @@ import { ItemComponent }    from './item.component';
                             </div>
                             <div class="row nopadding">
                                 <input type="checkbox" [(ngModel)]="item.IsConsiderationItem" id="{{index + '-option4'}}" name="Available for consideration during extended" value="Available for consideration during extended" />
-                                <span>Available for consideration during extended</span>
+                                <span>Available for consideration during extended sitting hours</span>
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ import { ItemComponent }    from './item.component';
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding">
                             <span>Speeches</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Speeches" />
+                            <textarea class="form-control undraggable" [(ngModel)]="item.Speeches" cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group col-md-1">
                             
