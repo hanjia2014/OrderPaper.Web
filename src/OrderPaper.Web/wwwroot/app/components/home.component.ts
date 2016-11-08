@@ -21,9 +21,15 @@ import { ModalComponent }                       from '../directives/modal/modal'
                                 <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
                                         <tr class="header-green-text">
-                                            <th>Number</th>
-                                            <th>Sitting day</th>
-                                            <th>Status</th>
+                                            <th>
+                                                <a class="pointer" (click)="sortByNumber()">Number</a>
+                                            </th>
+                                            <th>
+                                                <a class="pointer" (click)="sortBySittingDay()">Sitting day</a>
+                                            </th>
+                                            <th>
+                                                <a class="pointer" (click)="sortByStatus()">Status</a>
+                                            </th>
                                             <th>Version</th>
                                             <th>Delete</th>
                                         </tr>
@@ -97,6 +103,9 @@ import { ModalComponent }                       from '../directives/modal/modal'
                 .header-green-text{
                     color: #2ebcc5;
                 }
+                .header-green-text a{
+                    color: #2ebcc5;
+                }
                 .header-white-text{
                     color: #fdfdfd;
                 }
@@ -138,10 +147,15 @@ export class HomeComponent extends BaseComponent implements OnInit {
     deletedSummary: OrderPaperWrapper;
     deletedIndex: number;
     selectedop: SelectedOP = new SelectedOP();
+    //modal
     modalType: string;
     modalType_Save: string = "Saving confirm";
     modalType_Delete: string = "Deleting confirm";
     modal_selected_id: string;
+    //sorting
+    sorting_number_descending: boolean;
+    sorting_status_descending: boolean;
+    sorting_sitting_day_descending: boolean;
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -265,5 +279,79 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
     dismissed() {
 
+    }
+
+    // op number sorting
+    sortByNumber = () => {
+        if (this.sorting_number_descending == null || this.sorting_number_descending == false) {
+            this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
+                if (a.Number > b.Number) return -1;
+                else if (a.Number < b.Number) return 1;
+                else return 0;
+            });
+        }
+        if (this.sorting_number_descending) {
+            this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
+                if (a.Number < b.Number) return -1;
+                else if (a.Number > b.Number) return 1;
+                else return 0;
+            });
+        }
+
+        this.sorting_number_descending = !this.sorting_number_descending;
+    }
+
+    sortByStatus = () => {
+        if (this.sorting_status_descending == null || this.sorting_status_descending == false) {
+            this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
+                if (a.Status > b.Status) return -1;
+                else if (a.Status < b.Status) return 1;
+                else return 0;
+            });
+        }
+        if (this.sorting_status_descending) {
+            this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
+                if (a.Status < b.Status) return -1;
+                else if (a.Status > b.Status) return 1;
+                else return 0;
+            });
+        }
+
+        this.sorting_status_descending = !this.sorting_status_descending;
+    }
+
+    sortBySittingDay = () => {
+        if (this.sorting_sitting_day_descending == null || this.sorting_sitting_day_descending == false) {
+            this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
+                var a_day = this.parseDate(a.SittingDay);
+                var b_day = this.parseDate(b.SittingDay);
+                if (a_day > b_day) return -1;
+                else if (a_day < b_day) return 1;
+                else return 0;
+            });
+        }
+        if (this.sorting_sitting_day_descending) {
+            this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
+                var a_day = this.parseDate(a.SittingDay);
+                var b_day = this.parseDate(b.SittingDay);
+                if (a_day < b_day) return -1;
+                else if (a_day > b_day) return 1;
+                else return 0;
+            });
+        }
+
+        this.sorting_sitting_day_descending = !this.sorting_sitting_day_descending;
+    }
+
+    private parseDate = (s: string): Date => {
+        var months = {
+            Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+            Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+        };
+        var p = s.split('-');
+        var year = parseInt(p[2]);
+        var month = months[p[1]];
+        var day = parseInt(p[0]);
+        return new Date(year, month, day);
     }
 }
