@@ -33,7 +33,6 @@ export class PaginationControlsCmp {
         this._autoHide = !!value && <any>value !== 'false';
     }
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
-    @Input() manualTotal: number;
     @ViewChild('template') template;
     pages: IPage[] = [];
     hasTemplate: boolean = true;
@@ -43,7 +42,7 @@ export class PaginationControlsCmp {
     private _autoHide: boolean = false;
 
     constructor(private service: PaginationService,
-                private changeDetectorRef: ChangeDetectorRef) {
+        private changeDetectorRef: ChangeDetectorRef) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
@@ -140,12 +139,10 @@ export class PaginationControlsCmp {
         if (correctedCurrentPage !== inst.currentPage) {
             setTimeout(() => {
                 this.setCurrent(correctedCurrentPage);
-                var total_items = this.manualTotal != null && this.manualTotal > 0 ? this.manualTotal : inst.totalItems;
-                this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, total_items, this.maxSize);
+                this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
             });
         } else {
-            var total_items = this.manualTotal != null && this.manualTotal > 0 ? this.manualTotal : inst.totalItems;
-            this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, total_items, this.maxSize);
+            this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
         }
     }
 
@@ -195,7 +192,7 @@ export class PaginationControlsCmp {
                 label: label,
                 value: pageNumber
             });
-            i ++;
+            i++;
         }
         return pages;
     }
