@@ -59,7 +59,7 @@ import { ItemComponent }        from './item.component';
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding">
                                 <span>Motion</span>
-                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Motion" />
+                                <textarea class="form-control undraggable" [(ngModel)]="item.Motion" cols="30" rows="5"></textarea>
                             </div>
                             <div class="form-group col-md-1">
                                 <label>&nbsp;</label>
@@ -83,7 +83,7 @@ import { ItemComponent }        from './item.component';
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding">
                                 <span>Speeches</span>
-                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Speeches" />
+                                <textarea class="form-control undraggable" [(ngModel)]="item.Speeches" cols="30" rows="5"></textarea>
                             </div>
                             <div class="form-group col-md-1">
                             </div>
