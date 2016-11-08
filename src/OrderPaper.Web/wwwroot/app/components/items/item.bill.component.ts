@@ -75,7 +75,7 @@ import { ItemComponent }    from './item.component';
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding">
                             <span>Stage</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Stage" />
+                            <textarea class="form-control undraggable" [(ngModel)]="item.Stage" cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group col-md-1">
                         </div>
