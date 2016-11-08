@@ -33,6 +33,7 @@ export class PaginationControlsCmp {
         this._autoHide = !!value && <any>value !== 'false';
     }
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+    @Input() manualTotal: number;
     @ViewChild('template') template;
     pages: IPage[] = [];
     hasTemplate: boolean = true;
@@ -139,10 +140,12 @@ export class PaginationControlsCmp {
         if (correctedCurrentPage !== inst.currentPage) {
             setTimeout(() => {
                 this.setCurrent(correctedCurrentPage);
-                this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+                var total_items = this.manualTotal != null && this.manualTotal > 0 ? this.manualTotal : inst.totalItems;
+                this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, total_items, this.maxSize);
             });
         } else {
-            this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+            var total_items = this.manualTotal != null && this.manualTotal > 0 ? this.manualTotal : inst.totalItems;
+            this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, total_items, this.maxSize);
         }
     }
 
