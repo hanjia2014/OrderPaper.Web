@@ -10,7 +10,7 @@ import { AppSettings }                                                          
                     <input *ngIf="readonly == null || readonly == false" type="text" style="background-color: white" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
                     <span class="input-group-addon" style="background-color: white"><img src="{{imagePath + 'calendar.png'}}" width="15"></span>
 
-                    <a *ngIf="showClear" class="clear" (click)="selectedDate = ''">Clear</a>
+                    <a *ngIf="showClear" class="clear" (click)="selectedDate = ''; onValueChange.next('');">Clear</a>
                 </div>
                 
                 `,
