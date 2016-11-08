@@ -4,11 +4,23 @@ import { AppSettings }                                                          
 
 @Component({
     selector: 'date-picker',
-    template: `<div class="input-group date" [style.width]="width" style="max-width: 250px" id="{{id}}">
-                    <input type="text" style="background-color: white" readonly='true' [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
+    template: `
+                <div class="input-group date" [style.width]="width" style="max-width: 250px" id="{{id}}">
+                    <input *ngIf="readonly" type="text" style="background-color: white" readonly='true' [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
+                    <input *ngIf="readonly == null || readonly == false" type="text" style="background-color: white" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
                     <span class="input-group-addon" style="background-color: white"><img src="{{imagePath + 'calendar.png'}}" width="15"></span>
-                </div>`,
-    styles: [],
+
+                    <a *ngIf="showClear" class="clear" (click)="selectedDate = ''">Clear</a>
+                </div>
+                
+                `,
+    styles: [`
+                .clear {
+                    float: right;
+                    padding-bottom: 8px;
+                    padding-left: 5px;
+                }
+            `],
     providers: []
 })
 export class DatePickerComponent implements AfterViewInit {
@@ -22,6 +34,10 @@ export class DatePickerComponent implements AfterViewInit {
     width: string;
     @Output()
     onValueChange = new EventEmitter<string>();
+    @Input()
+    readonly: boolean;
+    @Input()
+    showClear: boolean;
     imagePath: string = AppSettings.IMAGE_PATH;
     selectedDate: string;
 

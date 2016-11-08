@@ -62,8 +62,14 @@
     <script>
         $(document).on('mouseup', 'input:text, textarea', function (e) {
             $(this).blur();
-
             $(this).focus();
+
+            $(this).on('focus', function (e) {
+                $('.item-li').attr("draggable", "false");
+            })
+            .on('blur', function (e) {
+                $('.item-li').attr("draggable", "true");
+            });
         });
     </script>
 </body>

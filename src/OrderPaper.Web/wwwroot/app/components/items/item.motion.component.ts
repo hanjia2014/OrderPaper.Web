@@ -75,7 +75,7 @@ import { ItemComponent }        from './item.component';
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding">
                                 <span>Date</span>
-                                <date-picker [id]="sectionIndex + '-' + groupIndex + '-' + index + '-date'" [IncludeTime]="false" [initialValue]="item.Date" (onValueChange)="dateChange($event)"></date-picker>
+                                <date-picker [id]="sectionIndex + '-' + groupIndex + '-' + index + '-date'" [readonly]="true" [showClear]="true" [IncludeTime]="false" [initialValue]="item.Date" (onValueChange)="dateChange($event)"></date-picker>
                             </div>
                         </div>
 

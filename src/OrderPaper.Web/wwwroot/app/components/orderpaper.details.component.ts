@@ -46,7 +46,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [width]="'150px'" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
+                                <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [width]="'150px'" [readonly]="true" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
                             <div class="col-md-4">
                                 <select2 [id]="'orderPaperSittingHours'" [width]="'300px'" [initialValue]="orderPaper.SittingHours" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
