@@ -23,8 +23,8 @@ import { AppSettings }  from '../../settings/app.settings';
                     <span [style.background-color]="tab.active ? '#263a55' : '#142840'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
                 </li>
                 <li>
-                    <!--<a class="btn btn-parliament new-order-paper" (click)="createNewOrderPaper()">New Order Paper</a>-->
-                    <img (click)="createNewOrderPaper()" title="Create new order paper" style="padding-top:10px;" class="pointer" src="{{imagesPath + 'add new op.png'}}">
+                    <img (click)="createNewOrderPaper()" title="Create new order paper" style="padding-top:10px; margin-left: 50px;" class="pointer" src="{{imagesPath + 'add new op.png'}}">
+                    <span style="padding-top:10px; color: white;">New Order Paper</span>
                 </li>
             </ul>
         </nav>
