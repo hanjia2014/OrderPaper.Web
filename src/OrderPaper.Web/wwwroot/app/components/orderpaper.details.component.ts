@@ -37,7 +37,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             <div class="col-md-4" style="margin-left: 15px;">
                                 Sitting hours
                             </div>
-                            <div class="col-md-2" style="padding: 0px;">
+                            <div class="col-md-2" style="padding: 0px; width: 150px">
                                 Status
                             </div>
                             <div class="col-md-1" style="padding: 0px;">

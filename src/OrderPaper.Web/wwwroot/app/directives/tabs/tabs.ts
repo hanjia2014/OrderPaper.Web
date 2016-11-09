@@ -75,6 +75,7 @@ export class Tabs implements AfterContentInit {
     onCreateNewOrderPaper = new EventEmitter();
     @ContentChildren(Tab) tabs: QueryList<Tab>;
     imagesPath: string = AppSettings.IMAGE_PATH;
+
     // contentChildren are set
     ngAfterContentInit() {
         // get all active tabs
