@@ -5,6 +5,8 @@ export class SelectedOP {
     Value: OrderPaper;
 
     public compare = (orderPaper: OrderPaper): boolean => {
-        return JSON.stringify(this.Value) == JSON.stringify(orderPaper);
+        var value = JSON.stringify(this.Value);
+        var comparevalue = JSON.stringify(orderPaper);
+        return value.localeCompare(comparevalue) == 0;
     }
 }

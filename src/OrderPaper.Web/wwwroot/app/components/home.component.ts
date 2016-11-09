@@ -197,7 +197,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     selectOrderPaper = (id: string) => {
-        if (this.selectedOrderPaper != null && this.selectedop != null && this.selectedop.Saved == false) {
+        if (this.selectedOrderPaper != null && this.selectedop.Saved == false) {
             this.modalType = this.modalType_Save;
             this.modal_selected_id = id;
             this.modal.open();
@@ -230,6 +230,15 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
                 this.selectedop.Id = this.selectedOrderPaper.Id;
                 this.selectedop.Saved = false;
+                this.selectedop.Value = new OrderPaper();
+                var temp = <OrderPaper>(JSON.parse(data.OrderPaperJson));
+                this.selectedop.Value.Id = temp.Id;
+                this.selectedop.Value.Number = temp.Number;
+                this.selectedop.Value.Progress = temp.Progress;
+                this.selectedop.Value.Sections = temp.Sections;
+                this.selectedop.Value.SittingDay = temp.SittingDay;
+                this.selectedop.Value.SittingHours = temp.SittingHours;
+                this.selectedop.Value.Status = temp.Status;
 
                 this.spinner.stop();
                 this.tabs.collapseAll();
