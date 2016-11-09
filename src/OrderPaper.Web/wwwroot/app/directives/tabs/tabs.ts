@@ -12,13 +12,13 @@ import { AppSettings }  from '../../settings/app.settings';
 @Component({
     selector: 'tabs',
     template: `
-        <nav class="nav-black">
+        <nav class="nav-black" style="height: 65px;">
             <ul class="nav nav-tabs container" style="padding-left: 10%">
                 <li>
                     <img src="{{imagesPath + 'OP logo.png'}}" width="70" style="margin-left: -110px; margin-right: 20px;">
                 </li>
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
-                    <a class="list-unstyled content-tab" style="color:white">{{tab.title}}
+                    <a class="list-unstyled content-tab" style="color:white; margin-bottom: 7px;">{{tab.title}}
                     </a>
                     <span [style.background-color]="tab.active ? '#263a55' : '#142840'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
                 </li>
