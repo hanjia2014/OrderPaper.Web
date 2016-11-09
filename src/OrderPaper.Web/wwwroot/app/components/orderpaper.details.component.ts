@@ -34,13 +34,13 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             <div class="col-md-2">
                                 Date
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="margin-left: 15px;">
                                 Sitting hours
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2" style="padding: 0px;">
                                 Status
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1" style="padding: 0px;">
                                 Number
                             </div>
                         </div>
@@ -48,14 +48,14 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             <div class="col-md-2">
                                 <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [width]="'150px'" [readonly]="true" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
-                            <div class="col-md-4">
-                                <select2 [id]="'orderPaperSittingHours'" [width]="'300px'" [initialValue]="orderPaper.SittingHours" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
+                            <div class="col-md-4" style="margin-left: 15px;">
+                                <select2 [id]="'orderPaperSittingHours'" [width]="'280px'" [initialValue]="orderPaper.SittingHours" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
                             </div>             
-                            <div class="col-md-2">
+                            <div class="col-md-2" style="padding: 0px; width: 150px">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [width]="'125px'" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
                             </div>             
-                            <div class="col-md-1">
-                                <input class="form-control input-sm" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [(ngModel)]="orderPaper.Number" />
+                            <div class="col-md-1" style="padding: 0px; width: 70px;">
+                                <input class="form-control input-sm" style="height:34px;" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [(ngModel)]="orderPaper.Number" />
                             </div>
                         </div>
                         <br />

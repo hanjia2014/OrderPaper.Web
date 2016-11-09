@@ -29,8 +29,8 @@ a {
 
 .inactive {
     pointer-events: none;
-    cursor: default;
-    color: gray;
+    /*cursor: default;
+    color: gray;*/
 } 
 
 .ui-sortable-helper,
