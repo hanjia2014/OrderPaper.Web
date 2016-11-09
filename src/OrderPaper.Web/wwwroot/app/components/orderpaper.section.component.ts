@@ -30,7 +30,7 @@ import { OrderPaperService }    from '../services/app.services';
     selector: 'order-paper-section',
     template: `
                 <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
-                    <div class="col-md-11 panel panel-default margin-left-15" style="margin-bottom: 5px;" [class.highlight-section]="isSelected">
+                    <div class="col-md-11 panel panel-default margin-left-15 no-padding-right" style="margin-bottom: 5px;" [class.highlight-section]="isSelected">
                         <div class="panel-body no-padding-left">
                             <div class="drag-handle">
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
@@ -41,13 +41,13 @@ import { OrderPaperService }    from '../services/app.services';
                                     <span *ngIf="isSelected" class="pointer" (click)="toggle($event, index + '-section', true)">
                                         <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
                                     </span>
-                                    <span title="Include in order paper" style="cursor: pointer; cursor: hand;">
-                                        <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px; margin-right: 10px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
+                                    <span title="Include in order paper" class="pointer">
+                                        <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
+                                    </span>
+                                    <span title="Show on front page" class="pointer">
+                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-right: 10px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'on front cover.png' : imagesPath + 'Not on front cover.png'}}">
                                     </span>
                                     <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
-                                    <a title="Show on front page">
-                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'on front cover.png' : imagesPath + 'Not on front cover.png'}}">
-                                    </a>
                                 </div>
                             </div>
                             <div id="{{index + '-section'}}" class="initially-hidden" style="width: 100%; margin-top: 15px;">
