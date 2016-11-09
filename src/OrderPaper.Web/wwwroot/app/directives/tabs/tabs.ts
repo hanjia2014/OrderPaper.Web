@@ -24,7 +24,6 @@ import { AppSettings }  from '../../settings/app.settings';
                 </li>
                 <li>
                     <img (click)="createNewOrderPaper()" title="Create new order paper" style="padding-top:10px; margin-left: 50px;" class="pointer" src="{{imagesPath + 'add new op.png'}}">
-                    <span style="padding-top:10px; color: white;">New Order Paper</span>
                 </li>
             </ul>
         </nav>

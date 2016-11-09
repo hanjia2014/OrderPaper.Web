@@ -75,7 +75,15 @@ import { ItemComponent }        from './item.component';
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding">
                                 <span>Date</span>
-                                <date-picker [id]="sectionIndex + '-' + groupIndex + '-' + index + '-date'" [readonly]="true" [showClear]="true" [IncludeTime]="false" [initialValue]="item.Date" (onValueChange)="dateChange($event)"></date-picker>
+                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Date" />
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding">
+                                <span>CPD</span>
+                                <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-date-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
 
