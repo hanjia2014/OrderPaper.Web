@@ -38,9 +38,9 @@ import { OrderPaperService }    from '../services/app.services';
                                 </select2>
                                 <a *ngIf="isSelected" (click)="selectedSection()">Select section</a>
                                 <div class="pull-right">
-                                    <a *ngIf="isSelected" (click)="toggle($event, index + '-section', true)">
+                                    <span *ngIf="isSelected" class="pointer" (click)="toggle($event, index + '-section', true)">
                                         <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
-                                    </a>
+                                    </span>
                                     <span title="Include in order paper" style="cursor: pointer; cursor: hand;">
                                         <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px; margin-right: 10px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
                                     </span>

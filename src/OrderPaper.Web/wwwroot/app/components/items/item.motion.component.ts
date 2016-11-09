@@ -13,13 +13,16 @@ import { ItemComponent }        from './item.component';
     template: `
                 <div class="motion">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <a href="#" (click)="toggle($event, toggleId)">{{item.Title}}</a>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="pull-right">
-                                <img *ngIf="isGroupChild == false" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
+                                <span *ngIf="isExpand" class="pointer" (click)="toggle($event, toggleId)">
+                                    <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                                </span>
                                 <span>{{item.Type}}</span>
+                                <img *ngIf="isGroupChild == false" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                             </div>
                         </div>
                     </div>
