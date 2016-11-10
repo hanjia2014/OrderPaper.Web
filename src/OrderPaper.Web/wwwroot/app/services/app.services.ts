@@ -5,13 +5,17 @@ import { Observable }                               from 'rxjs/Observable';
 import { OrderPaper }                               from '../models/orderpaper';
 import { OrderPaperWrapper }                        from '../models/orderpaperwrapper';
 import { Section, SectionSummary }                  from '../models/section';
-import { IOrderPaperService, ISectionService }      from '../interfaces/app.interfaces';
+import {
+    IOrderPaperService,
+    ISectionService,
+    IConfigurationService
+}                                                   from '../interfaces/app.interfaces';
 import { AppSettings }                              from '../settings/app.settings';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class OrderPaperService implements IOrderPaperService, ISectionService {
+export class OrderPaperService implements IOrderPaperService, ISectionService, IConfigurationService {
 
     constructor(private http: Http) {
         
@@ -105,6 +109,17 @@ export class OrderPaperService implements IOrderPaperService, ISectionService {
 
     getSectionDetails = (id: string): Observable<any> => {
         return this.http.get(AppSettings.API_SECTION_ENDPOINT + '/' + id + AppSettings.SP_HOST).map((res: Response) => {
+            if (res.status != 200) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+
+    //IConfigurationService
+    getCpdUrl = (): Observable<string> => {
+        return this.http.get(AppSettings.API_CONFIGURATION_ENDPOINT + AppSettings.SP_HOST).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {

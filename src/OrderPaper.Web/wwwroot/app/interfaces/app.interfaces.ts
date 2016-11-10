@@ -20,3 +20,7 @@ export interface ISectionService {
     getSectionSummaryList: () => Observable<SectionSummary[]>;
     getSectionDetails: (id: string) => Observable<Section>;
 }
+
+export interface IConfigurationService {
+    getCpdUrl: () => Observable<string>;
+}
