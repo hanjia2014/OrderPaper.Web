@@ -1,4 +1,10 @@
-﻿export class Item {
+﻿export class CpdBillItem {
+    business_item_id: number;
+    short_title: string;
+    bill_number: string;
+    member_original_name: string;
+}
+export class Item {
     Sequence: number;
     Type: string;
     Title: string;
@@ -7,7 +13,7 @@
     IsNew: boolean;
     IsBusinessItem: boolean;
     Details: string;
-
+    CpdTitle: string;
     constructor() {
         this.IsNew = true;
         this.Title = "Untitled";
@@ -27,6 +33,8 @@ export class MotionItem extends Item {
     Member: string;
     Speeches: string;
     Motion: string;
+    CpdMotion: string;
+    CpdMember: string;
     constructor() {
         super();
         this.Type = "Motion";
@@ -46,6 +54,8 @@ export class BillItem extends Item {
     Indication: string;
     Speeches: string;
     LatestEvent: string;
+    CpdNumber: string;
+    CpdMember: string;
 
     constructor() {
         super();
@@ -58,6 +68,9 @@ export class ReportItem extends Item {
     Shoulder: string;
     Committee: string;
     LatestEvent: string;
+    CpdShoulder: string;
+    CpdCommittee: string;
+    CpdLatestEvent: string;
     constructor() {
         super();
         this.Type = "Report";

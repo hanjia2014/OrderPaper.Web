@@ -5,17 +5,19 @@ import { Observable }                               from 'rxjs/Observable';
 import { OrderPaper }                               from '../models/orderpaper';
 import { OrderPaperWrapper }                        from '../models/orderpaperwrapper';
 import { Section, SectionSummary }                  from '../models/section';
+import { CpdBillItem }                              from '../models/items';
 import {
     IOrderPaperService,
     ISectionService,
-    IConfigurationService
+    IConfigurationService,
+    ICpdService
 }                                                   from '../interfaces/app.interfaces';
 import { AppSettings }                              from '../settings/app.settings';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class OrderPaperService implements IOrderPaperService, ISectionService, IConfigurationService {
+export class OrderPaperService implements IOrderPaperService, ISectionService, IConfigurationService, ICpdService {
 
     constructor(private http: Http) {
         
@@ -120,6 +122,27 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     //IConfigurationService
     getCpdUrl = (): Observable<string> => {
         return this.http.get(AppSettings.API_CONFIGURATION_ENDPOINT + AppSettings.SP_HOST).map((res: Response) => {
+            if (res.status != 200) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+
+    //ICpdService
+    getBills = (apiUrl: string): Observable<any> => {
+        return this.http.get(apiUrl + '/bills?$select=business_item_id,short_title&$format=json').map((res: Response) => {
+            if (res.status != 200) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+
+    getBill = (apiUrl: string, id: number): Observable<any> => {
+        return this.http.get(apiUrl + '/bills(' + id + ')?$select=business_item_id,short_title&$format=json').map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {

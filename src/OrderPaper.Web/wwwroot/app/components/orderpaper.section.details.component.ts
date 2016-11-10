@@ -9,9 +9,11 @@ import {
     GroupItem,
     ReportItem,
     BillItem,
-    SubHeadingItem
+    SubHeadingItem,
+    CpdBillItem
 }                                           from '../models/items';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
+import { OrderPaperService }                from '../services/app.services';
 
 @Component({
     selector: 'order-paper-section-details',
@@ -111,7 +113,7 @@ import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
                     margin-top: 10px;
                 }
             `],
-    providers: [DND_PROVIDERS]
+    providers: [DND_PROVIDERS, OrderPaperService]
 })
 export class OrderPaperSectionDetailsComponent extends BaseComponent implements OnInit {
     @Input()
@@ -122,12 +124,17 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
     listElm: HTMLElement = document.getElementById("spinner");
+    billOptions: Array<CpdBillItem>;
 
-    constructor() {
+    constructor(private orderPaperService: OrderPaperService) {
         super();
     }
     ngOnInit() {
         this.selectedItemType = 'Bill';
+        this.orderPaperService.getBills('').subscribe(
+            (data: any) => {
+            },
+            (err: any) => this.error = err);
     }
 
     hasLineAlready = (): boolean => {

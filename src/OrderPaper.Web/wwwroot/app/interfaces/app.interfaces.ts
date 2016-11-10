@@ -3,6 +3,7 @@ import { Response }                 from '@angular/http';
 import { OrderPaperWrapper }        from '../models/orderpaperwrapper';
 import { OrderPaper }               from '../models/orderpaper';
 import { Section, SectionSummary }  from '../models/section';
+import { CpdBillItem }              from '../models/items';
 
 export interface ITogglable {
     toggle: (element: any, eleId: string) => void;
@@ -23,4 +24,9 @@ export interface ISectionService {
 
 export interface IConfigurationService {
     getCpdUrl: () => Observable<string>;
+}
+
+export interface ICpdService {
+    getBills: (apiUrl: string) => Observable<any>;
+    getBill: (apiUrl: string, id: number) => Observable<any>;
 }
