@@ -10,7 +10,9 @@ export class OrderPaper {
     SittingHours: string;
     Sections: Array<Section>;
     Progress: string;
+    PublishingProgress: Array<string>;
     constructor() {
         this.Sections = new Array<Section>();
+        this.PublishingProgress = new Array<string>();
     }
 }
