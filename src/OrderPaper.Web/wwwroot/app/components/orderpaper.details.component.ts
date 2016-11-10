@@ -81,7 +81,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 </div>
                             </div>
                         </div>
-                        <div class="centered" id="saveSpinner"></div>
+                        <div class="centered" id="saveSpinner" style="z-index: 100;"></div>
                         <div class="container row detail-block">
                             <span>
                                 Sections
