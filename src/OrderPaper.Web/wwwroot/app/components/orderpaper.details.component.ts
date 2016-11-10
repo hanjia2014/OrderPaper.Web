@@ -87,7 +87,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Sections
                             </span>
                             <br/>
-                            <select2 [id]="'section-options-list'" [multiple]="true" [placeholder]="'Papers, Petitions ...'" [allowFreeText]="true" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
+                            <select2 [id]="'section-options-list'" [multiple]="true" [width]="'500px'" [placeholder]="'Papers, Petitions ...'" [allowFreeText]="true" [data]="sectionOptions" [disableMultipleSelection]="true" (selected)="addSectionChange($event)"></select2>
                             <a [class.inactive]="addSection==null || addSection==''" (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
