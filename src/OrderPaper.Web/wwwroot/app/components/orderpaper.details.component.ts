@@ -13,6 +13,7 @@ import { BaseComponent }                    from './base.component';
 import { OrderPaperSectionComponent }       from './orderpaper.section.component';
 import { OrderPaperService }                from '../services/app.services';
 import { AppSettings }                      from '../settings/app.settings';
+import { AppConstants }                     from '../settings/app.constants';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section, SectionSummary }          from '../models/section';
 import { OrderPaperWrapper }                from '../models/orderpaperwrapper';
@@ -63,16 +64,16 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             <div class="col-md-10">
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
                                     <div style="display: inline">
-                                        <img class="pointer" title="Preview" width="130" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.Progress == 'Preview' ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Preview" width="130" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.containPreview() ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Word" width="130" (click)="progress('Word')" src="{{imagesPath + (orderPaper.Progress == 'Word' ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Word" width="130" (click)="progress('Word')" src="{{imagesPath + (orderPaper.containPreview() ? (orderPaper.containWord() ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png') : 'disabled word.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Publish" width="130" (click)="progress('Publish')" src="{{imagesPath + (orderPaper.Progress == 'Publish' ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Publish" width="130" (click)="progress('Publish')" src="{{imagesPath + ((orderPaper.containPreview() || orderPaper.containWord()) ? (orderPaper.containPublish() ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png') : 'disabled publish.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Print" width="130" (click)="progress('Print')" src="{{imagesPath + (orderPaper.Progress == 'Print' ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Print" width="130" (click)="progress('Print')" src="{{imagesPath + (orderPaper.containPublish() ? (orderPaper.containPrint() ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png') : 'disabled print.png')}}">
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
@@ -102,16 +103,16 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             <div class="col-md-10">
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
                                     <div style="display: inline">
-                                        <img class="pointer" title="Preview" width="130" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.Progress == 'Preview' ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Preview" width="130" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.containPreview() ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Word" width="130" (click)="progress('Word')" src="{{imagesPath + (orderPaper.Progress == 'Word' ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Word" width="130" (click)="progress('Word')" src="{{imagesPath + (orderPaper.containPreview() ? (orderPaper.containWord() ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png') : 'disabled word.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Publish" width="130" (click)="progress('Publish')" src="{{imagesPath + (orderPaper.Progress == 'Publish' ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Publish" width="130" (click)="progress('Publish')" src="{{imagesPath + ((orderPaper.containPreview() || orderPaper.containWord()) ? (orderPaper.containPublish() ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png') : 'disabled publish.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Print" width="130" (click)="progress('Print')" src="{{imagesPath + (orderPaper.Progress == 'Print' ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Print" width="130" (click)="progress('Print')" src="{{imagesPath + (orderPaper.containPublish() ? (orderPaper.containPrint() ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png') : 'disabled print.png')}}">
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
@@ -329,7 +330,23 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     progress = (value: string) => {
-        this.orderPaper.Progress = value;
+        var valid = false;
+        if (value.localeCompare(AppConstants.PROGRESS_PREVIEW) == 0) {
+            valid = true;
+        }
+        else if (value.localeCompare(AppConstants.PROGRESS_WORD) == 0 && this.orderPaper.containPreview()) {
+            valid = true;
+        }
+        else if (value.localeCompare(AppConstants.PROGRESS_PUBLISH) == 0 && (this.orderPaper.containPreview() || this.orderPaper.containWord())) {
+            valid = true;
+        }
+        else if (value.localeCompare(AppConstants.PROGRESS_PRINT) == 0 && this.orderPaper.containPublish()) {
+            valid = true;
+        }
+
+        if (valid) {
+            this.orderPaper.PublishingProgress.push(value);
+        }
     }
     //modal
     opened() {
