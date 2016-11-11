@@ -16,6 +16,7 @@ import { AppSettings }                      from '../settings/app.settings';
 import { AppConstants }                     from '../settings/app.constants';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section, SectionSummary }          from '../models/section';
+import { AuditHistory }                     from '../models/audithistory';
 import { OrderPaperWrapper }                from '../models/orderpaperwrapper';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 import { ModalComponent }                   from '../directives/modal/modal';
@@ -60,6 +61,8 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                         </div>
                         <br />
+                        <div class="spacer"></div>
+                        <publishing-audit-history [orderPaper]="orderPaper"></publishing-audit-history>
                         <div class="row">
                             <div class="col-md-10">
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
@@ -346,6 +349,13 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
 
         if (valid) {
             this.orderPaper.PublishingProgress.push(value);
+            var date = new Date();
+            var audit = new AuditHistory();
+            audit.Function = value;
+            audit.Name = "John Doe";
+            audit.Date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+            audit.Time = date.getHours() + ":" + date.getMinutes();
+            this.orderPaper.AuditHistoryList.push(audit);            
         }
     }
     //modal

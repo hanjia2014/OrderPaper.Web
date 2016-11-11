@@ -1,6 +1,7 @@
 ﻿import { Status }                                   from './constants';
 import { Item, MotionItem, BillItem, ReportItem }   from './Items';
 import { Section }                                  from './Section';
+import { AuditHistory }                             from './audithistory';
 import { AppConstants }                             from '../settings/app.constants';
 
 export class OrderPaper {
@@ -12,9 +13,12 @@ export class OrderPaper {
     Sections: Array<Section>;
     Progress: string;
     PublishingProgress: Array<string>;
+    AuditHistoryList: Array<AuditHistory>;
+
     constructor() {
         this.Sections = new Array<Section>();
         this.PublishingProgress = new Array<string>();
+        this.AuditHistoryList = new Array<AuditHistory>();
     }
 
     public containPreview = (): boolean => {

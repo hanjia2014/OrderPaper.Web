@@ -22,6 +22,7 @@ import { HomeComponent }                                from './home.component';
 import { OrderPaperDetailsComponent }                   from './orderpaper.details.component';
 import { OrderPaperSectionComponent }                   from './orderpaper.section.component';
 import { OrderPaperSectionDetailsComponent }            from './orderpaper.section.details.component';
+import { OrderPaperPublishingAuditHistoryComponent }    from './orderpaper.publishing.audit.history.component';
 import { ItemBillComponent }                            from './items/item.bill.component';
 import { ItemLineComponent }                            from './items/item.line.component';
 import { ItemReportComponent }                          from './items/item.report.component';
@@ -57,6 +58,7 @@ import { ItemGroupComponent }                           from './items/item.group
         OrderPaperDetailsComponent,
         OrderPaperSectionComponent,
         OrderPaperSectionDetailsComponent,
+        OrderPaperPublishingAuditHistoryComponent,
         ItemBillComponent,
         ItemLineComponent,
         ItemReportComponent,
