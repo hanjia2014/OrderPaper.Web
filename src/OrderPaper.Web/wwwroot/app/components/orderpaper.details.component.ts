@@ -61,8 +61,8 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                         </div>
                         <br />
-                        <div class="spacer"></div>
                         <publishing-audit-history [orderPaper]="orderPaper"></publishing-audit-history>
+                        <div class="spacer"></div>
                         <div class="row">
                             <div class="col-md-10">
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
@@ -353,7 +353,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             var audit = new AuditHistory();
             audit.Function = value;
             audit.Name = "John Doe";
-            audit.Date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+            audit.Date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
             audit.Time = date.getHours() + ":" + date.getMinutes();
             this.orderPaper.AuditHistoryList.push(audit);            
         }
