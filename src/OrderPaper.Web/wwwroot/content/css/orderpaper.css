@@ -4,7 +4,9 @@
 a {
     cursor: pointer;
 }
-
+.container {
+    width: 1200px;
+}
 .centered {
     position: fixed;
     top: 50%;
