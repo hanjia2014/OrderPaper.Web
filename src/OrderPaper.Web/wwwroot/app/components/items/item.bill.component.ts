@@ -33,7 +33,8 @@ import { ItemComponent }    from './item.component';
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding">
                             <span>Title</span>
-                            <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'bill-title-cpd'" [allowFreeText]="true" [initialValue]="item.Title" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>
+                            <!--<select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'bill-title-cpd'" [allowFreeText]="true" [initialValue]="item.Title" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>-->
+                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
                         </div>
                         <div class="form-group col-md-1">
                             <label>&nbsp;</label>
@@ -41,7 +42,7 @@ import { ItemComponent }    from './item.component';
                         </div>
                         <div class="form-group col-md-5 nopadding">
                             <span>CPD</span>
-                            <input type="text" readonly class="form-control undraggable" [(ngModel)]="item.CpdTitle" />
+                            <input type="text" class="form-control undraggable" [(ngModel)]="item.CpdTitle" />
                         </div>
                     </div>
                     <div class="spacer"></div>
