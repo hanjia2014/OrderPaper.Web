@@ -332,7 +332,11 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
 
     cancel = () => {
         this.deletingType = "orderpaper";
-        this.modal.open();
+        if (this.isDirty)
+            this.modal.open();
+        else {
+            this.orderPaper = null;
+        }
     }
 
     progress = (value: string) => {
