@@ -130,8 +130,9 @@ import { ModalComponent }                   from '../directives/modal/modal';
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                     <modal-header [show-close]="true">
                         <h4 class="modal-title">
-                            <span *ngIf="deletingType != 'saving error'">Confirm to delete</span>
+                            <span *ngIf="deletingType != 'saving error' && deletingType != 'saved'">Confirm to delete</span>
                             <span *ngIf="deletingType == 'saving error'">Error</span>
+                            <span *ngIf="deletingType == 'saved'">Saved</span>
                         </h4>
                     </modal-header>
                     <modal-body>
@@ -143,6 +144,9 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         </div>
                         <div *ngIf="deletingType == 'saving error'">
                             {{error.Message}}
+                        </div>
+                        <div *ngIf="deletingType == 'saved'">
+                            The Order Paper has been saved successfully
                         </div>
                     </modal-body>
                     <modal-footer [show-default-buttons]="true"></modal-footer>
@@ -320,6 +324,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 }
                 this.onSave.next();
                 this.spinner.stop();
+
+                this.deletingType = "saved";
+                this.modal.open();
             },
             (err: any) => {
                 if (err != null && err._body != null) {
@@ -342,6 +349,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             (data: Response) => {
                 this.onSave.next();
                 this.spinner.stop();
+
+                this.deletingType = "saved";
+                this.modal.open();
             },
             (err: any) => {
                 if (err != null && err._body != null) {
@@ -404,7 +414,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         this.modal.open();
     }
     closed() {
-        if (this.deletingType == "saving error") {
+        if (this.deletingType == "saved") {
+        }
+        else if (this.deletingType == "saving error") {
         }
         else if (this.deletingType == "orderpaper") {
             this.orderPaper = null;
