@@ -129,7 +129,10 @@ import { ModalComponent }                   from '../directives/modal/modal';
                 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                     <modal-header [show-close]="true">
-                        <h4 class="modal-title">Confirm to delete</h4>
+                        <h4 class="modal-title">
+                            <span *ngIf="deletingType != 'saving error'">Confirm to delete</span>
+                            <span *ngIf="deletingType == 'saving error'">Error</span>
+                        </h4>
                     </modal-header>
                     <modal-body>
                         <div *ngIf="deletingType == 'orderpaper'">
@@ -137,6 +140,9 @@ import { ModalComponent }                   from '../directives/modal/modal';
                         </div>
                         <div *ngIf="deletingType == 'section'">
                             Are you sure to delete this section?
+                        </div>
+                        <div *ngIf="deletingType == 'saving error'">
+                            {{error.Message}}
                         </div>
                     </modal-body>
                     <modal-footer [show-default-buttons]="true"></modal-footer>
@@ -315,7 +321,17 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 this.onSave.next();
                 this.spinner.stop();
             },
-            (err: any) => this.error = err);
+            (err: any) => {
+                if (err != null && err._body != null) {
+                    var error = JSON.parse(err._body);
+                    if (error != null && error.Message != null) {
+                        this.error = error;
+                        this.deletingType = "saving error";
+                        this.modal.open();
+                    }
+                }
+                this.spinner.stop();
+            });
     }
 
     update = (e: any) => {
@@ -327,7 +343,17 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 this.onSave.next();
                 this.spinner.stop();
             },
-            (err: any) => this.error = err);
+            (err: any) => {
+                if (err != null && err._body != null) {
+                    var error = JSON.parse(err._body);
+                    if (error != null && error.Message != null) {
+                        this.error = error;
+                        this.deletingType = "saving error";
+                        this.modal.open();
+                    }
+                }
+                this.spinner.stop();
+            });
     }
 
     cancel = () => {
@@ -378,7 +404,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         this.modal.open();
     }
     closed() {
-        if (this.deletingType == "orderpaper") {
+        if (this.deletingType == "saving error") {
+        }
+        else if (this.deletingType == "orderpaper") {
             this.orderPaper = null;
         }
         else {
