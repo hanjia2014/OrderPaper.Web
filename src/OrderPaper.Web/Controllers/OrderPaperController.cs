@@ -56,22 +56,40 @@ namespace OrderPapers.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody]OrderPaperWrapper value)
         {
-            var json = JsonConvert.SerializeObject(value);
-            var doc = JsonConvert.DeserializeXNode(json, "OrderPaper");
-            HttpResponseMessage response = new HttpResponseMessage();
-            response.StatusCode = HttpStatusCode.Created;
-            return response;
+            try
+            {
+                var json = JsonConvert.SerializeObject(value);
+                var doc = JsonConvert.DeserializeXNode(json, "OrderPaper");
+                HttpResponseMessage response = new HttpResponseMessage();
+                response.StatusCode = HttpStatusCode.Created;
+                return response;
+            }
+            catch (Exception e)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                response.ReasonPhrase = e.Message;
+                return response;
+            }
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
         public HttpResponseMessage Put(int id, [FromBody]OrderPaperWrapper value)
         {
-            var json = JsonConvert.SerializeObject(value);
-            var doc = JsonConvert.DeserializeXNode(json, "OrderPaper");
-            HttpResponseMessage response = new HttpResponseMessage();
-            response.StatusCode = HttpStatusCode.Created;
-            return response;
+            try
+            {
+                var json = JsonConvert.SerializeObject(value);
+                var doc = JsonConvert.DeserializeXNode(json, "OrderPaper");
+                HttpResponseMessage response = new HttpResponseMessage();
+                response.StatusCode = HttpStatusCode.Created;
+                return response;
+            }
+            catch (Exception e)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                response.ReasonPhrase = e.Message;
+                return response;
+            }
         }
 
         // DELETE api/values/5
