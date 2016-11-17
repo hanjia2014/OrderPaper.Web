@@ -148,6 +148,8 @@ import { ModalComponent }                   from '../directives/modal/modal';
 export class OrderPaperDetailsComponent extends BaseComponent implements OnInit, AfterViewInit {
     @Input()
     orderPaper: OrderPaper;
+    @Input()
+    isDirty: boolean;
     @Output()
     onSave = new EventEmitter();
     selectedSection: Section;
@@ -274,7 +276,8 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         return this.orderPaper.Number == null || this.orderPaper.Number.toString() == ''
             || this.orderPaper.SittingDay == null || this.orderPaper.SittingDay == ''
             || this.orderPaper.SittingHours == null || this.orderPaper.SittingHours == ''
-            || this.orderPaper.Status == null || this.orderPaper.Status == '';
+            || this.orderPaper.Status == null || this.orderPaper.Status == ''
+            || this.isDirty == false;
     }
 
     updateSequence(oldIndex: number, newIndex: number) { }

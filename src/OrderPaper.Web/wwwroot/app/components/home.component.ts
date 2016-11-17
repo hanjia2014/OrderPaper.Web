@@ -1,6 +1,12 @@
 ﻿import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { BaseComponent }                        from './base.component';
 import { Tabs }                                 from '../directives/tabs/tabs';
+import {
+    Item,
+    BillItem,
+    MotionItem,
+    ReportItem
+}                                               from '../models/items';
 import { Section, SectionSummary }              from '../models/section';
 import { OrderPaper }                           from '../models/orderpaper';
 import { SelectedOP }                           from '../models/selectedop';
@@ -71,7 +77,7 @@ import { ModalComponent }                       from '../directives/modal/modal'
                     </tabs>
                     <div style="background-color: #edecec;">
                         <div class="container" style="padding-left: 10%;">
-                            <order-paper-details [orderPaper]="selectedOrderPaper" (onSave)="orderPaperSaveCallback()" [sectionOptions]="sectionOptions"></order-paper-details>
+                            <order-paper-details [orderPaper]="selectedOrderPaper" [isDirty]="checkDirty()" (onSave)="orderPaperSaveCallback()" [sectionOptions]="sectionOptions"></order-paper-details>
                         </div>
                     </div>
                     <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
@@ -140,13 +146,14 @@ export class HomeComponent extends BaseComponent implements OnInit {
     listElm: HTMLElement = document.getElementById("spinner");
     @ViewChild(Tabs)
     tabs: Tabs;
+    originalOP: OrderPaper;
+    isDirty: boolean = false;
     //modal
     @ViewChild('modal')
     modal: ModalComponent;
     sectionOptions = [];
     deletedSummary: OrderPaperWrapper;
     deletedIndex: number;
-    selectedop: SelectedOP = new SelectedOP();
     //modal
     modalType: string;
     modalType_Save: string = "Saving confirm";
@@ -168,7 +175,12 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     orderPaperSaveCallback = () => {
         this.getOrderPaperSummary();
-        this.selectedop.Saved = true;
+
+        var json = JSON.stringify(this.selectedOrderPaper);
+        this.originalOP = new OrderPaper();
+        var op = JSON.parse(json);
+        (<any>Object).assign(this.originalOP, op);
+        this.isDirty = false;
     }
 
     getOrderPaperSummary = () => {
@@ -197,7 +209,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     selectOrderPaper = (id: string) => {
-        if (this.selectedOrderPaper != null && this.selectedop.Saved == false) {
+        if (this.selectedOrderPaper != null && this.isDirty) {
             this.modalType = this.modalType_Save;
             this.modal_selected_id = id;
             this.modal.open();
@@ -205,6 +217,109 @@ export class HomeComponent extends BaseComponent implements OnInit {
         else {
             this.downloadOrderPaper(id);
         }
+    }
+
+    checkDirty = (): boolean => {
+        if (this.isDirty) return true;
+        if (this.originalOP != null && this.selectedOrderPaper != null) {
+            this.isDirty = this.originalOP.Number != this.selectedOrderPaper.Number ||
+                this.originalOP.Status != this.selectedOrderPaper.Status ||
+                this.originalOP.SittingHours != this.selectedOrderPaper.SittingHours ||
+                this.originalOP.SittingDay != this.selectedOrderPaper.SittingDay ||
+                this.originalOP.PublishingProgress.length != this.selectedOrderPaper.PublishingProgress.length ||
+                this.originalOP.Sections.length != this.selectedOrderPaper.Sections.length;
+            for (var i = 0; i < this.originalOP.PublishingProgress.length; i++) {
+                var source = this.originalOP.PublishingProgress[i];
+                var target = this.selectedOrderPaper.PublishingProgress[i];
+                this.isDirty = source != target;
+            }
+
+            if (this.isDirty) return true;
+            else {
+                for (var i = 0; i < this.originalOP.Sections.length; i++) {
+                    var originalSection = this.originalOP.Sections[i];
+                    var targetSection = this.selectedOrderPaper.Sections[i];
+                    this.isDirty = originalSection.Name != targetSection.Name ||
+                        originalSection.Details != targetSection.Details ||
+                        originalSection.Speeches != targetSection.Speeches ||
+                        originalSection.IsFrontPage != targetSection.IsFrontPage ||
+                        originalSection.IsIncluded != targetSection.IsIncluded ||
+                        originalSection.Items.length != targetSection.Items.length;
+                    if (this.isDirty) return true;
+                    else {
+                        for (var j = 0; j < originalSection.Items.length; j++) {
+                            var sourceItem = originalSection.Items[j];
+                            var targetItem = targetSection.Items[j];
+                            this.isDirty = sourceItem.Type != targetItem.Type || sourceItem.Title != targetItem.Title;
+                            if (this.isDirty) return true;
+                            else {
+                                if (sourceItem.Type == "Bill")
+                                    this.isDirty = this.checkDirtyBill(<BillItem>sourceItem, <BillItem>targetItem);
+                                if (sourceItem.Type == "Motion")
+                                    this.isDirty = this.checkDirtyMotion(<MotionItem>sourceItem, <MotionItem>targetItem);
+                                if (sourceItem.Type == "Report")
+                                    this.isDirty = this.checkDirtyReport(<ReportItem>sourceItem, <ReportItem>targetItem);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return this.isDirty;
+    }
+
+    private checkDirtyBill = (source: BillItem, target: BillItem): boolean => {
+        var dirty = false;
+        dirty = source.CpdMember != target.CpdMember ||
+            source.CpdNumber != target.CpdNumber ||
+            source.CpdTitle != target.CpdTitle ||
+            source.Details != target.Details ||
+            source.IsConsiderationItem != target.IsConsiderationItem ||
+            source.IsCurrentSittingWeek != target.IsCurrentSittingWeek ||
+            source.IsFollowingSittingWeek != target.IsFollowingSittingWeek ||
+            source.IsMajorityAmendments != target.IsMajorityAmendments ||
+            source.LatestEvent != target.LatestEvent ||
+            source.Member != target.Member ||
+            source.Number != target.Number ||
+            source.Speeches != target.Speeches ||
+            source.Stage != target.Stage;
+
+        return dirty;
+    }
+
+    private checkDirtyMotion = (source: MotionItem, target: MotionItem): boolean => {
+        var dirty = false;
+        dirty = source.CpdMember != target.CpdMember ||
+            source.CpdTitle != target.CpdTitle ||
+            source.Details != target.Details ||
+            source.Member != target.Member ||
+            source.Speeches != target.Speeches ||
+            source.Date != target.Date ||
+            source.CpdMember != target.CpdMember ||
+            source.CpdMotion != target.CpdMotion ||
+            source.Motion != target.Motion;
+        return dirty;
+    }
+
+    private checkDirtyReport = (source: ReportItem, target: ReportItem): boolean => {
+        var dirty = false;
+        dirty = source.CpdTitle != target.CpdTitle ||
+            source.Details != target.Details ||
+            source.LatestEvent != target.LatestEvent ||
+            source.Committee != target.Committee ||
+            source.CpdCommittee != target.CpdCommittee ||
+            source.CpdLatestEvent != target.CpdLatestEvent ||
+            source.CpdShoulder != target.CpdShoulder ||
+            source.Shoulder != target.Shoulder;
+
+        return dirty;
+    }
+
+    private cloneOriginalOP = (opJson: string) => {
+        this.originalOP = new OrderPaper();
+        var op = JSON.parse(opJson);
+        (<any>Object).assign(this.originalOP, op);
     }
 
     private downloadOrderPaper = (id: string) => {
@@ -216,6 +331,9 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 if (data.OrderPaperJson != null && data.OrderPaperJson != "") {
                     var op = JSON.parse(data.OrderPaperJson);
                     (<any>Object).assign(this.selectedOrderPaper, op);
+                    //assign selected op to original to detect any changes made later
+                    this.cloneOriginalOP(data.OrderPaperJson);
+
                     if (this.selectedOrderPaper != null) {
                         nextNumber = parseInt(this.selectedOrderPaper.Number.toString()) + 1;
                     }
@@ -227,18 +345,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
                     this.selectedOrderPaper.SittingHours = "2pm to 6pm and 7:30pm to 10pm";
                     this.selectedOrderPaper.Number = nextNumber == 0 ? 1 : nextNumber;
                 }
-
-                this.selectedop.Id = this.selectedOrderPaper.Id;
-                this.selectedop.Saved = false;
-                //this.selectedop.Value = new OrderPaper();
-                //var temp = <OrderPaper>(JSON.parse(data.OrderPaperJson));
-                //this.selectedop.Value.Id = temp.Id;
-                //this.selectedop.Value.Number = temp.Number;
-                //this.selectedop.Value.Progress = temp.Progress;
-                //this.selectedop.Value.Sections = temp.Sections;
-                //this.selectedop.Value.SittingDay = temp.SittingDay;
-                //this.selectedop.Value.SittingHours = temp.SittingHours;
-                //this.selectedop.Value.Status = temp.Status;
 
                 this.spinner.stop();
                 this.tabs.collapseAll();
