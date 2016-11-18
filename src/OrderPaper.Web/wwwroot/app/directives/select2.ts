@@ -30,6 +30,13 @@ export class Select2Component implements AfterViewInit {
     width: string;
     @Input()
     label: string;
+    @Input()
+    checkNumber: number;
+    @Input()
+    checkOperation: string;
+
+    operation_greater: string = "Greater";
+    operation_less: string = "Less";
 
     @Output() selected = new EventEmitter();
 
@@ -60,6 +67,25 @@ export class Select2Component implements AfterViewInit {
         $("#" + this.id).select2(options).on("change", (e: any) => {
             if (e.val == null && this.initialValue != null && this.initialValue != "")
                 this.selected.next(this.initialValue);
+            else if (this.checkNumber != null) {
+                var num_value = Number(e.val);
+                if (this.checkOperation == this.operation_greater) {
+                    if (num_value >= this.checkNumber) {
+                        this.selected.next(e.val);
+                    } else {
+                        $("#" + this.id).select2('val', '');
+                        this.selected.next('invalid');
+                    }
+                }
+                else if (this.checkOperation == this.operation_less) {
+                    if (num_value <= this.checkNumber) {
+                        this.selected.next(e.val);
+                    } else {
+                        $("#" + this.id).select2('val', '');
+                        this.selected.next('invalid');
+                    }
+                }
+            }
             else
                 this.selected.next(e.val);
         });

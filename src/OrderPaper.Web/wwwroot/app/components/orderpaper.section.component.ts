@@ -36,7 +36,6 @@ import { OrderPaperService }    from '../services/app.services';
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <select2 *ngIf="isSelected" [id]="index + '-section-list'" [enableSearch]="true" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
                                 </select2>
-                                <a *ngIf="isSelected" (click)="selectedSection()">Select section</a>
                                 <div class="pull-right">
                                     <span *ngIf="isSelected" class="pointer" (click)="toggle($event, index + '-section', true)">
                                         <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
@@ -113,6 +112,7 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
                 if (option.id == e)
                     this.section.Name = option.text;
             });
+            this.selectedSection();
         }
     }
 

@@ -16,11 +16,11 @@ import { ItemComponent }                                from './item.component';
                     </p>
                     <div class="row">
                         <div class="col-md-4">
-                            <select2 [id]="groupIndex + '-group-from'" [label]="'From: '" [initialValue]="group.From" [width]="'125px'" [placeholder]="'From'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceFromChange($event)"></select2>
+                            <select2 [id]="groupIndex + '-group-from'" [label]="'From: '" [initialValue]="group.From" [checkNumber]="group.To" [checkOperation]="'Less'" [width]="'125px'" [placeholder]="'From'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceFromChange($event)"></select2>
                         </div>
                         <div class="col-md-5">
-                            <select2 [id]="groupIndex + '-group-to'" [label]="'To: '" [initialValue]="group.To" [width]="'125px'" [placeholder]="'To'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceToChange($event)"></select2>
-                            <a (click)="addItems()">
+                            <select2 [id]="groupIndex + '-group-to'" [label]="'To: '" [initialValue]="group.To" [checkNumber]="group.From" [checkOperation]="'Greater'" [width]="'125px'" [placeholder]="'To'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceToChange($event)"></select2>
+                            <a (click)="addItems()" [class.inactive]="disableSelect">
                                 Select
                             </a>
                         </div>
@@ -70,6 +70,8 @@ export class ItemGroupComponent extends ItemComponent {
     @Input()
     sequenceOptions: any = [];
 
+    disableSelect: boolean;
+
     constructor() {
         super();
     }
@@ -90,12 +92,34 @@ export class ItemGroupComponent extends ItemComponent {
     }
 
     sequenceFromChange = (e: string) => {
-        if (e != null)
-            this.group.From = Number(e);
+        if (e != null) {
+            if (e != 'invalid') {
+                var from = Number(e);
+                if (this.validateSequence(from, this.group.To)) {
+                    this.group.From = from;
+                    this.disableSelect = false;
+                }
+            } else {
+                this.disableSelect = true;
+            }
+        }
     }
 
     sequenceToChange = (e: string) => {
-        if (e != null)
-            this.group.To = Number(e);
+        if (e != null) {
+            if (e != 'invalid') {
+                var to = Number(e);
+                if (this.validateSequence(this.group.From, to)) {
+                    this.group.To = to;
+                    this.disableSelect = false;
+                }
+            } else {
+                this.disableSelect = true;
+            }
+        }
+    }
+
+    validateSequence = (from: number, to: number): boolean => {
+        return from == null || to == null || to >= from;
     }
 }
