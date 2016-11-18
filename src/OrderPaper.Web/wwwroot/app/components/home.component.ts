@@ -348,6 +348,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
                 this.spinner.stop();
                 this.tabs.collapseAll();
+                this.isDirty = false;
             },
             (err: any) => this.error = err);
     }
