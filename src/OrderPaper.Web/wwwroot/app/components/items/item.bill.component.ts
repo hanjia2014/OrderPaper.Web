@@ -92,19 +92,19 @@ import { ItemComponent }    from './item.component';
                     <div class="row nopadding">
                         <div class="form-group col-md-12 nopadding">
                             <div class="row nopadding">
-                                <input type="checkbox" [(ngModel)]="item.IsCurrentSittingWeek" id="{{index + '-option1'}}" value="Committee stage indicated for current sitting week" />
+                                <input type="checkbox" class="pointer" [(ngModel)]="item.IsCurrentSittingWeek" id="{{index + '-option1'}}" value="Committee stage indicated for current sitting week" />
                                 <span>Committee stage indicated for current sitting week</span>
                             </div>
                             <div class="row nopadding">
-                                <input type="checkbox" [(ngModel)]="item.IsFollowingSittingWeek" id="{{index + '-option2'}}" name="Committee stage indicated for following sitting week" value="Committee stage indicated for following sitting week" />
+                                <input type="checkbox" class="pointer" [(ngModel)]="item.IsFollowingSittingWeek" id="{{index + '-option2'}}" name="Committee stage indicated for following sitting week" value="Committee stage indicated for following sitting week" />
                                 <span>Committee stage indicated for following sitting week</span>
                             </div>
                             <div class="row nopadding">
-                                <input type="checkbox" [(ngModel)]="item.IsMajorityAmendments" id="{{index + '-option3'}}" name="Bill contains majority amendments" value="Bill contains majority amendments" />
+                                <input type="checkbox" class="pointer" [(ngModel)]="item.IsMajorityAmendments" id="{{index + '-option3'}}" name="Bill contains majority amendments" value="Bill contains majority amendments" />
                                 <span>Bill contains majority amendments</span>
                             </div>
                             <div class="row nopadding">
-                                <input type="checkbox" [(ngModel)]="item.IsConsiderationItem" id="{{index + '-option4'}}" name="Available for consideration during extended" value="Available for consideration during extended" />
+                                <input type="checkbox" class="pointer" [(ngModel)]="item.IsConsiderationItem" id="{{index + '-option4'}}" name="Available for consideration during extended" value="Available for consideration during extended" />
                                 <span>Available for consideration during extended sitting hours</span>
                             </div>
                         </div>
