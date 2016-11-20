@@ -193,6 +193,7 @@
 --resource:"C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\obj\Debug\netcoreapp1.0\OrderPaper.Webdotnet-compile.deps.json",OrderPaper.Web.deps.json
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Program.cs
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Startup.cs
+C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Controllers\BillsController.cs
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Controllers\HomeController.cs
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Controllers\OrderPaperController.cs
 C:\Projects\PS\OrderPaper.Web\src\OrderPaper.Web\Controllers\SectionController.cs
