@@ -32,7 +32,7 @@ import { OrderPaperService }    from '../services/app.services';
                 <div class="row" (mouseover)="hoverVisible = true" (mouseleave)="hoverVisible = false">
                     <div class="col-md-11 panel panel-default margin-left-15 no-padding-right" style="margin-bottom: 5px;" [class.highlight-section]="isSelected">
                         <div class="panel-body no-padding-left">
-                            <div class="drag-handle">
+                            <div class="drag-handle" style="cursor: move;">
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
                                 <select2 *ngIf="isSelected" [id]="index + '-section-list'" [width]="'500px'" [enableSearch]="true" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
                                 </select2>
