@@ -91,7 +91,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 Sections
                             </span>
                             <br/>
-                            <select2 [id]="'section-options-list'" [multiple]="false" [width]="'500px'" [placeholder]="'Papers, Petitions ...'" [enableSearch]="true" [data]="sectionOptions" (selected)="addSectionChange($event)"></select2>
+                            <select2 [id]="'section-options-list'" [multiple]="false" [width]="'500px'" [placeholder]="'Select'" [enableSearch]="true" [data]="sectionOptions" (selected)="addSectionChange($event)"></select2>
                             <a [class.inactive]="addSection==null || addSection==''" (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>

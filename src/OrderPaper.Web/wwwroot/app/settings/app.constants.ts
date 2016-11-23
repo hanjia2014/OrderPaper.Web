@@ -3,4 +3,5 @@
     public static get PROGRESS_WORD(): string { return 'Word'; }
     public static get PROGRESS_PUBLISH(): string { return 'Publish'; }
     public static get PROGRESS_PRINT(): string { return 'Print'; }
+    public static CPD_DATA_URL: string; 
 }

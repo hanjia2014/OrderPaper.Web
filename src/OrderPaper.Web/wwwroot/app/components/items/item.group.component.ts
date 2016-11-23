@@ -11,7 +11,7 @@ import { ItemComponent }                                from './item.component';
                             Group
                         </span>
                         <a class="pull-right" style="cursor: pointer;">
-                            <img (click)="removeGroup()" title="Delete group" src="{{imagesPath + 'group_remove.png'}}">
+                            <img (click)="removeGroup()" title="Ungroup" src="{{imagesPath + 'group_remove.png'}}">
                         </a>
                     </p>
                     <div class="row">

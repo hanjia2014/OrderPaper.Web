@@ -132,21 +132,23 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
 
     //ICpdService
     getBills = (apiUrl: string): Observable<any> => {
-        return this.http.get(apiUrl + '/bills?$select=business_item_id,short_title&$format=json').map((res: Response) => {
+        return this.http.get(apiUrl + '/bills?$select=business_item_id,short_title&filter=active eq true&$format=json').map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
-                return res.json();
+                return JSON.parse("{\"odata.metadata\": \"http://systest-cpd.campus.services/CoreParliamentaryData/CoreParliamentaryData.svc/$metadata#bills&$select=business_item_id,short_title\",\"value\": [{\"business_item_id\": 8651,\"short_title\": \"Patents Bill\"},{	\"business_item_id\": 11150,\"short_title\": \"Financial Markets Conduct Bill\"},{\"business_item_id\": 11397,\"short_title\": \"Taxation (Budget Measures) Bill\"},{\"business_item_id\": 11532,\"short_title\": \"Financial Reporting Bill\"},{		\"business_item_id\": 12424,\"short_title\": \"Vulnerable Children Bill\"},{\"business_item_id\": 12832,\"short_title\": \"New Zealand Superannuation and Retirement Income Amendment Bill\"},{\"business_item_id\": 12935,\"short_title\":\"Accounting Infrastructure Reform Bill\"}]}");
+                //return res.json();
             }
         });
     }
 
-    getBill = (apiUrl: string, id: number): Observable<any> => {
-        return this.http.get(apiUrl + '/bills(' + id + ')?$select=business_item_id,short_title&$format=json').map((res: Response) => {
+    getBill = (apiUrl: string, id: string): Observable<any> => {
+        return this.http.get(apiUrl + '/bills(' + id + ')?$select=business_item_id,short_title,bill_number,member_original_name&filter=active eq true&$format=json').map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
-                return res.json();
+                return JSON.parse("{\"odata.metadata\": \"http://systest-cpd.campus.services/CoreParliamentaryData/CoreParliamentaryData.svc/$metadata#bills/@Element&$select=business_item_id,short_title,bill_number,member_original_name\",\"business_item_id\": 11150,	\"member_original_name\": \"Hon Craig Foss\",\"short_title\": \"Financial Markets Conduct Bill\",\"bill_number\": \"342\"}");
+                //return res.json();
             }
         });
     }

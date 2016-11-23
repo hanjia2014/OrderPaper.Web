@@ -14,6 +14,7 @@ import {
 }                                           from '../models/items';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 import { OrderPaperService }                from '../services/app.services';
+import { AppConstants }                     from '../settings/app.constants';
 
 @Component({
     selector: 'order-paper-section-details',
@@ -124,17 +125,13 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
     listElm: HTMLElement = document.getElementById("spinner");
-    billOptions: Array<CpdBillItem>;
+    billOptions = [];
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
     }
     ngOnInit() {
         this.selectedItemType = 'Bill';
-        this.orderPaperService.getBills('').subscribe(
-            (data: any) => {
-            },
-            (err: any) => this.error = err);
     }
 
     hasLineAlready = (): boolean => {

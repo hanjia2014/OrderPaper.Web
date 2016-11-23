@@ -28,5 +28,5 @@ export interface IConfigurationService {
 
 export interface ICpdService {
     getBills: (apiUrl: string) => Observable<any>;
-    getBill: (apiUrl: string, id: number) => Observable<any>;
+    getBill: (apiUrl: string, id: string) => Observable<any>;
 }

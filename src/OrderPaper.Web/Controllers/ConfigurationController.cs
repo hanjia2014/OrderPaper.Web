@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,7 +12,8 @@ namespace OrderPaper.Web.Controllers
         [HttpGet]
         public string Get()
         {
-            return "";
+            var url = "api";
+            return JsonConvert.SerializeObject(url);
         }
 
         // GET api/values/5

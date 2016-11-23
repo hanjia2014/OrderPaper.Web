@@ -18,12 +18,13 @@ namespace OrderPaper.Web.Controllers
             bills.Add(new Bill_CPD { business_item_id = 6, short_title = "Adoption (Intercountry)" });
             bills.Add(new Bill_CPD { business_item_id = 7, short_title = "Agricultural Compounds and Veterinary Medicines" });
             bills.Add(new Bill_CPD { business_item_id = 8, short_title = "Airport Authorities Amendment" });
-            return JsonConvert.SerializeObject(bills);
+            var result = JsonConvert.SerializeObject(bills);
+            return result;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
             return "value";
         }

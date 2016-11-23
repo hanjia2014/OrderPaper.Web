@@ -34,7 +34,7 @@ import { OrderPaperService }    from '../services/app.services';
                         <div class="panel-body no-padding-left">
                             <div class="drag-handle">
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
-                                <select2 *ngIf="isSelected" [id]="index + '-section-list'" [enableSearch]="true" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
+                                <select2 *ngIf="isSelected" [id]="index + '-section-list'" [width]="'500px'" [enableSearch]="true" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
                                 </select2>
                                 <div class="pull-right">
                                     <span *ngIf="isSelected" class="pointer" (click)="toggle($event, index + '-section', true)">

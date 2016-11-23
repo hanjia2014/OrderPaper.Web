@@ -6,9 +6,12 @@
     AfterViewInit,
     Output,
     EventEmitter
-}                           from '@angular/core';
-import { BillItem }         from '../../models/items';
-import { ItemComponent }    from './item.component';
+}                               from '@angular/core';
+import { BillItem }             from '../../models/items';
+import { CpdBillItem }          from '../../models/items';
+import { ItemComponent }        from './item.component';
+import { OrderPaperService }    from '../../services/app.services';
+import { AppConstants }         from '../../settings/app.constants';
 
 @Component({
     selector: 'item-bill',
@@ -31,23 +34,23 @@ import { ItemComponent }    from './item.component';
                 <div id="{{toggleId}}" class="initially-hidden">
                     <div class="spacer"></div>
                     <div class="row nopadding">
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Title</span>
-                            <!--<select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'bill-title-cpd'" [allowFreeText]="true" [initialValue]="item.Title" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="billTitleOptions" (selected)="titleSelect($event)"></select2>-->
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
                         </div>
                         <div class="form-group col-md-1">
                             <label>&nbsp;</label>
                             <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                         </div>
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>CPD</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.CpdTitle" />
+                            <!--<input type="text" class="form-control undraggable" [(ngModel)]="item.CpdTitle" />-->
+                            <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + '-bill-title-cpd'" [initialValue]="item.CpdTitle" [cssClass]="'form-control undraggable'" [enableSearch]="true" [data]="billOptions" (selected)="titleSelect($event)"></select2>
                         </div>
                     </div>
                     <div class="spacer"></div>
                     <div class="row nopadding">
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Number</span>
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Number" />
                         </div>
@@ -55,14 +58,14 @@ import { ItemComponent }    from './item.component';
                             <label>&nbsp;</label>
                             <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                         </div>
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>CPD</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.CpdNumber" />
+                            <input type="text" readonly class="form-control undraggable" [(ngModel)]="item.CpdNumber" />
                         </div>
                     </div>
                     <div class="spacer"></div>
                     <div class="row nopadding">
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Member</span>
                             <input type="text" class="form-control undraggable" [(ngModel)]="item.Member" />
                         </div>
@@ -70,20 +73,20 @@ import { ItemComponent }    from './item.component';
                             <label>&nbsp;</label>
                             <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                         </div>
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>CPD</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.CpdNumber" />
+                            <input type="text" readonly class="form-control undraggable" [(ngModel)]="item.CpdNumber" />
                         </div>
                     </div>
                     <div class="spacer"></div>
                     <div class="row nopadding">
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Stage</span>
                             <textarea class="form-control undraggable" [(ngModel)]="item.Stage" cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group col-md-1">
                         </div>
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Details</span>
                             <textarea class="form-control undraggable" [(ngModel)]="item.Details" cols="30" rows="5"></textarea>
                         </div>
@@ -111,14 +114,14 @@ import { ItemComponent }    from './item.component';
                     </div>
                     <div class="spacer"></div>
                     <div class="row nopadding">
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Speeches</span>
                             <textarea class="form-control undraggable" [(ngModel)]="item.Speeches" cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group col-md-1">
                             
                         </div>
-                        <div class="form-group col-md-5 nopadding">
+                        <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Latest event</span>
                             <textarea class="form-control undraggable" [(ngModel)]="item.LatestEvent" cols="30" rows="5"></textarea>
                         </div>
@@ -126,7 +129,7 @@ import { ItemComponent }    from './item.component';
                 </div>
             </div>`,
     styles: [],
-    providers: []
+    providers: [OrderPaperService]
 })
 export class ItemBillComponent extends ItemComponent implements OnInit, AfterViewInit{
     @Input()
@@ -143,19 +146,35 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     groupIndex: number;
     @Input()
     sectionIndex: number;
+    billOptions = [];
 
-    constructor() {
+    error: any;
+
+    constructor(private orderPaperService: OrderPaperService) {
         super();
     }
     ngOnInit() {
-        this.billTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
-
         if (this.isGroupChild) {
             this.toggleId = this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-bill';
         }
         else {
             this.toggleId = this.sectionIndex + '-' + this.index + '-bill';
         }
+
+        //disable the cpd data fetching for now
+        //this.getBillOptions();
+    }
+
+    private getBillOptions = () => {
+        this.orderPaperService.getBills(AppConstants.CPD_DATA_URL).subscribe(
+            (data: any) => {
+                if (data != null) {
+                    data.value.forEach(bill => {
+                        this.billOptions.push({ id: bill.business_item_id.toString(), text: bill.short_title });
+                    });
+                }
+            },
+            (err: any) => this.error = err);
     }
 
     addGroup() {
@@ -163,12 +182,6 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     }
 
     ngAfterViewInit() {
-        //var billDiv = $(".bill");
-        //billDiv.mousedown((e: JQueryMouseEventObject) => {
-        //    if (e.target.tagName != "INPUT")
-        //        return false;
-        //});
-
         $('.undraggable')
             .on('focus', function (e) {
                 $('.item-li').attr("draggable", "false");
@@ -187,5 +200,19 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     }
 
     titleSelect = (e: string) => {
+        if (e != null) {
+            this.item.CpdTitle = e;
+            var text = this.findOption(this.billOptions, e);
+            this.item.Title = text;
+            if (e != '') {
+                this.orderPaperService.getBill(AppConstants.CPD_DATA_URL, e).subscribe(
+                    (data: any) => {
+
+                        this.item.CpdMember = data.member_original_name;
+                        this.item.CpdNumber = data.bill_number;
+                    },
+                    (err: any) => this.error = err);
+            }
+        }
     }
 }

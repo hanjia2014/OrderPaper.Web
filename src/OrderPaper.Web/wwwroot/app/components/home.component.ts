@@ -13,6 +13,7 @@ import { SelectedOP }                           from '../models/selectedop';
 import { OrderPaperWrapper }                    from '../models/orderpaperwrapper';
 import { OrderPaperService }                    from '../services/app.services';
 import { ModalComponent }                       from '../directives/modal/modal';
+import { AppConstants }                         from '../settings/app.constants';
 
 @Component({
     selector: 'home',
@@ -171,6 +172,15 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.listElm = document.getElementById("spinner");
         this.getOrderPaperSummary();
         this.getSectionSummary();
+        this.getCpdDataUrl();
+    }
+
+    getCpdDataUrl = () => {
+        this.orderPaperService.getCpdUrl().subscribe(
+            (data: string) => {
+                AppConstants.CPD_DATA_URL = data;
+            },
+            (err: any) => this.error = err);
     }
 
     orderPaperSaveCallback = () => {
