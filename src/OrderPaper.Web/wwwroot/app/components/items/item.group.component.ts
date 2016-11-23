@@ -1,6 +1,6 @@
-﻿import { Component, Input, Output, EventEmitter }       from '@angular/core';
-import { ReportItem, MotionItem, BillItem, GroupItem  } from '../../models/items';
-import { ItemComponent }                                from './item.component';
+﻿import { Component, OnInit, Input, Output, EventEmitter }       from '@angular/core';
+import { ReportItem, MotionItem, BillItem, GroupItem  }         from '../../models/items';
+import { ItemComponent }                                        from './item.component';
 
 @Component({
     selector: 'item-group',
@@ -56,7 +56,7 @@ import { ItemComponent }                                from './item.component';
             `],
     providers: []
 })
-export class ItemGroupComponent extends ItemComponent {
+export class ItemGroupComponent extends ItemComponent implements OnInit {
     @Input()
     group: GroupItem;
     @Input()
@@ -70,13 +70,25 @@ export class ItemGroupComponent extends ItemComponent {
     @Input()
     sequenceOptions: any = [];
 
+    addFrom: number;
+    addTo: number;
+
     disableSelect: boolean;
 
     constructor() {
         super();
     }
 
+    ngOnInit() {
+        if (this.group != null) {
+            this.addFrom = this.group.From;
+            this.addTo = this.group.To;
+        }
+    }
+
     addItems = () => {
+        this.group.From = this.addFrom;
+        this.group.To = this.addTo;
         this.onAddItems.next(this.group);
     }
 
@@ -96,7 +108,8 @@ export class ItemGroupComponent extends ItemComponent {
             if (e != 'invalid') {
                 var from = Number(e);
                 if (this.validateSequence(from, this.group.To)) {
-                    this.group.From = from;
+                    this.addFrom = from;
+                    this.addTo = this.group.To;
                     this.disableSelect = false;
                 }
             } else {
@@ -110,7 +123,8 @@ export class ItemGroupComponent extends ItemComponent {
             if (e != 'invalid') {
                 var to = Number(e);
                 if (this.validateSequence(this.group.From, to)) {
-                    this.group.To = to;
+                    this.addFrom = this.group.From;
+                    this.addTo = to;
                     this.disableSelect = false;
                 }
             } else {
