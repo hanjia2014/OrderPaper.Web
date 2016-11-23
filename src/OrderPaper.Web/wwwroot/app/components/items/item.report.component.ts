@@ -29,7 +29,7 @@ import { ItemComponent }    from './item.component';
                     <div id="{{toggleId}}" class="initially-hidden">
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Title</span>
                                 <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
                             </div>
@@ -37,14 +37,14 @@ import { ItemComponent }    from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Shoulder</span>
                                 <input type="text" class="form-control undraggable" [(ngModel)]="item.Shoulder" />
                             </div>
@@ -52,14 +52,14 @@ import { ItemComponent }    from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-shoulder-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Committee</span>
                                 <textarea class="form-control undraggable" [(ngModel)]="item.Committee" cols="30" rows="5"></textarea>
                             </div>
@@ -67,14 +67,14 @@ import { ItemComponent }    from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-committee-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Latest event</span>
                                 <textarea class="form-control undraggable" [(ngModel)]="item.LatestEvent" cols="30" rows="5"></textarea>
                             </div>
@@ -82,7 +82,7 @@ import { ItemComponent }    from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'report-latestevent-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="reportTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>

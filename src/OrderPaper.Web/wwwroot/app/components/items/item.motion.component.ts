@@ -29,7 +29,7 @@ import { ItemComponent }        from './item.component';
                     <div id="{{toggleId}}" class="initially-hidden">
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Title</span>
                                 <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
                             </div>
@@ -37,14 +37,14 @@ import { ItemComponent }        from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
                         </div>
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Member</span>
                                 <input type="text" class="form-control undraggable" [(ngModel)]="item.Member" />
                             </div>
@@ -52,7 +52,7 @@ import { ItemComponent }        from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-member-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
@@ -60,7 +60,7 @@ import { ItemComponent }        from './item.component';
 
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Motion</span>
                                 <textarea class="form-control undraggable" [(ngModel)]="item.Motion" cols="30" rows="5"></textarea>
                             </div>
@@ -68,7 +68,7 @@ import { ItemComponent }        from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-motion-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
@@ -76,7 +76,7 @@ import { ItemComponent }        from './item.component';
 
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Date</span>
                                 <!--<input type="text" class="form-control undraggable" [(ngModel)]="item.Date" />-->
                                 <date-picker [id]="sectionIndex + '-' + groupIndex + '-' + index + '-date'" [readonly]="true" [showClear]="true" [IncludeTime]="false" [initialValue]="item.Date" (onValueChange)="dateChange($event)"></date-picker>
@@ -85,7 +85,7 @@ import { ItemComponent }        from './item.component';
                                 <label>&nbsp;</label>
                                 <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
                                 <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + 'motion-date-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [multiple]="true" [disableMultipleSelection]="true" [data]="motionTitleOptions" (selected)="titleSelect($event)"></select2>
                             </div>
@@ -93,13 +93,13 @@ import { ItemComponent }        from './item.component';
 
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Speeches</span>
                                 <textarea class="form-control undraggable" [(ngModel)]="item.Speeches" cols="30" rows="5"></textarea>
                             </div>
                             <div class="form-group col-md-1">
                             </div>
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Details</span>
                                 <textarea class="form-control undraggable" [(ngModel)]="item.Details" cols="30" rows="5"></textarea>
                             </div>

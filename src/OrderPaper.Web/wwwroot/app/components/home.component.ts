@@ -354,6 +354,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
                     this.selectedOrderPaper.Status = "Provisional";
                     this.selectedOrderPaper.SittingHours = "2pm to 6pm and 7:30pm to 10pm";
                     this.selectedOrderPaper.Number = nextNumber == 0 ? 1 : nextNumber;
+                    this.selectedOrderPaper.PublishingProgress = new Array<string>();
                 }
 
                 this.spinner.stop();
