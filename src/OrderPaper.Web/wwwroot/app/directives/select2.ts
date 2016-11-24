@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewIn
 
 @Component({
     selector: 'select2',
-    template: `{{label}} <input id="{{id}}" [style.width]= "width" class="{{cssClass=='' ? '' : cssClass}}"/>`,
+    template: `{{label}} <input id="{{id}}" [style.width]= "width" class="{{cssClass=='' ? '' : cssClass}}" />`,
     styles: [],
     providers: []
 })
@@ -34,6 +34,8 @@ export class Select2Component implements AfterViewInit {
     checkNumber: number;
     @Input()
     checkOperation: string;
+    @Input()
+    checkEmpty: boolean;
 
     operation_greater: string = "Greater";
     operation_less: string = "Less";
@@ -86,8 +88,21 @@ export class Select2Component implements AfterViewInit {
                     }
                 }
             }
-            else
+            else {
                 this.selected.next(e.val);
+            }
+
+            if (this.checkEmpty) {
+                var ulElement = $("#div-orderpaper-sitting-hours").find('.select2-choices');
+                if (ulElement != null) {
+                    if (e.val == null || e.val == '') {
+                        ulElement.addClass('has-error');
+                    } else {
+                        ulElement.removeClass('has-error');
+                    }
+                }
+            }
+
         });
 
         if (this.disableMultipleSelection) {
