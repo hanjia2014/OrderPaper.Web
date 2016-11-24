@@ -238,6 +238,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 this.originalOP.SittingDay != this.selectedOrderPaper.SittingDay ||
                 this.originalOP.PublishingProgress.length != this.selectedOrderPaper.PublishingProgress.length ||
                 this.originalOP.Sections.length != this.selectedOrderPaper.Sections.length;
+            if (this.isDirty) return true;
             for (var i = 0; i < this.originalOP.PublishingProgress.length; i++) {
                 var source = this.originalOP.PublishingProgress[i];
                 var target = this.selectedOrderPaper.PublishingProgress[i];
