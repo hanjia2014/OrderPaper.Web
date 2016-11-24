@@ -85,11 +85,11 @@ import { AppConstants }                         from '../settings/app.constants'
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                         <modal-header [show-close]="true">
                             <h4 class="modal-title" *ngIf="modalType == modalType_Delete">Confirm to delete</h4>
-                            <h4 class="modal-title" *ngIf="modalType == modalType_Save">Confirm to save</h4>
+                            <h4 class="modal-title" *ngIf="modalType == modalType_Save">Confirm to open another Order Paper</h4>
                         </modal-header>
                         <modal-body>
                             <div *ngIf="modalType == modalType_Delete">Are you sure to delete the Order Paper?</div>
-                            <div *ngIf="modalType == modalType_Save">Are you sure to open another Order Paper without saving the current Order Paper?</div>
+                            <div *ngIf="modalType == modalType_Save">You have unsaved changes to the existing Order Paper. Are you sure you want to open another Order Paper without saving the existing Order Paper?</div>
                         </modal-body>
                         <modal-footer [show-default-buttons]="true"></modal-footer>
                     </modal>

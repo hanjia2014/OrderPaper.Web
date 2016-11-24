@@ -231,9 +231,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.orderPaper.Status = e;
     }
 
-    addSectionChange = (e: Array<string>) => {
+    addSectionChange = (e: string) => {
         if (e != null)
-            this.addSection = e[0];
+            this.addSection = e;
     }
 
     sittingHoursChange = (e: Array<string>) => {
