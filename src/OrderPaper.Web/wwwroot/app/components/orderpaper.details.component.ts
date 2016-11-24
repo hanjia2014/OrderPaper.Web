@@ -51,7 +51,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                                 <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [width]="'150px'" [readonly]="true" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
                             <div id="div-orderpaper-sitting-hours" class="col-md-4" style="margin-left: 15px;">
-                                <select2 [id]="'orderPaperSittingHours'" [width]="'280px'" [initialValue]="orderPaper.SittingHours" [checkEmpty]="true" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
+                                <select2 [id]="'orderPaperSittingHours'" [width]="'280px'" [checkEmptyEleId]="'#div-orderpaper-sitting-hours'" [initialValue]="orderPaper.SittingHours" [checkEmpty]="true" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
                             </div>             
                             <div class="col-md-2" style="padding: 0px; width: 150px">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [width]="'125px'" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>

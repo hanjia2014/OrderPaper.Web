@@ -36,6 +36,8 @@ export class Select2Component implements AfterViewInit {
     checkOperation: string;
     @Input()
     checkEmpty: boolean;
+    @Input()
+    checkEmptyEleId: string;
 
     operation_greater: string = "Greater";
     operation_less: string = "Less";
@@ -93,7 +95,7 @@ export class Select2Component implements AfterViewInit {
             }
 
             if (this.checkEmpty) {
-                var ulElement = $("#div-orderpaper-sitting-hours").find('.select2-choices');
+                var ulElement = $(this.checkEmptyEleId).find('.select2-choices');
                 if (ulElement != null) {
                     if (e.val == null || e.val == '') {
                         ulElement.addClass('has-error');
