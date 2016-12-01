@@ -3,7 +3,11 @@ import { Response }                 from '@angular/http';
 import { OrderPaperWrapper }        from '../models/orderpaperwrapper';
 import { OrderPaper }               from '../models/orderpaper';
 import { Section, SectionSummary }  from '../models/section';
-import { CpdBillItem }              from '../models/items';
+import {
+    CpdBillItem,
+    CpdMotionItem,
+    CpdReportItem
+}                                   from '../models/items';
 
 export interface ITogglable {
     toggle: (element: any, eleId: string) => void;
@@ -27,6 +31,10 @@ export interface IConfigurationService {
 }
 
 export interface ICpdService {
-    getBills: (apiUrl: string) => Observable<any>;
+    getReports: (apiUrl: string) => Observable<Array<CpdReportItem>>;
+    getReport: (apiUrl: string) => Observable<CpdReportItem>;
+    getMotions: (apiUrl: string) => Observable<Array<CpdMotionItem>>;
+    getMotion: (apiUrl: string) => Observable<CpdMotionItem>;
+    getBills: (apiUrl: string) => Observable<Array<CpdBillItem>>;
     getBill: (apiUrl: string, id: string) => Observable<any>;
 }

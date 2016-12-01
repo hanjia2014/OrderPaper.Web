@@ -24,7 +24,7 @@ import { AppSettings }  from '../../settings/app.settings';
                 </li>
                 <li style="padding-top:10px; margin-left: 50px;">
                     <img (click)="createNewOrderPaper()" title="Create new order paper" class="pointer" src="{{imagesPath + 'add new op.png'}}">
-                    <span style="color:white;">
+                    <span style="color:white">
                         New Order Paper
                     </span>
                 </li>
@@ -34,10 +34,10 @@ import { AppSettings }  from '../../settings/app.settings';
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
             .active-span { 
-                background: url('../../../content/images/icons/white up arrow.png') no-repeat scroll center center;
+                background: url('../../../wwwroot/content/images/icons/white up arrow.png') no-repeat scroll center center;
             }
             .non-active-span:hover {
-                background: url('../../../content/images/icons/white down arrow.png') no-repeat scroll center center;
+                background: url('../../../wwwroot/content/images/icons/white down arrow.png') no-repeat scroll center center;
             }
             .nav-black{
                 background-color: #142840;

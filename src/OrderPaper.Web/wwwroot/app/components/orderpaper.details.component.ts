@@ -20,6 +20,18 @@ import { AuditHistory }                     from '../models/audithistory';
 import { OrderPaperWrapper }                from '../models/orderpaperwrapper';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 import { ModalComponent }                   from '../directives/modal/modal';
+import {
+    Item,
+    LineItem,
+    MotionItem,
+    GroupItem,
+    ReportItem,
+    BillItem,
+    SubHeadingItem,
+    CpdBillItem,
+    CpdMotionItem,
+    CpdReportItem
+}                                           from '../models/items';
 
 @Component({
     selector: 'order-paper-details',
@@ -97,7 +109,7 @@ import { ModalComponent }                   from '../directives/modal/modal';
                             </div>
                             <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
                                 <li *ngFor="let section of orderPaper.Sections; let i = index" class="item-li">
-                                    <order-paper-section [section]="section" [index]="i" [sectionOptions]="sectionOptions" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event, i)" (onDeleteSection)="deleteSection($event)"></order-paper-section>
+                                    <order-paper-section [section]="section" [index]="i" [sectionOptions]="sectionOptions" [billOptions]="billOptions" [reportOptions]="reportOptions" [motionOptions]="motionOptions" [isSelected]="selectedSection != null && section.Name == selectedSection.Name" (onSelectSection)="selectSection($event, i)" (onDeleteSection)="deleteSection($event)"></order-paper-section>
                                 </li>  
                             </ul>
                         </div>
@@ -172,6 +184,9 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     isRemoveVisible: boolean;
     addSection: string;
     spinElm: HTMLElement;
+    billOptions = [];
+    motionOptions = [];
+    reportOptions = [];
     //modal
     @ViewChild('modal')
     modal: ModalComponent;
@@ -190,6 +205,54 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
+        //this.getBillOptions();
+        //this.getMotionOptions();
+        //this.getReportOptions();
+    }
+
+    private getBillOptions = () => {
+        this.spinElm = document.getElementById("saveSpinner");
+        this.spinner.spin(this.spinElm);
+        this.orderPaperService.getBills().subscribe(
+            (data: Array<CpdBillItem>) => {
+                if (data != null) {
+                    data.forEach(bill => {
+                        this.billOptions.push({ id: bill.business_item_id.toString(), text: bill.short_title });
+                    });
+                }
+                this.spinner.stop();
+            },
+            (err: any) => this.error = err);
+    }
+
+    private getMotionOptions = () => {
+        this.spinElm = document.getElementById("saveSpinner");
+        this.spinner.spin(this.spinElm);
+        this.orderPaperService.getMotions().subscribe(
+            (data: Array<CpdMotionItem>) => {
+                if (data != null) {
+                    data.forEach(motion => {
+                        this.motionOptions.push({ id: motion.business_item_id.toString(), text: motion.title });
+                    });
+                }
+                this.spinner.stop();
+            },
+            (err: any) => this.error = err);
+    }
+
+    private getReportOptions = () => {
+        this.spinElm = document.getElementById("saveSpinner");
+        this.spinner.spin(this.spinElm);
+        this.orderPaperService.getReports().subscribe(
+            (data: Array<CpdReportItem>) => {
+                if (data != null) {
+                    data.forEach(report => {
+                        this.reportOptions.push({ id: report.business_item_id.toString(), text: report.title });
+                    });
+                }
+                this.spinner.stop();
+            },
+            (err: any) => this.error = err);
     }
 
     ngAfterViewInit() {

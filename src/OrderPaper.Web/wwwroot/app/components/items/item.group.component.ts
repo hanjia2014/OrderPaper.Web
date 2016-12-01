@@ -6,7 +6,7 @@ import { ItemComponent }                                        from './item.com
     selector: 'item-group',
     template: `
                 <div class="group">
-                    <p>
+                    <p style="cursor: move;">
                         <span>
                             Group
                         </span>
@@ -31,13 +31,13 @@ import { ItemComponent }                                        from './item.com
                                 <li class="panel panel-default item-li group-child" *ngFor="let item of group.Items; let i = index" dnd-sortable [sortableIndex]="i">
                                     <div class="panel-body">
                                         <span *ngIf="item.Type == 'Bill'">
-                                            <item-bill [index]="i" [item]="item" [groupIndex]="groupIndex" [isGroupChild]="true"></item-bill>
+                                            <item-bill [index]="i" [item]="item" [billOptions]="billOptions" [groupIndex]="groupIndex" [isGroupChild]="true"></item-bill>
                                         </span>
                                         <span *ngIf="item.Type == 'Report'">
-                                            <item-report [index]="i" [item]="item" [groupIndex]="groupIndex" [isGroupChild]="true"></item-report>
+                                            <item-report [index]="i" [item]="item" [reportOptions]="reportOptions" [groupIndex]="groupIndex" [isGroupChild]="true"></item-report>
                                         </span>
                                         <span *ngIf="item.Type == 'Motion'">
-                                            <item-motion [index]="i" [item]="item" [groupIndex]="groupIndex" [isGroupChild]="true"></item-motion>
+                                            <item-motion [index]="i" [item]="item" [motionOptions]="motionOptions" [groupIndex]="groupIndex" [isGroupChild]="true"></item-motion>
                                         </span>
                                     </div>
                                 </li>
@@ -69,7 +69,12 @@ export class ItemGroupComponent extends ItemComponent implements OnInit {
     onRemoveGroup = new EventEmitter<GroupItem>();
     @Input()
     sequenceOptions: any = [];
-
+    @Input()
+    billOptions = [];
+    @Input()
+    motionOptions = [];
+    @Input()
+    reportOptions = [];
     addFrom: number;
     addTo: number;
 

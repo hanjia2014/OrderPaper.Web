@@ -231,6 +231,9 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     checkDirty = (): boolean => {
         if (this.isDirty) return true;
+        if (this.originalOP == null && this.selectedOrderPaper != null) {
+            this.isDirty = true;
+        }
         if (this.originalOP != null && this.selectedOrderPaper != null) {
             this.isDirty = this.originalOP.Number != this.selectedOrderPaper.Number ||
                 this.originalOP.Status != this.selectedOrderPaper.Status ||

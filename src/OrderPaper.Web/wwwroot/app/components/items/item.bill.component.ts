@@ -12,12 +12,13 @@ import { CpdBillItem }          from '../../models/items';
 import { ItemComponent }        from './item.component';
 import { OrderPaperService }    from '../../services/app.services';
 import { AppConstants }         from '../../settings/app.constants';
+import { AppSettings }          from '../../settings/app.settings';
 
 @Component({
     selector: 'item-bill',
     template: `
             <div class="bill">
-                <div class="row">
+                <div class="row" style="cursor: move;">
                     <div class="col-md-9">
                         <a href="#" (click)="toggle($event, toggleId)">{{item.Title}}</a>
                     </div>
@@ -26,7 +27,7 @@ import { AppConstants }         from '../../settings/app.constants';
                             <span *ngIf="isExpand" class="pointer" (click)="toggle($event, toggleId)">
                                 <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
                             </span>
-                            <span>{{item.Type}}</span>
+                            <span style="margin-right: 10px; margin-left: 10px;">{{item.Type}}</span>
                             <img *ngIf="isGroupChild == false" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                         </div>
                     </div>
@@ -34,9 +35,13 @@ import { AppConstants }         from '../../settings/app.constants';
                 <div id="{{toggleId}}" class="initially-hidden">
                     <div class="spacer"></div>
                     <div class="row nopadding">
+                        <!--<select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + '-bill-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [data]="billOptions" (selected)="titleSelect($event)"></select2>-->
+                        <select2-ajax [id]="sectionIndex + '-' + groupIndex + '-' + index + '-bill-title-cpd'" [apiUrl]="cpdAjaxUrl" [cssClass]="'form-control undraggable'" (selected)="billSelect($event)"></select2-ajax>
+                    </div>
+                    <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Title</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
+                            <textarea class="form-control undraggable" [(ngModel)]="item.Title" cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group col-md-1">
                             <label>&nbsp;</label>
@@ -44,8 +49,7 @@ import { AppConstants }         from '../../settings/app.constants';
                         </div>
                         <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>CPD</span>
-                            <!--<input type="text" class="form-control undraggable" [(ngModel)]="item.CpdTitle" />-->
-                            <select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + '-bill-title-cpd'" [initialValue]="item.CpdTitle" [cssClass]="'form-control undraggable'" [enableSearch]="true" [data]="billOptions" (selected)="titleSelect($event)"></select2>
+                            <textarea class="form-control undraggable" readonly [(ngModel)]="item.CpdTitle" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="spacer"></div>
@@ -75,7 +79,7 @@ import { AppConstants }         from '../../settings/app.constants';
                         </div>
                         <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>CPD</span>
-                            <input type="text" readonly class="form-control undraggable" [(ngModel)]="item.CpdNumber" />
+                            <input type="text" readonly class="form-control undraggable" [(ngModel)]="item.CpdMember" />
                         </div>
                     </div>
                     <div class="spacer"></div>
@@ -131,7 +135,7 @@ import { AppConstants }         from '../../settings/app.constants';
     styles: [],
     providers: [OrderPaperService]
 })
-export class ItemBillComponent extends ItemComponent implements OnInit, AfterViewInit{
+export class ItemBillComponent extends ItemComponent implements OnInit, AfterViewInit {
     @Input()
     item: BillItem;
     @Input()
@@ -146,8 +150,9 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     groupIndex: number;
     @Input()
     sectionIndex: number;
+    @Input()
     billOptions = [];
-
+    cpdAjaxUrl: string = AppSettings.API_CPDBILLACCESS_ENDPOINT;
     error: any;
 
     constructor(private orderPaperService: OrderPaperService) {
@@ -160,21 +165,6 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
         else {
             this.toggleId = this.sectionIndex + '-' + this.index + '-bill';
         }
-
-        //disable the cpd data fetching for now
-        //this.getBillOptions();
-    }
-
-    private getBillOptions = () => {
-        this.orderPaperService.getBills(AppConstants.CPD_DATA_URL).subscribe(
-            (data: any) => {
-                if (data != null) {
-                    data.value.forEach(bill => {
-                        this.billOptions.push({ id: bill.business_item_id.toString(), text: bill.short_title });
-                    });
-                }
-            },
-            (err: any) => this.error = err);
     }
 
     addGroup() {
@@ -200,19 +190,49 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     }
 
     titleSelect = (e: string) => {
-        if (e != null) {
-            this.item.CpdTitle = e;
-            var text = this.findOption(this.billOptions, e);
-            this.item.Title = text;
-            if (e != '') {
-                this.orderPaperService.getBill(AppConstants.CPD_DATA_URL, e).subscribe(
+        if (e != null && e != '') {
+            if (this.billOptions.length > 0) {
+                var text = this.findOption(this.billOptions, e);
+                this.item.Title = text;
+                this.item.CpdTitle = text;
+                this.orderPaperService.getBill(e).subscribe(
                     (data: any) => {
-
                         this.item.CpdMember = data.member_original_name;
                         this.item.CpdNumber = data.bill_number;
+
+                        this.item.Member = data.member_original_name;
+                        this.item.Number = data.bill_number;
                     },
                     (err: any) => this.error = err);
             }
+        }
+        if (e == null || e == '') {
+            this.item.CpdTitle = null;
+            this.item.CpdNumber = null;
+            this.item.CpdMember = null;
+        }
+    }
+
+    billSelect = (e: string) => {
+        if (e != null && e != '') {
+            this.orderPaperService.getBill(e).subscribe(
+                (data: any) => {
+                    this.item.BusinessItemId = data.business_item_id;
+
+                    this.item.CpdMember = data.member_original_name;
+                    this.item.CpdNumber = data.bill_number;
+                    this.item.CpdTitle = data.business_item_title;
+
+                    this.item.Title = data.business_item_title;
+                    this.item.Member = data.member_original_name;
+                    this.item.Number = data.bill_number;
+                },
+                (err: any) => this.error = err);
+        }
+        if (e == null || e == '') {
+            this.item.CpdTitle = null;
+            this.item.CpdNumber = null;
+            this.item.CpdMember = null;
         }
     }
 }

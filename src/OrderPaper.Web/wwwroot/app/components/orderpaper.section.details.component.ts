@@ -10,7 +10,8 @@ import {
     ReportItem,
     BillItem,
     SubHeadingItem,
-    CpdBillItem
+    CpdBillItem,
+    CpdMotionItem
 }                                           from '../models/items';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
 import { OrderPaperService }                from '../services/app.services';
@@ -65,16 +66,16 @@ import { AppConstants }                     from '../settings/app.constants';
                                 <div *ngIf="item.Type != 'Line'" class="{{item.Type == 'Group' ? 'panel panel-primary nopadding col-md-8 item-box' : 'panel panel-default nopadding col-md-8 item-box'}}">
                                     <div class="panel-body">
                                         <span *ngIf="item.Type == 'Bill'">
-                                            <item-bill [sectionIndex]="index" [index]="i" [item]="item"></item-bill>
+                                            <item-bill [sectionIndex]="index" [billOptions]="billOptions" [index]="i" [item]="item"></item-bill>
                                         </span>
                                         <span *ngIf="item.Type == 'Report'">
-                                            <item-report [sectionIndex]="index" [index]="i" [item]="item"></item-report>
+                                            <item-report [sectionIndex]="index" [reportOptions]="reportOptions" [index]="i" [item]="item"></item-report>
                                         </span>
                                         <span *ngIf="item.Type == 'Motion'">
-                                            <item-motion [sectionIndex]="index" [index]="i" [item]="item"></item-motion>
+                                            <item-motion [sectionIndex]="index" [motionOptions]="motionOptions" [index]="i" [item]="item"></item-motion>
                                         </span>
                                         <span *ngIf="item.Type == 'Group'">
-                                            <item-group [group]="item" [sequenceOptions]="getSequence()" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
+                                            <item-group [group]="item" [billOptions]="billOptions" [motionOptions]="motionOptions" [reportOptions]="reportOptions" [sequenceOptions]="getSequence()" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
                                         </span>
                                     </div>
                                 </div>
@@ -125,7 +126,12 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }];
     selectedItemType: string;
     listElm: HTMLElement = document.getElementById("spinner");
+    @Input()
     billOptions = [];
+    @Input()
+    motionOptions = [];
+    @Input()
+    reportOptions = [];
 
     constructor(private orderPaperService: OrderPaperService) {
         super();

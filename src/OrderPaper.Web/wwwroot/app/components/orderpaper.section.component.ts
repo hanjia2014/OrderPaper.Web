@@ -50,7 +50,7 @@ import { OrderPaperService }    from '../services/app.services';
                                 </div>
                             </div>
                             <div id="{{index + '-section'}}" class="initially-hidden" style="width: 100%; margin-top: 15px;">
-                                <order-paper-section-details [index]="index" [section]="section"></order-paper-section-details>
+                                <order-paper-section-details [index]="index" [section]="section" [billOptions]="billOptions" [reportOptions]="reportOptions" [motionOptions]="motionOptions"></order-paper-section-details>
                             </div>
                         </div>
                     </div>
@@ -86,6 +86,12 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     spinElm: HTMLElement;
     spinner: Spinner = new Spinner({ radius: 10, color: '#2ebcc5' });
     error: any;
+    @Input()
+    billOptions = [];
+    @Input()
+    motionOptions = [];
+    @Input()
+    reportOptions = [];
 
     constructor(private orderPaperService: OrderPaperService) {
     }
@@ -105,7 +111,7 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
     }
 
     sectionChange = (e: string) => {
-        if (e != null) {
+        if (e != null && this.section.Id != e) {
             this.updatedSectionSelect = e;
             this.section.Id = e;
             this.availableSections.forEach(option => {

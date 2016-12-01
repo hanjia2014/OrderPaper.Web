@@ -4,6 +4,7 @@ import { FormsModule }                                  from '@angular/forms';
 import { HttpModule, Response }                         from '@angular/http';
 import { LocationStrategy, HashLocationStrategy }       from '@angular/common';
 import { Select2Component }                             from '../directives/select2';
+import { Select2AjaxComponent }                         from '../directives/select2ajax';
 import { DatePickerComponent }                          from '../directives/datepicker';
 import { MODAL_DIRECTIVES, ModalComponent }             from '../directives/modal/modal';
 import { Tabs }                                         from '../directives/tabs/tabs';
@@ -43,6 +44,7 @@ import { ItemGroupComponent }                           from './items/item.group
     [
         DND_DIRECTIVES,
         Select2Component,
+        Select2AjaxComponent,
         DatePickerComponent,
         MODAL_DIRECTIVES,
         ModalComponent,

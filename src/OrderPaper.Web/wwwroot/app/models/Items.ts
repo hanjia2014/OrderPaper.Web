@@ -1,10 +1,31 @@
 ﻿export class CpdBillItem {
     business_item_id: number;
+    business_item_title: string;
     short_title: string;
     bill_number: string;
     member_original_name: string;
 }
+
+export class CpdMotionItem {
+    business_item_id: number;
+    business_item_title: string;
+    title: string;
+    motion: string;
+    member: string;
+    date: string;
+}
+
+export class CpdReportItem {
+    business_item_id: number;
+    business_item_title: string;
+    title: string;
+    shoulder: string;
+    committee: string;
+    latestEvent: string;
+}
+
 export class Item {
+    BusinessItemId: number;
     Sequence: number;
     Type: string;
     Title: string;
@@ -33,6 +54,7 @@ export class MotionItem extends Item {
     Member: string;
     Speeches: string;
     Motion: string;
+    CpdDate: string;
     CpdMotion: string;
     CpdMember: string;
     constructor() {
