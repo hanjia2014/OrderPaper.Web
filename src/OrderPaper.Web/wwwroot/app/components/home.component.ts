@@ -78,7 +78,7 @@ import { AppConstants }                         from '../settings/app.constants'
                     </tabs>
                     <div style="background-color: #edecec;">
                         <div class="container" style="padding-left: 10%;">
-                            <order-paper-details [orderPaper]="selectedOrderPaper" [isDirty]="checkDirty()" (onSave)="orderPaperSaveCallback()" [sectionOptions]="sectionOptions"></order-paper-details>
+                            <order-paper-details [orderPaper]="selectedOrderPaper" [isDirty]="checkDirty()" (onCancel)="orderPaperCancelCallback()" (onSave)="orderPaperSaveCallback()" [sectionOptions]="sectionOptions"></order-paper-details>
                         </div>
                     </div>
                     <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
@@ -191,6 +191,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
         var op = JSON.parse(json);
         (<any>Object).assign(this.originalOP, op);
         this.isDirty = false;
+    }
+
+    orderPaperCancelCallback = () => {
+        this.selectedOrderPaper = null;
     }
 
     getOrderPaperSummary = () => {
@@ -395,11 +399,21 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
     closed() {
         if (this.modalType == this.modalType_Delete) {
+            this.spinner.spin(this.listElm);
             this.orderPaperService.delete(this.deletedSummary.Id.toString()).subscribe(
                 (data: boolean) => {
                     if (data) {
-                        this.orderPaperSummary.splice(this.deletedIndex, 1);
+                        for (var i = this.orderPaperSummary.length - 1; i >= 0; i--) {
+                            var summary = this.orderPaperSummary[i];
+                            if (summary.Id == this.deletedSummary.Id) {
+                                this.orderPaperSummary.splice(i, 1);
+                            }
+                        }
+                        if (this.selectedOrderPaper.Id == this.deletedSummary.Id) {
+                            this.selectedOrderPaper = null;
+                        }
                     }
+                    this.spinner.stop();
                 },
                 (err: any) => this.error = err
             );

@@ -18,7 +18,7 @@ import { AppSettings }                              from '../../settings/app.set
                 background-color: #696969; 
                 height: 8px;
                 margin-top: 0px;
-                cursor: pointer;
+                cursor: move;
             }
             .delete-line{
                 margin-right:-100px;

@@ -6,7 +6,7 @@ import { AppSettings }                                                          
     selector: 'date-picker',
     template: `
                 <div class="input-group date" [style.width]="width" style="max-width: 250px" id="{{id}}">
-                    <input *ngIf="readonly" type="text" style="background-color: white" readonly='true' [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
+                    <input *ngIf="readonly" type="text" style="background-color: white" readonly='true' [class.has-error]="checkEmpty && (selectedDate==null || selectedDate=='')" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
                     <input *ngIf="readonly == null || readonly == false" type="text" style="background-color: white" [(ngModel)]="selectedDate" class="form-control" id="{{id}}-dateValue" >
                     <span class="input-group-addon pointer" style="background-color: white"><img src="{{imagePath + 'calendar.png'}}" width="15"></span>
 
@@ -38,6 +38,8 @@ export class DatePickerComponent implements AfterViewInit {
     readonly: boolean;
     @Input()
     showClear: boolean;
+    @Input()
+    checkEmpty: boolean;
     imagePath: string = AppSettings.IMAGE_PATH;
     selectedDate: string;
 

@@ -34,10 +34,10 @@ import { AppSettings }  from '../../settings/app.settings';
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
             .active-span { 
-                background: url('../../../wwwroot/content/images/icons/white up arrow.png') no-repeat scroll center center;
+                background: url('../../../content/images/icons/white up arrow.png') no-repeat scroll center center;
             }
             .non-active-span:hover {
-                background: url('../../../wwwroot/content/images/icons/white down arrow.png') no-repeat scroll center center;
+                background: url('../../../content/images/icons/white down arrow.png') no-repeat scroll center center;
             }
             .nav-black{
                 background-color: #142840;

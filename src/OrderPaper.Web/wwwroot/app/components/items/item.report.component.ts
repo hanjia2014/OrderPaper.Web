@@ -74,7 +74,7 @@ import { AppSettings }              from '../../settings/app.settings';
                             </div>
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
-                                <textarea class="form-control undraggable" [(ngModel)]="item.CpdCommittee" cols="30" rows="5"></textarea>
+                                <textarea class="form-control undraggable" readonly [(ngModel)]="item.CpdCommittee" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -89,7 +89,7 @@ import { AppSettings }              from '../../settings/app.settings';
                             </div>
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
-                                <textarea class="form-control undraggable" [(ngModel)]="item.CpdLatestEvent" cols="30" rows="5"></textarea>
+                                <textarea class="form-control undraggable" readonly [(ngModel)]="item.CpdLatestEvent" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="spacer"></div>

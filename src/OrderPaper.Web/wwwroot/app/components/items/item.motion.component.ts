@@ -199,9 +199,6 @@ export class ItemMotionComponent extends ItemComponent implements OnInit, AfterV
 
     motionSelect = (e: string) => {
         if (e != null && e != '') {
-            var text = this.findOption(this.motionOptions, e);
-            this.item.Title = text;
-            this.item.CpdTitle = text;
             this.orderPaperService.getMotion(e).subscribe(
                 (data: CpdMotionItem) => {
                     this.item.BusinessItemId = data.business_item_id;

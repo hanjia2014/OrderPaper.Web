@@ -60,7 +60,7 @@ import {
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <date-picker [id]="'orderPaperDate'" [IncludeTime]="false" [width]="'150px'" [readonly]="true" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
+                                <date-picker [id]="'orderPaperDate'" [checkEmpty]="true" [IncludeTime]="false" [width]="'150px'" [readonly]="true" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
                             <div id="div-orderpaper-sitting-hours" class="col-md-4" style="margin-left: 15px;">
                                 <select2 [id]="'orderPaperSittingHours'" [width]="'280px'" [checkEmptyEleId]="'#div-orderpaper-sitting-hours'" [initialValue]="orderPaper.SittingHours" [checkEmpty]="true" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
@@ -174,6 +174,8 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     isDirty: boolean;
     @Output()
     onSave = new EventEmitter();
+    @Output()
+    onCancel = new EventEmitter();
     selectedSection: Section;
     error: any;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
@@ -435,6 +437,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.modal.open();
         else {
             this.orderPaper = null;
+            this.onCancel.next();
         }
     }
 
@@ -483,6 +486,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         }
         else if (this.deletingType == "orderpaper") {
             this.orderPaper = null;
+            this.onCancel.next();
         }
         else {
             if (this.selectedSection != null && this.orderPaper.Sections[this.sectionDeleteIndex].Name == this.selectedSection.Name) {
