@@ -23,6 +23,8 @@ import { AppConstants }                     from '../settings/app.constants';
                 <div id="spinner"></div>
                 <div class="row">
                     <div class="col-md-11" style="padding-left: 90px;">
+                        <order-paper-section-subheading [subheading]="section.Subheading" [index]="index"></order-paper-section-subheading>
+                        <div class="spacer"></div>
                         <div class="row">
                             <div class="col-md-6">
                                 <span>Details</span>
@@ -77,6 +79,9 @@ import { AppConstants }                     from '../settings/app.constants';
                                         <span *ngIf="item.Type == 'Group'">
                                             <item-group [group]="item" [billOptions]="billOptions" [motionOptions]="motionOptions" [reportOptions]="reportOptions" [sequenceOptions]="getSequence()" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
                                         </span>
+                                        <span *ngIf="item.Type == 'Subheading'">
+                                            <item-subheading [sectionIndex]="index" [index]="i" [item]="item"></item-subheading>
+                                        </span>
                                     </div>
                                 </div>
                                 <span *ngIf="item.Type == 'Line'" class="col-md-8 item-box">
@@ -123,7 +128,7 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     @Input()
     index: number;
     error: any;
-    itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }];
+    itemTypes = [{ id: "Bill", text: "Bill" }, { id: "Motion", text: "Motion" }, { id: "Report", text: "Report" }, { id: "Line", text: "Line" }, { id: "Subheading", text: "Sub heading" }];
     selectedItemType: string;
     listElm: HTMLElement = document.getElementById("spinner");
     @Input()

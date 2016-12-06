@@ -90,7 +90,7 @@ export class Select2AjaxComponent implements AfterViewInit {
                 cache: true
             },
             escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-            minimumInputLength: 1,
+            minimumInputLength: 5,
         };
 
         if (this.enableSearch == false) {

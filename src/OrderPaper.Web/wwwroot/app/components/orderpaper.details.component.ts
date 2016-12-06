@@ -94,6 +94,7 @@ import {
                                 <div class="pull-right" style="padding-top: 10px;">
                                     <a class="btn btn-parliament" [ngClass]='{disabled: checkMandatory()}' (click)="save($event)">Save Order Paper</a>
                                     <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
+                                    <a class="btn btn-parliament" (click)="sendEmail()">Email</a>
                                 </div>
                             </div>
                         </div>
@@ -142,23 +143,28 @@ import {
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                     <modal-header [show-close]="true">
                         <h4 class="modal-title">
-                            <span *ngIf="deletingType != 'saving error' && deletingType != 'saved'">Confirm to delete</span>
+                            <span *ngIf="deletingType != 'saving error' && deletingType != 'saved' && deletingType != 'section'">{{orderPaper != null && orderPaper.Id == -1 ? 'Confirm to cancel Order Paper' : 'Confirm to cancel' }}</span>
                             <span *ngIf="deletingType == 'saving error'">Error</span>
                             <span *ngIf="deletingType == 'saved'">Saved</span>
+                            <span *ngIf="deletingType == 'section'">Confirm to delete Section</span>
+                            <span *ngIf="deletingType == 'preview-warning'">Confirm to save</span>
                         </h4>
                     </modal-header>
                     <modal-body>
                         <div *ngIf="deletingType == 'orderpaper'">
-                            Are you sure to exist without saving changes?
+                            {{orderPaper != null && orderPaper.Id == -1 ? 'You have not saved this Order Paper. Are you sure you want to Cancel?' : 'You have unsaved changes. Are you sure you want to Cancel?' }}
                         </div>
                         <div *ngIf="deletingType == 'section'">
-                            Are you sure to delete this section?
+                            You are about to delete a Section from the Order Paper. Are you sure you want to delete?
                         </div>
                         <div *ngIf="deletingType == 'saving error'">
                             {{error.Message}}
                         </div>
                         <div *ngIf="deletingType == 'saved'">
                             The Order Paper has been saved successfully
+                        </div>
+                        <div *ngIf="deletingType == 'preview-warning'">
+                            You have unsaved changes to the existing Order Paper. Are you sure you want to preview Order Paper without saving the existing Order Paper?
                         </div>
                     </modal-body>
                     <modal-footer [show-default-buttons]="true"></modal-footer>
@@ -207,9 +213,6 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
-        //this.getBillOptions();
-        //this.getMotionOptions();
-        //this.getReportOptions();
     }
 
     private getBillOptions = () => {
@@ -436,7 +439,6 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         if (this.isDirty)
             this.modal.open();
         else {
-            this.orderPaper = null;
             this.onCancel.next();
         }
     }
@@ -444,7 +446,12 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     progress = (value: string) => {
         var valid = false;
         if (value.localeCompare(AppConstants.PROGRESS_PREVIEW) == 0) {
-            valid = true;
+            if (this.isDirty) {
+                this.deletingType = "preview-warning";
+                this.modal.open();
+            } else {
+                valid = true;
+            }
         }
         else if (value.localeCompare(AppConstants.PROGRESS_WORD) == 0 && this.orderPaper.containPreview()) {
             valid = true;
@@ -467,6 +474,22 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.orderPaper.AuditHistoryList.push(audit);            
         }
     }
+
+    sendEmail = () => {
+        try {
+            var theApp = new ActiveXObject("Outlook.Application");
+            var objNS = theApp.GetNameSpace('MAPI');
+            var theMailItem = theApp.CreateItem(0); // value 0 = MailItem
+            theMailItem.to = ('test@gmail.com');
+            theMailItem.Subject = ('test');
+            theMailItem.Body = ('test');
+            theMailItem.Attachments.Add("C\\file.txt");
+            theMailItem.display();
+        }
+        catch (err) {
+            alert(err.message);
+        }
+    }
     //modal
     opened() {
 
@@ -487,6 +510,17 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         else if (this.deletingType == "orderpaper") {
             this.orderPaper = null;
             this.onCancel.next();
+        }
+        else if (this.deletingType == "preview-warning") {
+            var value = AppConstants.PROGRESS_PREVIEW;
+            this.orderPaper.PublishingProgress.push(value);
+            var date = new Date();
+            var audit = new AuditHistory();
+            audit.Function = value;
+            audit.Name = "John Doe";
+            audit.Date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            audit.Time = date.getHours() + ":" + date.getMinutes();
+            this.orderPaper.AuditHistoryList.push(audit);            
         }
         else {
             if (this.selectedSection != null && this.orderPaper.Sections[this.sectionDeleteIndex].Name == this.selectedSection.Name) {

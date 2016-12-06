@@ -11,23 +11,46 @@ import { ItemComponent }    from './item.component';
 @Component({
     selector: 'item-subheading',
     template: `
-                <div class="motion">
+                <div class="subheading">
                     <div class="row">
-                        <div class="col-md-10">
-                            <a href="#" (click)="toggle($event, index + '-subheading')">{{item.Title}}</a>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-12">
+                            Sub heading
                             <div class="pull-right">
                                 <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
-                                <span>{{item.Type}}</span>
                             </div>
                         </div>
                     </div>
-                    <div id="{{index + '-subheading'}}" class="initially-hidden">
-                        <br />
-                        <div class="form-group col-md-5 nopadding">
-                            <label>Title</label>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Title"/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Full line <input type="text" class="form-control undraggable" [(ngModel)]="item.FullLine" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            Col 1a <input type="text" class="form-control undraggable" [(ngModel)]="item.Col1a" />
+                        </div>
+                        <div class="col-md-3">
+                            Col 2a <input type="text" class="form-control undraggable" [(ngModel)]="item.Col2a" />
+                        </div>
+                        <div class="col-md-3">
+                            Col 3a <input type="text" class="form-control undraggable" [(ngModel)]="item.Col3a" />
+                        </div>
+                        <div class="col-md-3">
+                            Col 4a <input type="text" class="form-control undraggable" [(ngModel)]="item.Col4a" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            Col 1b <input type="text" class="form-control undraggable" [(ngModel)]="item.Col1b" />
+                        </div>
+                        <div class="col-md-3">
+                            Col 2b <input type="text" class="form-control undraggable" [(ngModel)]="item.Col2b" />
+                        </div>
+                        <div class="col-md-3">
+                            Col 3b <input type="text" class="form-control undraggable" [(ngModel)]="item.Col3b" />
+                        </div>
+                        <div class="col-md-3">
+                            Col 4b <input type="text" class="form-control undraggable" [(ngModel)]="item.Col4b" />
                         </div>
                     </div>
                 </div>
@@ -40,6 +63,8 @@ export class ItemSubheadingComponent extends ItemComponent implements OnInit, Af
     item: SubHeadingItem;
     @Input()
     index: number;
+    @Input()
+    sectionIndex: number;
     isExpand: boolean;
 
     constructor() {

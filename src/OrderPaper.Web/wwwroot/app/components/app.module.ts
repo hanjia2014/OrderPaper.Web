@@ -22,6 +22,7 @@ import { MasterComponent }                              from './master.component
 import { HomeComponent }                                from './home.component';
 import { OrderPaperDetailsComponent }                   from './orderpaper.details.component';
 import { OrderPaperSectionComponent }                   from './orderpaper.section.component';
+import { OrderPaperSectionSubheadingComponent }         from './orderpaper.section.subheading.component';
 import { OrderPaperSectionDetailsComponent }            from './orderpaper.section.details.component';
 import { OrderPaperPublishingAuditHistoryComponent }    from './orderpaper.publishing.audit.history.component';
 import { ItemBillComponent }                            from './items/item.bill.component';
@@ -29,6 +30,7 @@ import { ItemLineComponent }                            from './items/item.line.
 import { ItemReportComponent }                          from './items/item.report.component';
 import { ItemMotionComponent }                          from './items/item.motion.component';
 import { ItemGroupComponent }                           from './items/item.group.component';
+import { ItemSubheadingComponent }                      from './items/item.subheading.component';
 
 @NgModule({
     imports:
@@ -60,12 +62,14 @@ import { ItemGroupComponent }                           from './items/item.group
         OrderPaperDetailsComponent,
         OrderPaperSectionComponent,
         OrderPaperSectionDetailsComponent,
+        OrderPaperSectionSubheadingComponent,
         OrderPaperPublishingAuditHistoryComponent,
         ItemBillComponent,
         ItemLineComponent,
         ItemReportComponent,
         ItemMotionComponent,
-        ItemGroupComponent
+        ItemGroupComponent,
+        ItemSubheadingComponent
     ],
     bootstrap:
     [

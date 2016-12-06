@@ -11,14 +11,28 @@ export class Section {
     SubHeading: string;
     Details: string;
     Speeches: string;
+    Subheading: Subheading;
     constructor() {
         this.Items = new Array<Item>();
         this.Groups = new Array<Array<Item>>();
         this.GroupItems = new Array<GroupItem>();
+        this.Subheading = new Subheading();
     }
 }
 
 export class SectionSummary {
     Id: number;
     Text: string;
+}
+
+export class Subheading {
+    FullLine: string;
+    Col1a: string;
+    Col2a: string;
+    Col3a: string;
+    Col4a: string;
+    Col1b: string;
+    Col2b: string;
+    Col3b: string;
+    Col4b: string;
 }

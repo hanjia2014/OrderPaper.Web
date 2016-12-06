@@ -5,7 +5,8 @@ import {
     Item,
     BillItem,
     MotionItem,
-    ReportItem
+    ReportItem,
+    SubHeadingItem
 }                                               from '../models/items';
 import { Section, SectionSummary }              from '../models/section';
 import { OrderPaper }                           from '../models/orderpaper';
@@ -84,11 +85,11 @@ import { AppConstants }                         from '../settings/app.constants'
                     <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                         <modal-header [show-close]="true">
-                            <h4 class="modal-title" *ngIf="modalType == modalType_Delete">Confirm to delete</h4>
+                            <h4 class="modal-title" *ngIf="modalType == modalType_Delete">Confirm to delete Order Paper</h4>
                             <h4 class="modal-title" *ngIf="modalType == modalType_Save">Confirm to open another Order Paper</h4>
                         </modal-header>
                         <modal-body>
-                            <div *ngIf="modalType == modalType_Delete">Are you sure to delete the Order Paper?</div>
+                            <div *ngIf="modalType == modalType_Delete">You are about to delete an Order Paper. Are you sure you want to delete?</div>
                             <div *ngIf="modalType == modalType_Save">You have unsaved changes to the existing Order Paper. Are you sure you want to open another Order Paper without saving the existing Order Paper?</div>
                         </modal-body>
                         <modal-footer [show-default-buttons]="true"></modal-footer>
@@ -194,7 +195,16 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     orderPaperCancelCallback = () => {
-        this.selectedOrderPaper = null;
+        if (this.selectedOrderPaper.Id == -1) {
+            this.selectedOrderPaper = null;
+        } else {
+            var json = JSON.stringify(this.originalOP);
+            this.selectedOrderPaper = new OrderPaper();
+            var op = JSON.parse(json);
+            (<any>Object).assign(this.selectedOrderPaper, op);
+        }
+
+        this.isDirty = false;
     }
 
     getOrderPaperSummary = () => {
@@ -277,6 +287,9 @@ export class HomeComponent extends BaseComponent implements OnInit {
                                     this.isDirty = this.checkDirtyMotion(<MotionItem>sourceItem, <MotionItem>targetItem);
                                 if (sourceItem.Type == "Report")
                                     this.isDirty = this.checkDirtyReport(<ReportItem>sourceItem, <ReportItem>targetItem);
+                                if (sourceItem.Type == "Subheading")
+                                    this.isDirty = this.checkDirtySubheading(<SubHeadingItem>sourceItem, <SubHeadingItem>targetItem);
+                                if (this.isDirty) return true;
                             }
                         }
                     }
@@ -285,6 +298,21 @@ export class HomeComponent extends BaseComponent implements OnInit {
         }
 
         return this.isDirty;
+    }
+
+    private checkDirtySubheading = (source: SubHeadingItem, target: SubHeadingItem): boolean => {
+        var dirty = false;
+        dirty = source.FullLine != target.FullLine ||
+            source.Col1a != target.Col1a ||
+            source.Col2a != target.Col2a ||
+            source.Col3a != target.Col3a ||
+            source.Col4a != target.Col4a ||
+            source.Col1b != target.Col1b ||
+            source.Col2b != target.Col2b ||
+            source.Col3b != target.Col3b ||
+            source.Col4b != target.Col4b;
+
+        return dirty;
     }
 
     private checkDirtyBill = (source: BillItem, target: BillItem): boolean => {
@@ -408,9 +436,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
                             if (summary.Id == this.deletedSummary.Id) {
                                 this.orderPaperSummary.splice(i, 1);
                             }
-                        }
-                        if (this.selectedOrderPaper.Id == this.deletedSummary.Id) {
-                            this.selectedOrderPaper = null;
                         }
                     }
                     this.spinner.stop();

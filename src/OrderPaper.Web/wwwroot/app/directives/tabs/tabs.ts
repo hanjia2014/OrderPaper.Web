@@ -12,10 +12,10 @@ import { AppSettings }  from '../../settings/app.settings';
 @Component({
     selector: 'tabs',
     template: `
-        <nav class="nav-black" style="height: 65px;">
-            <ul class="nav nav-tabs container" style="padding-left: 10%">
+        <nav class="nav-black" style="height: 80px;">
+            <ul class="nav nav-tabs container" style="padding-left: 10%; padding-top: 15px;">
                 <li>
-                    <img src="{{imagesPath + 'OP logo.png'}}" width="70" style="margin-left: -110px; margin-right: 20px;">
+                    <img src="{{imagesPath + 'OP logo.png'}}" width="85" style="margin-left: -110px; margin-top: -10px; margin-right: 20px;">
                 </li>
                 <li *ngFor="let tab of tabs" (click)="selectTab(tab)">
                     <a class="list-unstyled content-tab" style="color:white; margin-bottom: 7px;">{{tab.title}}
