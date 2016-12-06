@@ -272,7 +272,16 @@ export class HomeComponent extends BaseComponent implements OnInit {
                         originalSection.Speeches != targetSection.Speeches ||
                         originalSection.IsFrontPage != targetSection.IsFrontPage ||
                         originalSection.IsIncluded != targetSection.IsIncluded ||
-                        originalSection.Items.length != targetSection.Items.length;
+                        originalSection.Items.length != targetSection.Items.length ||
+                        originalSection.Subheading.FullLine != targetSection.Subheading.FullLine ||
+                        originalSection.Subheading.Col1a != targetSection.Subheading.Col1a ||
+                        originalSection.Subheading.Col2a != targetSection.Subheading.Col2a ||
+                        originalSection.Subheading.Col3a != targetSection.Subheading.Col3a ||
+                        originalSection.Subheading.Col4a != targetSection.Subheading.Col4a ||
+                        originalSection.Subheading.Col1b != targetSection.Subheading.Col1b ||
+                        originalSection.Subheading.Col2b != targetSection.Subheading.Col2b ||
+                        originalSection.Subheading.Col3b != targetSection.Subheading.Col3b ||
+                        originalSection.Subheading.Col4b != targetSection.Subheading.Col4b;
                     if (this.isDirty) return true;
                     else {
                         for (var j = 0; j < originalSection.Items.length; j++) {

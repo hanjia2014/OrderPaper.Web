@@ -12,7 +12,7 @@ import { ItemComponent }    from './item.component';
     selector: 'item-subheading',
     template: `
                 <div class="subheading">
-                    <div class="row">
+                    <div class="row" style="cursor: move;">
                         <div class="col-md-12">
                             Sub heading
                             <div class="pull-right">

@@ -1489,9 +1489,6 @@
       "Microsoft.NETCore.Windows.ApiSets/1.0.1": {
         "type": "package"
       },
-      "Microsoft.Office.Interop.Outlook/15.0.4797.1003": {
-        "type": "package"
-      },
       "Microsoft.VisualBasic/10.0.1": {
         "type": "package",
         "dependencies": {
@@ -4972,16 +4969,6 @@
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.json"
-      ]
-    },
-    "Microsoft.Office.Interop.Outlook/15.0.4797.1003": {
-      "sha512": "7tvZ8vtSemSxJxrarL/i3oYuha4ElXxvrjFfuWL0s5vmKVDHXjY72+Ed6S4xCPH+qDGEZYd49ObdGT7PC8BegQ==",
-      "type": "package",
-      "path": "Microsoft.Office.Interop.Outlook/15.0.4797.1003",
-      "files": [
-        "Microsoft.Office.Interop.Outlook.15.0.4797.1003.nupkg.sha512",
-        "Microsoft.Office.Interop.Outlook.nuspec",
-        "lib/net20/Microsoft.Office.Interop.Outlook.dll"
       ]
     },
     "Microsoft.VisualBasic/10.0.1": {
@@ -9905,7 +9892,6 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.NETCore.App >= 1.0.1",
-      "Microsoft.Office.Interop.Outlook >= 15.0.4797.1003",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0"
     ],
     ".NETCoreApp,Version=v1.0": []

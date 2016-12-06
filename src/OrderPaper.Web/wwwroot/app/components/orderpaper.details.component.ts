@@ -94,7 +94,6 @@ import {
                                 <div class="pull-right" style="padding-top: 10px;">
                                     <a class="btn btn-parliament" [ngClass]='{disabled: checkMandatory()}' (click)="save($event)">Save Order Paper</a>
                                     <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
-                                    <a class="btn btn-parliament" (click)="sendEmail()">Email</a>
                                 </div>
                             </div>
                         </div>
@@ -472,22 +471,6 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             audit.Date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
             audit.Time = date.getHours() + ":" + date.getMinutes();
             this.orderPaper.AuditHistoryList.push(audit);            
-        }
-    }
-
-    sendEmail = () => {
-        try {
-            var theApp = new ActiveXObject("Outlook.Application");
-            var objNS = theApp.GetNameSpace('MAPI');
-            var theMailItem = theApp.CreateItem(0); // value 0 = MailItem
-            theMailItem.to = ('test@gmail.com');
-            theMailItem.Subject = ('test');
-            theMailItem.Body = ('test');
-            theMailItem.Attachments.Add("C\\file.txt");
-            theMailItem.display();
-        }
-        catch (err) {
-            alert(err.message);
         }
     }
     //modal
