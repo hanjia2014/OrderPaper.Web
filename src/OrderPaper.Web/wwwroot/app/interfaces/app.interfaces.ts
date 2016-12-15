@@ -38,3 +38,8 @@ export interface ICpdService {
     getBills: (apiUrl: string) => Observable<Array<CpdBillItem>>;
     getBill: (apiUrl: string, id: string) => Observable<any>;
 }
+
+export interface IWordConvertService {
+    generateWord: (id: number) => Observable<string>;
+    getWordUrl: (id: number) => Observable<string>;
+}

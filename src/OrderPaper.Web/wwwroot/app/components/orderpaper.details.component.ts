@@ -63,7 +63,9 @@ import {
                                 <date-picker [id]="'orderPaperDate'" [checkEmpty]="true" [IncludeTime]="false" [width]="'150px'" [readonly]="true" [initialValue]="orderPaper.SittingDay" (onValueChange)="dateChange($event)"></date-picker>
                             </div>             
                             <div id="div-orderpaper-sitting-hours" class="col-md-4" style="margin-left: 15px;">
-                                <select2 [id]="'orderPaperSittingHours'" [width]="'280px'" [checkEmptyEleId]="'#div-orderpaper-sitting-hours'" [initialValue]="orderPaper.SittingHours" [checkEmpty]="true" [allowFreeText]="true" [disableMultipleSelection]="true" [multiple]="true" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
+                                <select2 [id]="'orderPaperSittingHours'" [width]="'250px'" *ngIf="orderPaper.hasFreetextSittingHours == false" [checkEmptyEleId]="'#div-orderpaper-sitting-hours'" [enableSearch]="false" [initialValue]="orderPaper.SittingHours" [multiple]="false" [data]="sittingHoursOptions" (selected)="sittingHoursChange($event)"></select2>
+                                <textarea *ngIf="orderPaper.hasFreetextSittingHours" class="form-control" style="height:34px; width:250px; display: inline" [class.has-error]="orderPaper.SittingHours == null || orderPaper.SittingHours == ''" [(ngModel)]="orderPaper.SittingHours"></textarea>
+                                <a class="pointer" (click)="setSittingHours()">{{orderPaper.hasFreetextSittingHours ? 'Remove' : 'New'}}</a>
                             </div>             
                             <div class="col-md-2" style="padding: 0px; width: 150px">
                                 <select2 [id]="'orderPaperStatus'" [enableSearch]="false" [initialValue]="orderPaper.Status" [width]="'125px'" [multiple]="false" [data]="statusOptions" (selected)="statusChange($event)"></select2>
@@ -142,11 +144,11 @@ import {
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                     <modal-header [show-close]="true">
                         <h4 class="modal-title">
-                            <span *ngIf="deletingType != 'saving error' && deletingType != 'saved' && deletingType != 'section'">{{orderPaper != null && orderPaper.Id == -1 ? 'Confirm to cancel Order Paper' : 'Confirm to cancel' }}</span>
+                            <span *ngIf="deletingType != 'saving error' && deletingType != 'preview-warning' && deletingType != 'saved' && deletingType != 'section'">{{orderPaper != null && orderPaper.Id == -1 ? 'Confirm to cancel Order Paper' : 'Confirm to cancel' }}</span>
                             <span *ngIf="deletingType == 'saving error'">Error</span>
                             <span *ngIf="deletingType == 'saved'">Saved</span>
                             <span *ngIf="deletingType == 'section'">Confirm to delete Section</span>
-                            <span *ngIf="deletingType == 'preview-warning'">Confirm to save</span>
+                            <span *ngIf="deletingType == 'preview-warning'">Confirm to save for preview</span>
                         </h4>
                     </modal-header>
                     <modal-body>
@@ -191,6 +193,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     isRemoveVisible: boolean;
     addSection: string;
     spinElm: HTMLElement;
+    publishProgressValid: boolean;
     billOptions = [];
     motionOptions = [];
     reportOptions = [];
@@ -212,6 +215,12 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
+    }
+
+    setSittingHours = () => {
+        this.orderPaper.hasFreetextSittingHours = !this.orderPaper.hasFreetextSittingHours;
+        this.orderPaper.SittingHours = this.orderPaper.hasFreetextSittingHours ? '' : '2pm to 6pm and 7:30pm to 10pm';
+
     }
 
     private getBillOptions = () => {
@@ -303,8 +312,8 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.addSection = e;
     }
 
-    sittingHoursChange = (e: Array<string>) => {
-        this.orderPaper.SittingHours = e != null && e.length > 0 ? e[0] : '';
+    sittingHoursChange = (e: string) => {
+        this.orderPaper.SittingHours = e;
     }
 
     addSelectedSection = () => {
@@ -324,7 +333,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                         if (data != null) {
                             var section = new Section();
                             section.Id = data.Id.toString();
-                            section.Name = data.Text;
+                            section.Name = data.Name;
                             section.SubHeading = data.SubHeading;
                             section.Details = data.Details;
                             section.Speeches = data.Speeches;
@@ -442,35 +451,51 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         }
     }
 
+    private generateWord = () => {
+        this.spinElm = document.getElementById("saveSpinner");
+        this.spinner.spin(this.spinElm);
+        this.orderPaperService.generateWord(this.orderPaper.Id).subscribe(
+            (data: string) => {
+                this.orderPaper.WordUrl = data;
+                this.publishProgressValid = true;
+                var newWindow = window.open(this.orderPaper.WordUrl);
+                this.updateProgressSteps(AppConstants.PROGRESS_PREVIEW);
+                this.spinner.stop();
+            },
+            (err: any) => {
+                if (err != null && err._body != null) {
+                    var error = JSON.parse(err._body);
+                    this.publishProgressValid = false;
+                    if (error != null && error.Message != null) {
+                        this.error = error;
+                        this.deletingType = "saving error";
+                        this.modal.open();
+                    }
+                }
+                this.spinner.stop();
+            });
+    }
+
     progress = (value: string) => {
-        var valid = false;
         if (value.localeCompare(AppConstants.PROGRESS_PREVIEW) == 0) {
             if (this.isDirty) {
                 this.deletingType = "preview-warning";
                 this.modal.open();
             } else {
-                valid = true;
+                this.generateWord();
             }
         }
-        else if (value.localeCompare(AppConstants.PROGRESS_WORD) == 0 && this.orderPaper.containPreview()) {
-            valid = true;
+        else if (value.localeCompare(AppConstants.PROGRESS_WORD) == 0 && this.orderPaper.containPreview() && this.orderPaper.WordUrl != '') {
+            this.updateProgressSteps(AppConstants.PROGRESS_WORD);
+            var newWindow = window.open(this.orderPaper.WordUrl);
         }
         else if (value.localeCompare(AppConstants.PROGRESS_PUBLISH) == 0 && (this.orderPaper.containPreview() || this.orderPaper.containWord())) {
-            valid = true;
+            this.publishProgressValid = true;
+            this.updateProgressSteps(AppConstants.PROGRESS_PUBLISH);
         }
         else if (value.localeCompare(AppConstants.PROGRESS_PRINT) == 0 && this.orderPaper.containPublish()) {
-            valid = true;
-        }
-
-        if (valid) {
-            this.orderPaper.PublishingProgress.push(value);
-            var date = new Date();
-            var audit = new AuditHistory();
-            audit.Function = value;
-            audit.Name = "John Doe";
-            audit.Date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-            audit.Time = date.getHours() + ":" + date.getMinutes();
-            this.orderPaper.AuditHistoryList.push(audit);            
+            this.publishProgressValid = true;
+            this.updateProgressSteps(AppConstants.PROGRESS_PRINT);
         }
     }
     //modal
@@ -495,15 +520,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.onCancel.next();
         }
         else if (this.deletingType == "preview-warning") {
-            var value = AppConstants.PROGRESS_PREVIEW;
-            this.orderPaper.PublishingProgress.push(value);
-            var date = new Date();
-            var audit = new AuditHistory();
-            audit.Function = value;
-            audit.Name = "John Doe";
-            audit.Date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-            audit.Time = date.getHours() + ":" + date.getMinutes();
-            this.orderPaper.AuditHistoryList.push(audit);            
+            this.generateWord();            
         }
         else {
             if (this.selectedSection != null && this.orderPaper.Sections[this.sectionDeleteIndex].Name == this.selectedSection.Name) {
@@ -515,5 +532,16 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
     dismissed() {
 
+    }
+
+    updateProgressSteps = (step: string) => {
+        this.orderPaper.PublishingProgress.push(step);
+        var date = new Date();
+        var audit = new AuditHistory();
+        audit.Function = step;
+        audit.Name = "John Doe";
+        audit.Date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+        audit.Time = date.getHours() + ":" + date.getMinutes();
+        this.orderPaper.AuditHistoryList.push(audit);
     }
 }

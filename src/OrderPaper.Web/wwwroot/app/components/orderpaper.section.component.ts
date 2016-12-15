@@ -131,7 +131,7 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
                 (data: any) => {
                     if (data != null) {
                         this.section.Id = data.Id.toString();
-                        this.section.Name = data.Text;
+                        this.section.Name = data.Name;
                         this.section.SubHeading = data.SubHeading;
                         this.section.Details = data.Details;
                         this.section.Speeches = data.Speeches;

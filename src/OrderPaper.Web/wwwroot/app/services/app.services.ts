@@ -14,14 +14,15 @@ import {
     IOrderPaperService,
     ISectionService,
     IConfigurationService,
-    ICpdService
+    ICpdService,
+    IWordConvertService
 }                                                   from '../interfaces/app.interfaces';
 import { AppSettings }                              from '../settings/app.settings';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class OrderPaperService implements IOrderPaperService, ISectionService, IConfigurationService, ICpdService {
+export class OrderPaperService implements IOrderPaperService, ISectionService, IConfigurationService, ICpdService, IWordConvertService {
 
     constructor(private http: Http) {
         
@@ -188,6 +189,29 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     getBill = (id: string): Observable<any> => {
         return this.http.get(AppSettings.API_CPDBILLACCESS_ENDPOINT + '/?id=' + id + '&' + AppSettings.SP_HOST).map((res: Response) => {
             if (res.status != 200) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+
+    //IWordConvertService
+    generateWord = (id: number): Observable<string> => {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(AppSettings.API_WORDCONVERTER_ENDPOINT + AppSettings.SP_HOST, id, options).map((res: Response) => {
+            if (res.status != 201) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+
+    getWordUrl = (id: number): Observable<string> => {
+        return this.http.get(AppSettings.API_WORDCONVERTER_ENDPOINT + '/?id=' + id + '&' + AppSettings.SP_HOST).map((res: Response) => {
+            if (res.status != 201) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
                 return res.json();

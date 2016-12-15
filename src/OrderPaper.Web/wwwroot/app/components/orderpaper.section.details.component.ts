@@ -23,7 +23,11 @@ import { AppConstants }                     from '../settings/app.constants';
                 <div id="spinner"></div>
                 <div class="row">
                     <div class="col-md-11" style="padding-left: 90px;">
-                        <order-paper-section-subheading [subheading]="section.Subheading" [index]="index"></order-paper-section-subheading>
+                        <div class="panel panel-default" style="margin-bottom: 0px;">
+                            <div class="panel-body">
+                                <order-paper-section-subheading [subheading]="section.Subheading" [index]="index"></order-paper-section-subheading>
+                            </div>
+                        </div>
                         <div class="spacer"></div>
                         <div class="row">
                             <div class="col-md-6">
@@ -276,6 +280,8 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
 
     private getNextSequenceNumber = () => {
         if (this.section.Items == null || this.section.Items.length == 0)
+            return 1;
+        else if (this.section.Items.length == 1 && this.section.Items[0].Type == "Subheading")
             return 1;
         for (var i = this.section.Items.length - 1; i >= 0; i--) {
             var item = this.section.Items[i];

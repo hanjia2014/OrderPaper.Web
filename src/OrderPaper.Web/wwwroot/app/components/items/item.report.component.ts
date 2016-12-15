@@ -30,13 +30,14 @@ import { AppSettings }              from '../../settings/app.settings';
                     </div>
                     <div id="{{toggleId}}" class="initially-hidden">
                         <div class="spacer"></div>
-                        <div class="row nopadding">
+                        <div class="row cpd-select">
                             <select2-ajax [id]="sectionIndex + '-' + groupIndex + '-' + index + '-report-title-cpd'" [apiUrl]="cpdAjaxUrl" [cssClass]="'form-control undraggable'" (selected)="reportSelect($event)"></select2-ajax>
                         </div>
+                        <div class="spacer"></div>
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Title</span>
-                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Title" />
+                                <textarea type="text" class="form-control undraggable" [(ngModel)]="item.Title" cols="30" rows="5"></textarea>
                             </div>
                             <div class="form-group col-md-1">
                                 <label>&nbsp;</label>
@@ -44,7 +45,7 @@ import { AppSettings }              from '../../settings/app.settings';
                             </div>
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
-                                <input class="form-control undraggable" readonly [(ngModel)]="item.CpdTitle" />
+                                <textarea class="form-control undraggable" readonly [(ngModel)]="item.CpdTitle" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -197,15 +198,11 @@ export class ItemReportComponent extends ItemComponent implements OnInit, AfterV
                     this.item.Shoulder = data.shoulder;
                     this.item.Committee = data.committee;
                     this.item.LatestEvent = data.latestEvent;
+
+                    //clear free text
+                    this.item.Details = '';
                 },
                 (err: any) => this.error = err);
         }
-        if (e == null || e == '') {
-            this.item.CpdTitle = null;
-            this.item.CpdCommittee = null;
-            this.item.CpdLatestEvent = null;
-            this.item.CpdShoulder = null;
-        }
     }
-
 }

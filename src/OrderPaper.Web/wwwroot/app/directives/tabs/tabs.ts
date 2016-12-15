@@ -110,4 +110,8 @@ export class Tabs implements AfterContentInit {
     collapseAll = () => {
         this.tabs.forEach(tab => tab.active = false);
     }
+
+    openHistoryTab = () => {
+        this.tabs.forEach(tab => tab.active = tab.title == 'History');
+    }
 }

@@ -197,6 +197,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     orderPaperCancelCallback = () => {
         if (this.selectedOrderPaper.Id == -1) {
             this.selectedOrderPaper = null;
+            this.tabs.openHistoryTab();
         } else {
             var json = JSON.stringify(this.originalOP);
             this.selectedOrderPaper = new OrderPaper();
@@ -353,7 +354,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
             source.Date != target.Date ||
             source.CpdMember != target.CpdMember ||
             source.CpdMotion != target.CpdMotion ||
-            source.Motion != target.Motion;
+            source.Motion != target.Motion ||
+            source.PrintSequence != target.PrintSequence;
         return dirty;
     }
 

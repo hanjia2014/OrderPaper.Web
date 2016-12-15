@@ -14,11 +14,14 @@ export class OrderPaper {
     Progress: string;
     PublishingProgress: Array<string>;
     AuditHistoryList: Array<AuditHistory>;
+    WordUrl: string;
+    hasFreetextSittingHours: boolean;
 
     constructor() {
         this.Sections = new Array<Section>();
         this.PublishingProgress = new Array<string>();
         this.AuditHistoryList = new Array<AuditHistory>();
+        this.hasFreetextSittingHours = false;
     }
 
     public containPreview = (): boolean => {

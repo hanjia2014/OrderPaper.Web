@@ -66,6 +66,7 @@ export class MotionItem extends Item {
     CpdDate: string;
     CpdMotion: string;
     CpdMember: string;
+    PrintSequence: number;
     constructor() {
         super();
         this.Type = "Motion";

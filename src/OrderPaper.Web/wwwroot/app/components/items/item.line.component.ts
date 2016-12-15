@@ -6,7 +6,7 @@ import { AppSettings }                              from '../../settings/app.set
     selector: 'item-line',
     template: ` <div class="item-line">
                     <span title="Delete line" class="pointer pull-right">
-                        <img (click)="delete()" class="delete-line" src="{{imagesPath + 'deleteline.png'}}">
+                        <img (click)="delete()" class="delete-line" src="{{imagesPath + 'delete.png'}}">
                     </span>
                     <div class="row">
                         <hr title="drag the line"/>
@@ -15,7 +15,7 @@ import { AppSettings }                              from '../../settings/app.set
                 `,
     styles: [`.item-line hr{
                 color: #696969; 
-                background-color: #696969; 
+                background-color: rgb(209,90,73); 
                 height: 8px;
                 margin-top: 0px;
                 cursor: move;

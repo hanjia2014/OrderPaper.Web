@@ -34,10 +34,10 @@ import { AppSettings }          from '../../settings/app.settings';
                 </div>
                 <div id="{{toggleId}}" class="initially-hidden">
                     <div class="spacer"></div>
-                    <div class="row nopadding">
-                        <!--<select2 [id]="sectionIndex + '-' + groupIndex + '-' + index + '-bill-title-cpd'" [cssClass]="'form-control undraggable'" [enableSearch]="true" [data]="billOptions" (selected)="titleSelect($event)"></select2>-->
+                    <div class="row cpd-select">
                         <select2-ajax [id]="sectionIndex + '-' + groupIndex + '-' + index + '-bill-title-cpd'" [apiUrl]="cpdAjaxUrl" [cssClass]="'form-control undraggable'" (selected)="billSelect($event)"></select2-ajax>
                     </div>
+                    <div class="spacer"></div>
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Title</span>
@@ -226,13 +226,15 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
                     this.item.Title = data.business_item_title;
                     this.item.Member = data.member_original_name;
                     this.item.Number = data.bill_number;
+
+                    //clear free text
+                    this.item.Stage = this.item.Details = this.item.Speeches = this.item.LatestEvent = '';
+                    this.item.IsFollowingSittingWeek = false;
+                    this.item.IsConsiderationItem = false;
+                    this.item.IsCurrentSittingWeek = false;
+                    this.item.IsMajorityAmendments = false;
                 },
                 (err: any) => this.error = err);
-        }
-        if (e == null || e == '') {
-            this.item.CpdTitle = null;
-            this.item.CpdNumber = null;
-            this.item.CpdMember = null;
         }
     }
 }

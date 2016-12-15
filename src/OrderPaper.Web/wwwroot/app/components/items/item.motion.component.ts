@@ -33,9 +33,10 @@ import { AppSettings }          from '../../settings/app.settings';
                     </div>
                     <div id="{{toggleId}}" class="initially-hidden">
                         <div class="spacer"></div>
-                        <div class="row nopadding">
+                        <div class="row cpd-select">
                             <select2-ajax [id]="sectionIndex + '-' + groupIndex + '-' + index + '-motion-title-cpd'" [apiUrl]="cpdAjaxUrl" [cssClass]="'form-control undraggable'" (selected)="motionSelect($event)"></select2-ajax>
                         </div>
+                        <div class="spacer"></div>
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Title</span>
@@ -109,6 +110,13 @@ import { AppSettings }          from '../../settings/app.settings';
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Details</span>
                                 <textarea class="form-control undraggable" [(ngModel)]="item.Details" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
+                                <span>Print Sequence</span>
+                                <input class="form-control input-sm" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [(ngModel)]="item.PrintSequence" />
                             </div>
                         </div>
                     </div>
@@ -211,13 +219,11 @@ export class ItemMotionComponent extends ItemComponent implements OnInit, AfterV
                     this.item.Member = data.member;
                     this.item.Motion = data.motion;
                     this.item.Date = data.date;
+
+                    //clear free text
+                    this.item.Speeches = this.item.Details = '';
                 },
                 (err: any) => this.error = err);
-        }
-        if (e == null || e == '') {
-            this.item.CpdTitle = null;
-            this.item.CpdMotion = null;
-            this.item.CpdMember = null;
         }
     }
 }
