@@ -88,7 +88,8 @@ export class BillItem extends Item {
     LatestEvent: string;
     CpdNumber: string;
     CpdMember: string;
-
+    DocumentId: string;
+    Url: string;
     constructor() {
         super();
         this.Type = "Bill";

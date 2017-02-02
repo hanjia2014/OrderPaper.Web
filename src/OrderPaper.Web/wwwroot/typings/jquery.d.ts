@@ -622,7 +622,7 @@ interface JQueryEasingFunctions {
  * Static members of jQuery (those on $ and jQuery themselves)
  */
 interface JQueryStatic {
-
+    spin(operation: string): any;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *

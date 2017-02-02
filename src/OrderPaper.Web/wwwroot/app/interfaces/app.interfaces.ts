@@ -3,11 +3,13 @@ import { Response }                 from '@angular/http';
 import { OrderPaperWrapper }        from '../models/orderpaperwrapper';
 import { OrderPaper }               from '../models/orderpaper';
 import { Section, SectionSummary }  from '../models/section';
+import { WasResponse }              from '../models/wasresponse';
 import {
     CpdBillItem,
     CpdMotionItem,
     CpdReportItem
 }                                   from '../models/items';
+import { ConfigurationItem }        from '../models/configurationitem';
 
 export interface ITogglable {
     toggle: (element: any, eleId: string) => void;
@@ -27,7 +29,7 @@ export interface ISectionService {
 }
 
 export interface IConfigurationService {
-    getCpdUrl: () => Observable<string>;
+    getConfigurationList: () => Observable<Array<ConfigurationItem>>;
 }
 
 export interface ICpdService {
@@ -42,4 +44,16 @@ export interface ICpdService {
 export interface IWordConvertService {
     generateWord: (id: number) => Observable<string>;
     getWordUrl: (id: number) => Observable<string>;
+}
+
+export interface IPdfGenerationService {
+    generatePdf: (itemId: number) => Observable<WasResponse>;
+}
+
+export interface IEmailService {
+    send: (Id: number) => Observable<any>;
+}
+
+export interface IPublishService {
+    publish: (id: number) => Observable<any>;
 }

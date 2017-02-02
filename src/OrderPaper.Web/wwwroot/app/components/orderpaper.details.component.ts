@@ -16,6 +16,7 @@ import { AppSettings }                      from '../settings/app.settings';
 import { AppConstants }                     from '../settings/app.constants';
 import { OrderPaper }                       from '../models/orderpaper';
 import { Section, SectionSummary }          from '../models/section';
+import { WasResponse }                      from '../models/wasresponse';
 import { AuditHistory }                     from '../models/audithistory';
 import { OrderPaperWrapper }                from '../models/orderpaperwrapper';
 import { DND_PROVIDERS, DND_DIRECTIVES }    from '../directives/dnd/ng2-dnd';
@@ -75,27 +76,26 @@ import {
                             </div>
                         </div>
                         <br />
-                        <publishing-audit-history [orderPaper]="orderPaper"></publishing-audit-history>
                         <div class="spacer"></div>
                         <div class="row">
                             <div class="col-md-10">
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
                                     <div style="display: inline">
-                                        <img class="pointer" title="Preview" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.containPreview() ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Preview" (click)="progress('Preview')" src="{{imagesPath + ((orderPaper.Id != null && orderPaper.Id != -1) ? 'preview highlighted with arrow.png' : 'disabled preview.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Word" (click)="progress('Word')" src="{{imagesPath + (orderPaper.containPreview() ? (orderPaper.containWord() ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png') : 'disabled word.png')}}">
+                                        <img class="pointer" title="Word" (click)="progress('Word')" src="{{imagesPath + (orderPaper.containPreview() ? 'word highlighted with arrow.png' : 'disabled word.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Publish" (click)="progress('Publish')" src="{{imagesPath + ((orderPaper.containPreview() || orderPaper.containWord()) ? (orderPaper.containPublish() ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png') : 'disabled publish.png')}}">
+                                        <img class="pointer" title="Publish to web" (click)="progress('Publish')" src="{{imagesPath + ((orderPaper.containPreview() || orderPaper.containWord()) ? 'publish highlighted with arrow.png' : 'disabled publish.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Print" (click)="progress('Print')" src="{{imagesPath + (orderPaper.containPublish() ? (orderPaper.containPrint() ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png') : 'disabled print.png')}}">
+                                        <img class="pointer" title="Send to printer" (click)="progress('Print')" src="{{imagesPath + (orderPaper.containPublish() ? 'print highlighted with arrow.png' : 'disabled print.png')}}">
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
+                                    <a (click)="cancel()">Cancel</a>
                                     <a class="btn btn-parliament" [ngClass]='{disabled: checkMandatory()}' (click)="save($event)">Save Order Paper</a>
-                                    <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ import {
                             </span>
                             <br/>
                             <select2 [id]="'section-options-list'" [multiple]="false" [width]="'500px'" [placeholder]="'Select'" [enableSearch]="true" [data]="sectionOptions" (selected)="addSectionChange($event)"></select2>
-                            <a [class.inactive]="addSection==null || addSection==''" (click)="addSelectedSection()">Add section</a>
+                            <a class="btn btn-parliament" [class.inactive]="addSection==null || addSection==''" (click)="addSelectedSection()">Add section</a>
                             <div class="spacer">
                             </div>
                             <ul sortable id="sortable-section" (onStopSort)="stopSort($event)">
@@ -120,21 +120,21 @@ import {
                             <div class="col-md-10">
                                 <div *ngIf="orderPaper.Id != null" class="pull-left">
                                     <div style="display: inline">
-                                        <img class="pointer" title="Preview" (click)="progress('Preview')" src="{{imagesPath + (orderPaper.containPreview() ? 'preview highlighted with arrow.png' : 'preview not highlighted with arrow.png')}}">
+                                        <img class="pointer" title="Preview" (click)="progress('Preview')" src="{{imagesPath + ((orderPaper.Id != null && orderPaper.Id != -1) ? 'preview highlighted with arrow.png' : 'disabled preview.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Word" (click)="progress('Word')" src="{{imagesPath + (orderPaper.containPreview() ? (orderPaper.containWord() ? 'word highlighted with arrow.png' : 'word not highlighted with arrow.png') : 'disabled word.png')}}">
+                                        <img class="pointer" title="Word" (click)="progress('Word')" src="{{imagesPath + (orderPaper.containPreview() ? 'word highlighted with arrow.png' : 'disabled word.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Publish" (click)="progress('Publish')" src="{{imagesPath + ((orderPaper.containPreview() || orderPaper.containWord()) ? (orderPaper.containPublish() ? 'publish highlighted with arrow.png' : 'publish not highlighted with arrow.png') : 'disabled publish.png')}}">
+                                        <img class="pointer" title="Publish to web" (click)="progress('Publish')" src="{{imagesPath + ((orderPaper.containPreview() || orderPaper.containWord()) ? 'publish highlighted with arrow.png' : 'disabled publish.png')}}">
                                     </div>
                                     <div style="display: inline">
-                                        <img class="pointer" title="Print" (click)="progress('Print')" src="{{imagesPath + (orderPaper.containPublish() ? (orderPaper.containPrint() ? 'print highlighted with arrow.png' : 'print not highlighted with arrow.png') : 'disabled print.png')}}">
+                                        <img class="pointer" title="Send to printer" (click)="progress('Print')" src="{{imagesPath + (orderPaper.containPublish() ? 'print highlighted with arrow.png' : 'disabled print.png')}}">
                                     </div>
                                 </div>
                                 <div class="pull-right" style="padding-top: 10px;">
+                                    <a (click)="cancel()">Cancel</a>
                                     <a class="btn btn-parliament" [ngClass]='{disabled: checkMandatory()}' (click)="save($event)">Save Order Paper</a>
-                                    <a class="btn btn-parliament" (click)="cancel()">Cancel</a>
                                 </div>
                             </div>
                         </div>
@@ -144,11 +144,13 @@ import {
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                     <modal-header [show-close]="true">
                         <h4 class="modal-title">
-                            <span *ngIf="deletingType != 'saving error' && deletingType != 'preview-warning' && deletingType != 'saved' && deletingType != 'section'">{{orderPaper != null && orderPaper.Id == -1 ? 'Confirm to cancel Order Paper' : 'Confirm to cancel' }}</span>
+                            <span *ngIf="deletingType != 'publish error' && deletingType != 'publish success' && deletingType != 'saving error' && deletingType != 'preview-warning' && deletingType != 'saved' && deletingType != 'section'">{{orderPaper != null && orderPaper.Id == -1 ? 'Confirm to cancel Order Paper' : 'Confirm to cancel' }}</span>
                             <span *ngIf="deletingType == 'saving error'">Error</span>
                             <span *ngIf="deletingType == 'saved'">Saved</span>
                             <span *ngIf="deletingType == 'section'">Confirm to delete Section</span>
-                            <span *ngIf="deletingType == 'preview-warning'">Confirm to save for preview</span>
+                            <span *ngIf="deletingType == 'preview-warning'">Save Order Paper before Previewing</span>
+                            <span *ngIf="deletingType == 'publish success'">Published succesfully</span>
+                            <span *ngIf="deletingType == 'publish error'">Published failed</span>
                         </h4>
                     </modal-header>
                     <modal-body>
@@ -165,10 +167,16 @@ import {
                             The Order Paper has been saved successfully
                         </div>
                         <div *ngIf="deletingType == 'preview-warning'">
-                            You have unsaved changes to the existing Order Paper. Are you sure you want to preview Order Paper without saving the existing Order Paper?
+                            You must Save the Order Paper before you can Preview it in Word.
+                        </div>
+                        <div *ngIf="deletingType == 'publish success'">
+                            Successfully queuing.
+                        </div>
+                        <div *ngIf="deletingType == 'publish error'">
+                            {{publishErrorMsg}}
                         </div>
                     </modal-body>
-                    <modal-footer [show-default-buttons]="true"></modal-footer>
+                    <modal-footer [close-button-label]="deletingType == 'preview-warning' ? 'Save' : 'Ok'" [show-default-buttons]="true"></modal-footer>
                 </modal>
                 `,
     styles: [],
@@ -185,6 +193,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     onCancel = new EventEmitter();
     selectedSection: Section;
     error: any;
+    publishErrorMsg: string;
     statusOptions = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     sittingHoursOptions = [{ id: "2pm to 6pm and 7:30pm to 10pm", text: "2pm to 6pm and 7:30pm to 10pm" }, { id: "2pm to 6pm", text: "2pm to 6pm" }];
     @Input()
@@ -334,9 +343,11 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                             var section = new Section();
                             section.Id = data.Id.toString();
                             section.Name = data.Name;
-                            section.SubHeading = data.SubHeading;
+                            section.Subheading = data.Subheading;
                             section.Details = data.Details;
                             section.Speeches = data.Speeches;
+                            section.HideSequenceNumber = data.HideSequenceNumber;
+                            section.TitleEditingAllowed = data.TitleEditingAllowed;
                             this.orderPaper.Sections.push(section);
                             this.spinner.stop();
                         }
@@ -381,10 +392,18 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
 
     save = (e: any) => {
         this.spinElm = document.getElementById("saveSpinner");
+        //begin for the defect 3987 fix
+        var date = $("#orderPaperDate-dateValue");
+        if (date != null && date.val() != null) {
+            this.orderPaper.SittingDay = date.val();
+        }
+        //end for the defect 3987 fix
+
         if (this.orderPaper.Id != null && this.orderPaper.Id != -1) {
             this.update(e);
             return;
         }
+
         this.spinner.spin(this.spinElm);
         this.orderPaper.Id = null;
         var paperString = JSON.stringify(this.orderPaper);
@@ -478,24 +497,75 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
 
     progress = (value: string) => {
         if (value.localeCompare(AppConstants.PROGRESS_PREVIEW) == 0) {
-            if (this.isDirty) {
-                this.deletingType = "preview-warning";
-                this.modal.open();
-            } else {
-                this.generateWord();
+            if (this.orderPaper.Id != null && this.orderPaper.Id != -1) {
+                if (this.isDirty) {
+                    this.deletingType = "preview-warning";
+                    this.modal.open();
+                } else {
+                    this.generateWord();
+                }
             }
         }
         else if (value.localeCompare(AppConstants.PROGRESS_WORD) == 0 && this.orderPaper.containPreview() && this.orderPaper.WordUrl != '') {
-            this.updateProgressSteps(AppConstants.PROGRESS_WORD);
             var newWindow = window.open(this.orderPaper.WordUrl);
         }
         else if (value.localeCompare(AppConstants.PROGRESS_PUBLISH) == 0 && (this.orderPaper.containPreview() || this.orderPaper.containWord())) {
-            this.publishProgressValid = true;
-            this.updateProgressSteps(AppConstants.PROGRESS_PUBLISH);
+            $.spin('true');
+            this.orderPaperService.generatePdf(this.orderPaper.Id).subscribe(
+                (data: WasResponse) => {
+                    if (data != null && data.Destination != null && data.Message == "Success") {
+                        this.orderPaper.PdfUrl = data.Destination;
+                    }
+
+                    this.orderPaperService.publish(this.orderPaper.Id).subscribe(
+                        (publishResponse: any) => {
+                            $.spin('false'); 
+                            this.publishProgressValid = true;
+                            this.updateProgressSteps(AppConstants.PROGRESS_PUBLISH);
+                            this.deletingType = "publish success";
+                            this.modal.open();
+                        },
+                        (err: any) => {
+                            if (err != null) {
+                                var error = JSON.parse(err._body);
+                                this.publishErrorMsg = error.Message;
+                                this.deletingType = "publish error";
+                                this.modal.open();
+                            }
+                            $.spin('false'); 
+                        });
+                },
+                (err: any) => {
+                    if (err != null && err._body != null) {
+                        var error = JSON.parse(err._body);
+                        if (error != null && error.Message != null) {
+                            this.error = error;
+                            this.deletingType = "saving error";
+                            this.modal.open();
+                        }
+                    }
+                    $.spin('false'); 
+                });
         }
         else if (value.localeCompare(AppConstants.PROGRESS_PRINT) == 0 && this.orderPaper.containPublish()) {
-            this.publishProgressValid = true;
-            this.updateProgressSteps(AppConstants.PROGRESS_PRINT);
+            this.spinElm = document.getElementById("saveSpinner");
+            this.spinner.spin(this.spinElm);
+            this.orderPaperService.send(this.orderPaper.Id).subscribe(
+                (data: any) => {
+                    this.spinner.stop();
+                    this.publishProgressValid = true;
+                },
+                (err: any) => {
+                    if (err != null && err._body != null) {
+                        var error = JSON.parse(err._body);
+                        if (error != null && error.Message != null) {
+                            this.error = error;
+                            this.deletingType = "saving error";
+                            this.modal.open();
+                        }
+                    }
+                    this.spinner.stop();
+                });
         }
     }
     //modal
@@ -520,7 +590,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.onCancel.next();
         }
         else if (this.deletingType == "preview-warning") {
-            this.generateWord();            
+            this.save(event);
         }
         else {
             if (this.selectedSection != null && this.orderPaper.Sections[this.sectionDeleteIndex].Name == this.selectedSection.Name) {
@@ -535,13 +605,31 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     updateProgressSteps = (step: string) => {
-        this.orderPaper.PublishingProgress.push(step);
-        var date = new Date();
-        var audit = new AuditHistory();
-        audit.Function = step;
-        audit.Name = "John Doe";
-        audit.Date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-        audit.Time = date.getHours() + ":" + date.getMinutes();
-        this.orderPaper.AuditHistoryList.push(audit);
+        var included = false;
+        this.orderPaper.PublishingProgress.forEach((item: string) => {
+            if (item == step)
+                included = true;
+        });
+        if (included == false) {
+            this.spinner.spin(this.spinElm);
+            this.orderPaper.PublishingProgress.push(step);
+            var paperString = JSON.stringify(this.orderPaper);
+            this.orderPaperService.update(this.orderPaper).subscribe(
+                (data: Response) => {
+                    this.onSave.next();
+                    this.spinner.stop();
+                },
+                (err: any) => {
+                    if (err != null && err._body != null) {
+                        var error = JSON.parse(err._body);
+                        if (error != null && error.Message != null) {
+                            this.error = error;
+                            this.deletingType = "saving error";
+                            this.modal.open();
+                        }
+                    }
+                    this.spinner.stop();
+                });
+        }
     }
 }

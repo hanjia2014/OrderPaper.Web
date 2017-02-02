@@ -21,7 +21,10 @@ import { AppSettings }              from '../../settings/app.settings';
                         <div class="col-md-3">
                             <div class="pull-right">
                                 <span *ngIf="isExpand" class="pointer" (click)="toggle($event, toggleId)">
-                                    <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                                    <img title="Collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                                </span>
+                                <span *ngIf="isExpand == null || isExpand == false" class="pointer" (click)="toggle($event, toggleId)">
+                                    <img title="Open" src="{{imagesPath + 'chevron expand.png'}}">
                                 </span>
                                 <span style="margin-right: 10px; margin-left: 10px;">{{item.Type}}</span>
                                 <img *ngIf="isGroupChild == false" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">

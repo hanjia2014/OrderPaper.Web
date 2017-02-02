@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../typings/select2.d.ts" />
 import { Component, Input, Output, EventEmitter, ElementRef, OnInit, AfterViewInit, SimpleChanges } from '@angular/core';
-import { AppSettings }          from '../settings/app.settings';
+import { AppSettings }                                                                              from '../settings/app.settings';
 @Component({
     selector: 'select2-ajax',
     template: `{{label}} <input id="{{id}}" [style.width]= "width" class="{{cssClass=='' ? '' : cssClass}}" />`,
@@ -52,7 +52,7 @@ export class Select2AjaxComponent implements AfterViewInit {
             allowClear: true,
             ajax: {
                 //url: this.apiUrl,
-                url: this.apiUrl,
+                url: this.apiUrl + '/' + AppSettings.SP_HOST,
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {

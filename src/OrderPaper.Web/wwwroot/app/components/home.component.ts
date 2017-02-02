@@ -6,12 +6,14 @@ import {
     BillItem,
     MotionItem,
     ReportItem,
+    GroupItem,
     SubHeadingItem
 }                                               from '../models/items';
 import { Section, SectionSummary }              from '../models/section';
 import { OrderPaper }                           from '../models/orderpaper';
 import { SelectedOP }                           from '../models/selectedop';
 import { OrderPaperWrapper }                    from '../models/orderpaperwrapper';
+import { ConfigurationItem }                    from '../models/configurationitem';
 import { OrderPaperService }                    from '../services/app.services';
 import { ModalComponent }                       from '../directives/modal/modal';
 import { AppConstants }                         from '../settings/app.constants';
@@ -24,45 +26,44 @@ import { AppConstants }                         from '../settings/app.constants'
                         <tab [title]="'History'" (onActiveChange)="onCheckTabMode($event)">
                             <div class="col-md-9 nopadding">
                                 <div>
-                                    <h3 class="header-green-text pull-left">Order Papers history</h3>
+                                    <h3 class="header-green-text pull-left">Order Paper history</h3>
                                 </div>
                                 <table *ngIf="orderPaperSummary != null && orderPaperSummary.length > 0" id="orderpaper-history-list" class="table history-list">
                                     <thead>
                                         <tr class="header-green-text">
                                             <th>
-                                                <a class="pointer" (click)="sortByNumber()">Number</a>
+                                                <a class="pointer" (click)="sortByNumber()">Number <img [style.visibility]="sorting_column == 'Number' ? 'visible' : 'hidden'" title="{{sorting_number_descending ? 'Sort descending' : 'Sort ascending'}}" src="{{sorting_number_descending ? imagesPath + 'white down arrow.png' : imagesPath + 'white up arrow.png'}}"></a>
                                             </th>
                                             <th>
-                                                <a class="pointer" (click)="sortBySittingDay()">Sitting day</a>
+                                                <a class="pointer" (click)="sortBySittingDay()">Sitting day <img [style.visibility]="sorting_column == 'Day' ? 'visible' : 'hidden'" title="{{sorting_sitting_day_descending ? 'Sort descending' : 'Sort ascending'}}" src="{{sorting_sitting_day_descending ? imagesPath + 'white down arrow.png' : imagesPath + 'white up arrow.png'}}"></a>
                                             </th>
                                             <th>
-                                                <a class="pointer" (click)="sortByStatus()">Status</a>
+                                                <a class="pointer" (click)="sortByStatus()">Status <img [style.visibility]="sorting_column == 'Status' ? 'visible' : 'hidden'" title="{{sorting_status_descending ? 'Sort descending' : 'Sort ascending'}}" src="{{sorting_status_descending ? imagesPath + 'white down arrow.png' : imagesPath + 'white up arrow.png'}}"></a>
                                             </th>
                                             <th>Version</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let summary of orderPaperSummary | paginate: { itemsPerPage: 15, currentPage: p }; let i = index" class="header-white-text" [class.header-select-highlight]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id">
-                                            <td>
+                                        <tr (mouseover)="hoverId = summary.Id" (mouseleave)="hoverId = null" *ngFor="let summary of orderPaperSummary | paginate: { itemsPerPage: 15, currentPage: p }; let i = index" class="header-white-text">
+                                            <td class="pointer" [class.header-select-highlight]="(selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id) || hoverId == summary.Id" (click)="selectOrderPaper(summary.Id)">
+                                                <img title="{{selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id ? 'Current Order Paper' : hoverId == summary.Id ? 'Open Order Paper' : ''}}" width=21 [style.visibility]="selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id || hoverId == summary.Id" src="{{ selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id ? imagesPath + 'folder_open.png' : hoverId == summary.Id ? imagesPath + 'folder_closed.png' : ''}}">
                                                 {{summary.Number}}
                                             </td>
-                                            <td>
-                                                <a class="header-table-link" (click)="selectOrderPaper(summary.Id)">
-                                                    <span style="margin-right: 5px;">
-                                                        <img src="{{imagesPath + 'open.png'}}">
-                                                    </span>
+                                            <td class="pointer" [class.header-select-highlight]="(selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id) || hoverId == summary.Id" (click)="selectOrderPaper(summary.Id)">
+                                                <a class="header-table-link">
                                                     {{summary.SittingDay}}
                                                 </a>
                                             </td>
-                                            <td>
+                                            <td class="pointer" [class.header-select-highlight]="(selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id) || hoverId == summary.Id" (click)="selectOrderPaper(summary.Id)">
                                                 {{summary.Status}}
                                             </td>
-                                            <td>
+                                            <td class="pointer" [class.header-select-highlight]="(selectedOrderPaper != null && summary.Id == selectedOrderPaper.Id) || hoverId == summary.Id" (click)="selectOrderPaper(summary.Id)">
+                                                {{summary.Version}}
                                             </td>
                                             <td>
                                                 <a>
-                                                    <img src="{{imagesPath + 'delete.png'}}" (click)="deleteOrderPaper(summary, i)">
+                                                    <img title="Delete Order Paper" src="{{imagesPath + 'delete.png'}}" (click)="deleteOrderPaper(summary, i)">
                                                 </a>
                                             </td>
                                         </tr>
@@ -74,8 +75,8 @@ import { AppConstants }                         from '../settings/app.constants'
                                 </div>
                             </div>
                         </tab>
-                        <tab [title]="'Search'" (onActiveChange)="onCheckTabMode($event)">
-                        </tab>
+                        <!--<tab [title]="'Search'" (onActiveChange)="onCheckTabMode($event)">
+                        </tab>-->
                     </tabs>
                     <div style="background-color: #edecec;">
                         <div class="container" style="padding-left: 10%;">
@@ -139,7 +140,7 @@ import { AppConstants }                         from '../settings/app.constants'
     providers: [OrderPaperService]
 })
 export class HomeComponent extends BaseComponent implements OnInit {
-    
+    hoverId: number;
     orderPaperStatus = [{ id: "Provisional", text: "Provisional" }, { id: "Final", text: "Final" }];
     isPreviewMode: boolean;
     selectedOrderPaper: OrderPaper;
@@ -164,7 +165,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
     //sorting
     sorting_number_descending: boolean;
     sorting_status_descending: boolean;
-    sorting_sitting_day_descending: boolean;
+    sorting_sitting_day_descending: boolean = true;
+    sorting_column: string = AppConstants.COL_DAY;
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
@@ -177,9 +179,16 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     getCpdDataUrl = () => {
-        this.orderPaperService.getCpdUrl().subscribe(
-            (data: string) => {
-                AppConstants.CPD_DATA_URL = data;
+        this.orderPaperService.getConfigurationList().subscribe(
+            (data: Array<ConfigurationItem>) => {
+                if (data != null && data.length > 0) {
+                    AppConstants.CONFIGURATION_LIST = data;
+                    data.forEach((item: ConfigurationItem) => {
+                        if (item.Key == "Sections Management Url") {
+                            this.tabs.sectionSPUrl = item.Value;
+                        }
+                    });
+                }
             },
             (err: any) => this.error = err);
     }
@@ -213,6 +222,14 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.orderPaperService.getOrderPaperList().subscribe(
             (data: Array<OrderPaperWrapper>) => {
                 (<any>Object).assign(this.orderPaperSummary, data);
+                //update version number when an order paper saved first time and change it after save
+                if (this.selectedOrderPaper != null) {
+                    this.orderPaperSummary.forEach((summary: OrderPaperWrapper) => {
+                        if (summary.Id == this.selectedOrderPaper.Id && summary.Version != this.selectedOrderPaper.Version) {
+                            this.selectedOrderPaper.Version = summary.Version;
+                        }
+                    });
+                }
                 this.spinner.stop();
             },
             (err: any) => this.error = err);
@@ -254,14 +271,14 @@ export class HomeComponent extends BaseComponent implements OnInit {
                 this.originalOP.Status != this.selectedOrderPaper.Status ||
                 this.originalOP.SittingHours != this.selectedOrderPaper.SittingHours ||
                 this.originalOP.SittingDay != this.selectedOrderPaper.SittingDay ||
-                this.originalOP.PublishingProgress.length != this.selectedOrderPaper.PublishingProgress.length ||
+                //this.originalOP.PublishingProgress.length != this.selectedOrderPaper.PublishingProgress.length ||
                 this.originalOP.Sections.length != this.selectedOrderPaper.Sections.length;
             if (this.isDirty) return true;
-            for (var i = 0; i < this.originalOP.PublishingProgress.length; i++) {
-                var source = this.originalOP.PublishingProgress[i];
-                var target = this.selectedOrderPaper.PublishingProgress[i];
-                this.isDirty = source != target;
-            }
+            //for (var i = 0; i < this.originalOP.PublishingProgress.length; i++) {
+            //    var source = this.originalOP.PublishingProgress[i];
+            //    var target = this.selectedOrderPaper.PublishingProgress[i];
+            //    this.isDirty = source != target;
+            //}
 
             if (this.isDirty) return true;
             else {
@@ -299,6 +316,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
                                     this.isDirty = this.checkDirtyReport(<ReportItem>sourceItem, <ReportItem>targetItem);
                                 if (sourceItem.Type == "Subheading")
                                     this.isDirty = this.checkDirtySubheading(<SubHeadingItem>sourceItem, <SubHeadingItem>targetItem);
+                                if (sourceItem.Type == "Group")
+                                    this.isDirty = this.checkDirtyGroup(<GroupItem>sourceItem, <GroupItem>targetItem);
                                 if (this.isDirty) return true;
                             }
                         }
@@ -308,6 +327,32 @@ export class HomeComponent extends BaseComponent implements OnInit {
         }
 
         return this.isDirty;
+    }
+
+    private checkDirtyGroup = (source: GroupItem, target: GroupItem): boolean => {
+        var dirty = false;
+        dirty = source.From != target.From || source.To != target.To || source.Items.length != target.Items.length;
+        if (dirty) return true;
+        else {
+            for (var j = 0; j < source.Items.length; j++) {
+                var sourceItem = source.Items[j];
+                var targetItem = target.Items[j];
+                this.isDirty = sourceItem.Type != targetItem.Type || sourceItem.Title != targetItem.Title;
+                if (this.isDirty) return true;
+                else {
+                    if (sourceItem.Type == "Bill")
+                        this.isDirty = this.checkDirtyBill(<BillItem>sourceItem, <BillItem>targetItem);
+                    if (sourceItem.Type == "Motion")
+                        this.isDirty = this.checkDirtyMotion(<MotionItem>sourceItem, <MotionItem>targetItem);
+                    if (sourceItem.Type == "Report")
+                        this.isDirty = this.checkDirtyReport(<ReportItem>sourceItem, <ReportItem>targetItem);
+                    if (sourceItem.Type == "Subheading")
+                        this.isDirty = this.checkDirtySubheading(<SubHeadingItem>sourceItem, <SubHeadingItem>targetItem);
+                    if (this.isDirty) return true;
+                }
+            }
+        }
+        return dirty;
     }
 
     private checkDirtySubheading = (source: SubHeadingItem, target: SubHeadingItem): boolean => {
@@ -390,6 +435,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
                     (<any>Object).assign(this.selectedOrderPaper, op);
                     //assign selected op to original to detect any changes made later
                     this.cloneOriginalOP(data.OrderPaperJson);
+                    if (this.originalOP != null && this.originalOP.Id == null && id != "-1") {
+                        //the newly created op has id=null in orderpaperjson column
+                        this.originalOP.Id = data.Id;
+                    }
 
                     if (this.selectedOrderPaper != null) {
                         nextNumber = parseInt(this.selectedOrderPaper.Number.toString()) + 1;
@@ -402,6 +451,11 @@ export class HomeComponent extends BaseComponent implements OnInit {
                     this.selectedOrderPaper.SittingHours = "2pm to 6pm and 7:30pm to 10pm";
                     this.selectedOrderPaper.Number = nextNumber == 0 ? 1 : nextNumber;
                     this.selectedOrderPaper.PublishingProgress = new Array<string>();
+                    this.selectedOrderPaper.WordUrl = '';
+                    this.selectedOrderPaper.PdfUrl = '';
+                }
+                else {
+                    this.selectedOrderPaper.Version = data.Version;
                 }
 
                 this.spinner.stop();
@@ -464,17 +518,18 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     // op number sorting
     sortByNumber = () => {
+        this.sorting_column = AppConstants.COL_NUMBER;
         if (this.sorting_number_descending == null || this.sorting_number_descending == false) {
             this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
-                if (a.Number > b.Number) return -1;
-                else if (a.Number < b.Number) return 1;
+                if (a.Number * 1 > b.Number * 1) return -1;
+                else if (a.Number * 1 < b.Number * 1) return 1;
                 else return 0;
             });
         }
         if (this.sorting_number_descending) {
             this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
-                if (a.Number < b.Number) return -1;
-                else if (a.Number > b.Number) return 1;
+                if (a.Number * 1 < b.Number * 1) return -1;
+                else if (a.Number * 1 > b.Number * 1) return 1;
                 else return 0;
             });
         }
@@ -483,6 +538,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     sortByStatus = () => {
+        this.sorting_column = AppConstants.COL_STATUS;
+
         if (this.sorting_status_descending == null || this.sorting_status_descending == false) {
             this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
                 if (a.Status > b.Status) return -1;
@@ -502,6 +559,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
 
     sortBySittingDay = () => {
+        this.sorting_column = AppConstants.COL_DAY;
+
         if (this.sorting_sitting_day_descending == null || this.sorting_sitting_day_descending == false) {
             this.orderPaperSummary.sort((a: OrderPaperWrapper, b: OrderPaperWrapper) => {
                 var a_day = this.parseDate(a.SittingDay);

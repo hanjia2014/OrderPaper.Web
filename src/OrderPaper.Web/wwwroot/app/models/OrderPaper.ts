@@ -9,12 +9,14 @@ export class OrderPaper {
     SittingDay: string;
     Status: string;
     Number: number;
+    Version: number;
     SittingHours: string;
     Sections: Array<Section>;
     Progress: string;
     PublishingProgress: Array<string>;
     AuditHistoryList: Array<AuditHistory>;
     WordUrl: string;
+    PdfUrl: string;
     hasFreetextSittingHours: boolean;
 
     constructor() {

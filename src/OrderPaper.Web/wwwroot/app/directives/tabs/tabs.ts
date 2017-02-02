@@ -22,11 +22,15 @@ import { AppSettings }  from '../../settings/app.settings';
                     </a>
                     <span [style.background-color]="tab.active ? '#263a55' : '#142840'" [class.active-span]="tab.active" [class.non-active-span]="!tab.active" class="mega-close" style="display: block; cursor: pointer;">&nbsp;</span>
                 </li>
-                <li style="padding-top:10px; margin-left: 50px;">
-                    <img (click)="createNewOrderPaper()" title="Create new order paper" class="pointer" src="{{imagesPath + 'add new op.png'}}">
+                <li style="margin-left: 50px;">
+                    <a id="link-new-order-paper" style="color:white;" (click)="createNewOrderPaper()">New Order Paper</a>
+                    <!--<img (click)="createNewOrderPaper()" title="Create new order paper" class="pointer" src="{{imagesPath + 'add new op.png'}}">
                     <span style="color:white">
                         New Order Paper
-                    </span>
+                    </span>-->
+                </li>
+                <li style="margin-left: 50px;">
+                    <a style="color:white;" id="link-manage-sections" target="_blank" href="{{sectionSPUrl}}">Manage Sections</a>
                 </li>
             </ul>
         </nav>
@@ -34,10 +38,10 @@ import { AppSettings }  from '../../settings/app.settings';
     `,
     styles: [`a {cursor: pointer; cursor: hand;}
             .active-span { 
-                background: url('../../../content/images/icons/white up arrow.png') no-repeat scroll center center;
+                background: url('../../../wwwroot/content/images/icons/white up arrow.png') no-repeat scroll center center;
             }
             .non-active-span:hover {
-                background: url('../../../content/images/icons/white down arrow.png') no-repeat scroll center center;
+                background: url('../../../wwwroot/content/images/icons/white down arrow.png') no-repeat scroll center center;
             }
             .nav-black{
                 background-color: #142840;
@@ -61,7 +65,6 @@ import { AppSettings }  from '../../settings/app.settings';
                 padding-bottom: 6px;
             }
             .new-order-paper {
-                margin-top:10px; 
                 border-radius: 4px;
                 border-color: #abded2 !important;
             }
@@ -70,6 +73,12 @@ import { AppSettings }  from '../../settings/app.settings';
                 color: #333 !important;
                 background-color: #abded2 !important;
             }
+            a#link-new-order-paper:hover {
+                text-decoration: underline;
+            }
+            a#link-manage-sections:hover{
+                text-decoration: underline;
+            }
             `]
 })
 export class Tabs implements AfterContentInit {
@@ -77,6 +86,7 @@ export class Tabs implements AfterContentInit {
     onCreateNewOrderPaper = new EventEmitter();
     @ContentChildren(Tab) tabs: QueryList<Tab>;
     imagesPath: string = AppSettings.IMAGE_PATH;
+    sectionSPUrl: string;
 
     // contentChildren are set
     ngAfterContentInit() {

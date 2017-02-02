@@ -22,7 +22,7 @@ import { AppConstants }                     from '../settings/app.constants';
     template: `
                 <div id="spinner"></div>
                 <div class="row">
-                    <div class="col-md-11" style="padding-left: 90px;">
+                    <div class="col-md-11" style="padding-left: 90px; padding-right: 0px;">
                         <div class="panel panel-default" style="margin-bottom: 0px;">
                             <div class="panel-body">
                                 <order-paper-section-subheading [subheading]="section.Subheading" [index]="index"></order-paper-section-subheading>
@@ -41,13 +41,6 @@ import { AppConstants }                     from '../settings/app.constants';
                                 <textarea class="form-control" [(ngModel)]="section.Speeches" cols="40" rows="5"></textarea>
                             </div>
                         </div>
-                        <div class="spacer"></div>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <select2 [id]="index + '-item-types'" [width]="'125px'" [enableSearch]="false" [multiple]="false" [initialValue]="'Bill'" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
-                                <a (click)="addItem()">Add Item</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div *ngIf="section">
@@ -60,7 +53,7 @@ import { AppConstants }                     from '../settings/app.constants';
                                     </div>
                                 </div>
                                 <div class="col-md-1 vcenter">
-                                    <div *ngIf="isAboveLine(i)">
+                                    <div *ngIf="isAboveLine(i)" [style.visibility]="section.HideSequenceNumber == false ? 'visible' : 'hidden'">
                                         <div *ngIf="item.Type != 'Group' && item.Type != 'Line' && item.Type != 'Subheading'" class="pull-right">
                                             {{item.Sequence}}
                                         </div>
@@ -81,7 +74,7 @@ import { AppConstants }                     from '../settings/app.constants';
                                             <item-motion [sectionIndex]="index" [motionOptions]="motionOptions" [index]="i" [item]="item"></item-motion>
                                         </span>
                                         <span *ngIf="item.Type == 'Group'">
-                                            <item-group [group]="item" [billOptions]="billOptions" [motionOptions]="motionOptions" [reportOptions]="reportOptions" [sequenceOptions]="getSequence()" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
+                                            <item-group [group]="item" [billOptions]="billOptions" [hoverVisible]="item.hoverVisible" [motionOptions]="motionOptions" [reportOptions]="reportOptions" [sequenceOptions]="getSequence()" [sectionIndex]="index" [groupIndex]="i" (onRemoveGroup)="removeGroup($event, i)" (onAddItems)="addItemsToGroup($event, i)"></item-group>
                                         </span>
                                         <span *ngIf="item.Type == 'Subheading'">
                                             <item-subheading [sectionIndex]="index" [index]="i" [item]="item"></item-subheading>
@@ -98,6 +91,13 @@ import { AppConstants }                     from '../settings/app.constants';
                                 </div>
                             </div>
                         </div>  
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div class="row">
+                    <div class="col-md-11" style="padding-left: 90px;">
+                        <select2 [id]="index + '-item-types'" [width]="'125px'" [enableSearch]="false" [multiple]="false" [initialValue]="'Bill'" [data]="itemTypes" (selected)="itemSelect($event)"></select2>
+                        <a class="btn btn-parliament" (click)="addItem()">Add Item</a>
                     </div>
                 </div>
                  `,

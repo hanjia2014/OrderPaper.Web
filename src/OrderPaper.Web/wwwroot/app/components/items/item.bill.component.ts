@@ -9,6 +9,7 @@
 }                               from '@angular/core';
 import { BillItem }             from '../../models/items';
 import { CpdBillItem }          from '../../models/items';
+import { ConfigurationItem }    from '../../models/configurationitem';
 import { ItemComponent }        from './item.component';
 import { OrderPaperService }    from '../../services/app.services';
 import { AppConstants }         from '../../settings/app.constants';
@@ -25,7 +26,10 @@ import { AppSettings }          from '../../settings/app.settings';
                     <div class="col-md-3">
                         <div class="pull-right">
                             <span *ngIf="isExpand" class="pointer" (click)="toggle($event, toggleId)">
-                                <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                                <img title="Collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                            </span>
+                            <span *ngIf="isExpand == null || isExpand == false" class="pointer" (click)="toggle($event, toggleId)">
+                                <img title="Open" src="{{imagesPath + 'chevron expand.png'}}">
                             </span>
                             <span style="margin-right: 10px; margin-left: 10px;">{{item.Type}}</span>
                             <img *ngIf="isGroupChild == false" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
@@ -71,7 +75,7 @@ import { AppSettings }          from '../../settings/app.settings';
                     <div class="row nopadding">
                         <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>Member</span>
-                            <input type="text" class="form-control undraggable" [(ngModel)]="item.Member" />
+                            <textarea class="form-control undraggable" [(ngModel)]="item.Member" cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group col-md-1">
                             <label>&nbsp;</label>
@@ -79,7 +83,7 @@ import { AppSettings }          from '../../settings/app.settings';
                         </div>
                         <div class="form-group col-md-5 nopadding" style="width: 45%">
                             <span>CPD</span>
-                            <input type="text" readonly class="form-control undraggable" [(ngModel)]="item.CpdMember" />
+                            <textarea class="form-control undraggable" readonly [(ngModel)]="item.CpdMember" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="spacer"></div>
@@ -183,7 +187,6 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
 
     toggle(element: any, eleId: string) {
         element.preventDefault();
-
         this.isExpand = !this.isExpand;
         var eleId = "#" + eleId;
         $(eleId).slideToggle();
@@ -226,7 +229,14 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
                     this.item.Title = data.business_item_title;
                     this.item.Member = data.member_original_name;
                     this.item.Number = data.bill_number;
-
+                    this.item.DocumentId = data.document_id;
+                    var configList = AppConstants.CONFIGURATION_LIST;
+                    if (configList != null && configList.length > 0) {
+                        configList.forEach((item: ConfigurationItem) => {
+                            if (item.Key == "Bill Url Prefix")
+                                this.item.Url = item.Value + this.item.DocumentId;
+                        });
+                    }
                     //clear free text
                     this.item.Stage = this.item.Details = this.item.Speeches = this.item.LatestEvent = '';
                     this.item.IsFollowingSittingWeek = false;

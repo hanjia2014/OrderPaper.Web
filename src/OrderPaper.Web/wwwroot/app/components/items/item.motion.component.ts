@@ -24,7 +24,10 @@ import { AppSettings }          from '../../settings/app.settings';
                         <div class="col-md-3">
                             <div class="pull-right">
                                 <span *ngIf="isExpand" class="pointer" (click)="toggle($event, toggleId)">
-                                    <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                                    <img title="Collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                                </span>
+                                <span *ngIf="isExpand == null || isExpand == false" class="pointer" (click)="toggle($event, toggleId)">
+                                    <img title="Open" src="{{imagesPath + 'chevron expand.png'}}">
                                 </span>
                                 <span style="margin-right: 10px; margin-left: 10px;">{{item.Type}}</span>
                                 <img *ngIf="isGroupChild == false" src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
@@ -55,7 +58,7 @@ import { AppSettings }          from '../../settings/app.settings';
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Member</span>
-                                <input type="text" class="form-control undraggable" [(ngModel)]="item.Member" />
+                                <textarea class="form-control undraggable" [(ngModel)]="item.Member" cols="30" rows="5"></textarea>
                             </div>
                             <div class="form-group col-md-1">
                                 <label>&nbsp;</label>
@@ -63,7 +66,7 @@ import { AppSettings }          from '../../settings/app.settings';
                             </div>
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>CPD</span>
-                                <input type="text" readonly class="form-control undraggable" [(ngModel)]="item.CpdMember" />
+                                <textarea class="form-control undraggable" readonly [(ngModel)]="item.CpdMember" cols="30" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -116,7 +119,7 @@ import { AppSettings }          from '../../settings/app.settings';
                         <div class="row nopadding">
                             <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Print Sequence</span>
-                                <input class="form-control input-sm" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [(ngModel)]="item.PrintSequence" />
+                                <input class="form-control undraggable" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [(ngModel)]="item.PrintSequence" />
                             </div>
                         </div>
                     </div>

@@ -11,15 +11,16 @@ import { ItemComponent }                                        from './item.com
                             Group
                         </span>
                         <a class="pull-right" style="cursor: pointer;">
-                            <img (click)="removeGroup()" title="Ungroup" src="{{imagesPath + 'group_remove.png'}}">
+                            <img (click)="removeGroup()" style="margin-right: 10px;" title="Ungroup" src="{{imagesPath + 'group_remove.png'}}">
+                            <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                         </a>
                     </p>
                     <div class="row">
                         <div class="col-md-4">
-                            <select2 [id]="groupIndex + '-group-from'" [label]="'From: '" [initialValue]="group.From" [checkNumber]="group.To" [checkOperation]="'Less'" [width]="'125px'" [placeholder]="'From'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceFromChange($event)"></select2>
+                            <select2 [id]="sectionIndex + '-' + groupIndex + '-group-from'" [label]="'From: '" [initialValue]="group.From" [checkNumber]="group.To" [checkOperation]="'Less'" [width]="'125px'" [placeholder]="'From'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceFromChange($event)"></select2>
                         </div>
                         <div class="col-md-5">
-                            <select2 [id]="groupIndex + '-group-to'" [label]="'To: '" [initialValue]="group.To" [checkNumber]="group.From" [checkOperation]="'Greater'" [width]="'125px'" [placeholder]="'To'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceToChange($event)"></select2>
+                            <select2 [id]="sectionIndex + '-' + groupIndex + '-group-to'" [label]="'To: '" [initialValue]="group.To" [checkNumber]="group.From" [checkOperation]="'Greater'" [width]="'125px'" [placeholder]="'To'" [enableSearch]="false" [multiple]="false" [data]="sequenceOptions" (selected)="sequenceToChange($event)"></select2>
                             <a (click)="addItems()" [class.inactive]="disableSelect">
                                 Select
                             </a>
@@ -62,6 +63,8 @@ export class ItemGroupComponent extends ItemComponent implements OnInit {
     @Input()
     groupIndex: number;
     @Input()
+    sectionIndex: number;
+    @Input()
     dropZone: string;
     @Output()
     onAddItems = new EventEmitter<GroupItem>();
@@ -75,6 +78,8 @@ export class ItemGroupComponent extends ItemComponent implements OnInit {
     motionOptions = [];
     @Input()
     reportOptions = [];
+    @Input()
+    hoverVisible: boolean;
     addFrom: number;
     addTo: number;
 

@@ -12,6 +12,8 @@ export class Section {
     Details: string;
     Speeches: string;
     Subheading: Subheading;
+    HideSequenceNumber: boolean;
+    TitleEditingAllowed: boolean;
     constructor() {
         this.Items = new Array<Item>();
         this.Groups = new Array<Array<Item>>();

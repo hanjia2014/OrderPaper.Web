@@ -74,4 +74,5 @@ describe('item test', () => {
         section.Items.push(new LineItem());
         expect(section.Items[0].Type).toEqual("Line");
     })));
+
 });

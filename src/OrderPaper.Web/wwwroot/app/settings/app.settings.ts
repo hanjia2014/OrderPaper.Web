@@ -7,6 +7,7 @@
     public static get API_CPDBILLACCESS_ENDPOINT(): string { return '/api/cpdbillaccess'; }
     public static get API_CPDMOTIONACCESS_ENDPOINT(): string { return '/api/cpdmotionaccess'; }
     public static get API_CPDREPORTACCESS_ENDPOINT(): string { return '/api/cpdreportaccess'; }
+    public static get API_EMAIL_ENDPOINT(): string { return '/api/email'; }
     public static get API_WORDCONVERTER_ENDPOINT(): string { return '/api/wordconverter'; }
     public static get IMAGE_PATH(): string { return 'wwwroot/content/images/icons/'; }
     public static get SP_HOST(): string { return this.sp_host; }

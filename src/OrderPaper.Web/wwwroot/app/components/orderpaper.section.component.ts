@@ -33,20 +33,26 @@ import { OrderPaperService }    from '../services/app.services';
                     <div class="col-md-11 panel panel-default margin-left-15 no-padding-right" style="margin-bottom: 5px;" [class.highlight-section]="isSelected">
                         <div class="panel-body no-padding-left">
                             <div class="drag-handle" style="cursor: move;">
+                                <span title="Include in Order Paper" class="pointer">
+                                    <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
+                                </span>
+                                <span title="Show on front page" class="pointer">
+                                    <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-right: 15px; margin-left: 12px;" src="{{section.IsFrontPage ? imagesPath + 'on front cover.png' : imagesPath + 'Not on front cover.png'}}">
+                                </span>
                                 <a *ngIf="isSelected == false" (click)="toggle($event, index + '-section', true)">{{section.Name}}</a>
-                                <select2 *ngIf="isSelected" [id]="index + '-section-list'" [width]="'500px'" [enableSearch]="true" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
+                                <select2 *ngIf="isSelected && section.TitleEditingAllowed == false" [id]="index + '-section-list'" [width]="'500px'" [enableSearch]="true" [multiple]="false" [initialValue]="section.Id" [data]="availableSections" (selected)="sectionChange($event)">
                                 </select2>
+
+                                <input *ngIf="isSelected && section.TitleEditingAllowed" class="form-control input-sm" style="display:inline; height:34px; width:500px" [(ngModel)]="section.Name" />
+
                                 <div class="pull-right">
                                     <span *ngIf="isSelected" class="pointer" (click)="toggle($event, index + '-section', true)">
-                                        <img title="collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
+                                        <img title="Collapse" src="{{imagesPath + 'chevron collapsing.png'}}">
                                     </span>
-                                    <span title="Include in order paper" class="pointer">
-                                        <img (click)="section.IsIncluded = !section.IsIncluded" style="height: 20px;" src="{{section.IsIncluded ? imagesPath + 'included.png' : imagesPath + 'excluded.png'}}">
+                                    <span *ngIf="isSelected == false" class="pointer" (click)="toggle($event, index + '-section', true)">
+                                        <img title="Open" src="{{imagesPath + 'chevron expand.png'}}">
                                     </span>
-                                    <span title="Show on front page" class="pointer">
-                                        <img (click)="section.IsFrontPage = !section.IsFrontPage" style="height: 20px; margin-right: 10px; margin-left: 10px;" src="{{section.IsFrontPage ? imagesPath + 'on front cover.png' : imagesPath + 'Not on front cover.png'}}">
-                                    </span>
-                                    <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
+                                    <img src="{{imagesPath + 'dragndrop.png'}}" style="margin-left: 10px;" height="23" [style.visibility]="hoverVisible ? 'visible' : 'hidden'">
                                 </div>
                             </div>
                             <div id="{{index + '-section'}}" class="initially-hidden" style="width: 100%; margin-top: 15px;">
@@ -55,7 +61,7 @@ import { OrderPaperService }    from '../services/app.services';
                         </div>
                     </div>
                     <a [style.visibility]="hoverVisible ? 'visible' : 'hidden'" (click)="deleteSection()">
-                        <img style="padding: 15px;" title="Delete section" src="{{imagesPath + 'delete.png'}}">
+                        <img style="padding: 15px;" title="Delete Section" src="{{imagesPath + 'delete.png'}}">
                     </a>
                 </div>
                 `,
@@ -132,9 +138,11 @@ export class OrderPaperSectionComponent implements OnInit, AfterViewInit {
                     if (data != null) {
                         this.section.Id = data.Id.toString();
                         this.section.Name = data.Name;
-                        this.section.SubHeading = data.SubHeading;
+                        this.section.Subheading = data.Subheading;
                         this.section.Details = data.Details;
                         this.section.Speeches = data.Speeches;
+                        this.section.HideSequenceNumber = data.HideSequenceNumber;
+                        this.section.TitleEditingAllowed = data.TitleEditingAllowed;
                         this.spinner.stop();
 
                         if (this.availableSections != null) {

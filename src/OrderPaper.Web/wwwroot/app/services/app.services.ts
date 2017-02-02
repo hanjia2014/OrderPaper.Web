@@ -10,22 +10,28 @@ import {
     CpdMotionItem,
     CpdReportItem
 }                                                   from '../models/items';
+import { WasResponse }                              from '../models/wasresponse';
+import { ConfigurationItem }                        from '../models/configurationitem';
 import {
     IOrderPaperService,
     ISectionService,
     IConfigurationService,
     ICpdService,
-    IWordConvertService
+    IWordConvertService,
+    IPdfGenerationService,
+    IEmailService,
+    IPublishService
 }                                                   from '../interfaces/app.interfaces';
 import { AppSettings }                              from '../settings/app.settings';
+import { AppConstants }                             from '../settings/app.constants';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class OrderPaperService implements IOrderPaperService, ISectionService, IConfigurationService, ICpdService, IWordConvertService {
+export class OrderPaperService implements IOrderPaperService, ISectionService, IConfigurationService, ICpdService, IWordConvertService, IPdfGenerationService, IEmailService, IPublishService {
 
     constructor(private http: Http) {
-        
+
     }
 
     //IOrderPaperService
@@ -90,6 +96,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
         wrapper.Number = orderPaper.Number;
         wrapper.SittingDay = orderPaper.SittingDay;
         wrapper.Status = orderPaper.Status;
+        wrapper.Version = orderPaper.Version;
         wrapper.OrderPaperJson = JSON.stringify(orderPaper);
 
         return this.http.put(AppSettings.API_ENDPOINT + '/' + orderPaper.Id + AppSettings.SP_HOST, wrapper, options).map((res: Response) => {
@@ -125,7 +132,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     }
 
     //IConfigurationService
-    getCpdUrl = (): Observable<string> => {
+    getConfigurationList = (): Observable<Array<ConfigurationItem>> => {
         return this.http.get(AppSettings.API_CONFIGURATION_ENDPOINT + AppSettings.SP_HOST).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
@@ -147,7 +154,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     }
 
     getReport = (id: string): Observable<CpdReportItem> => {
-        return this.http.get(AppSettings.API_CPDREPORTACCESS_ENDPOINT + '/?id=' + id + '&' + AppSettings.SP_HOST).map((res: Response) => {
+        return this.http.get(AppSettings.API_CPDREPORTACCESS_ENDPOINT + '/' + AppSettings.SP_HOST + '&id=' + id).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -167,7 +174,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     }
 
     getMotion = (id: string): Observable<CpdMotionItem> => {
-        return this.http.get(AppSettings.API_CPDMOTIONACCESS_ENDPOINT + '/?id=' + id + '&' + AppSettings.SP_HOST).map((res: Response) => {
+        return this.http.get(AppSettings.API_CPDMOTIONACCESS_ENDPOINT + '/' + AppSettings.SP_HOST + '&id=' + id).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -177,7 +184,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     }
 
     getBills = (): Observable<Array<CpdBillItem>> => {
-        return this.http.get(AppSettings.API_CPDDATAACCESS_ENDPOINT + '/?type=bill&' + AppSettings.SP_HOST).map((res: Response) => {
+        return this.http.get(AppSettings.API_CPDDATAACCESS_ENDPOINT + '/' + AppSettings.SP_HOST + '&type=bill').map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -187,7 +194,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     }
 
     getBill = (id: string): Observable<any> => {
-        return this.http.get(AppSettings.API_CPDBILLACCESS_ENDPOINT + '/?id=' + id + '&' + AppSettings.SP_HOST).map((res: Response) => {
+        return this.http.get(AppSettings.API_CPDBILLACCESS_ENDPOINT + '/' + AppSettings.SP_HOST + '&id=' + id).map((res: Response) => {
             if (res.status != 200) {
                 throw new Error('No objects to retrieve! code status ' + res.status);
             } else {
@@ -217,6 +224,59 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
                 return res.json();
             }
         });
+    }
+
+    //IPdfGenerationService
+    generatePdf = (itemId: number): Observable<WasResponse> => {
+        var siteUrl = '';
+        var listId = '';
+        var serviceUrl = '';
+        AppConstants.CONFIGURATION_LIST.forEach((item: ConfigurationItem) => {
+            if (item.Key == "PDF Generation Service")
+                serviceUrl = item.Value;
+            if (item.Key == "Conversion Site Url")
+                siteUrl = item.Value;
+            if (item.Key == "Conversion List Url")
+                listId = item.Value;
+        });
+
+        return this.http.get(serviceUrl + "?SiteUrl=" + siteUrl + "&ListId=" + listId + "&ItemId=" + itemId).map((res: Response) => {
+            if (res.status != 200) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+
+    //email service
+    send = (Id: number): Observable<any> => {
+        return this.http.get(AppSettings.API_EMAIL_ENDPOINT + '/' + Id + AppSettings.SP_HOST).map((res: Response) => {
+            if (res.status != 201) {
+                throw new Error('No objects to retrieve! code status ' + res.status);
+            } else {
+                return res.json();
+            }
+        });
+    }
+    //publish service
+    publish = (id: number): Observable<any> => {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        var serviceUrl;
+        AppConstants.CONFIGURATION_LIST.forEach((item: ConfigurationItem) => {
+            if (item.Key == "Publication Web Service")
+                serviceUrl = item.Value;
+        });
+
+        return this.http.post(serviceUrl + '?opId=' + id, null).map((res: Response) => {
+            //OK or CREATED
+            if (res.status != 200 && res.status != 201) {
+                throw new Error('publish failed: ' + res.status);
+            } else {
+                return res;
+            }
+        })
     }
 
     private extractData(res: Response) {
