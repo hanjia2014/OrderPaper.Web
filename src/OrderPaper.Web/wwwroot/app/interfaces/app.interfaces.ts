@@ -47,11 +47,12 @@ export interface IWordConvertService {
 }
 
 export interface IPdfGenerationService {
-    generatePdf: (itemId: number) => Observable<WasResponse>;
+    generatePdf: (itemId: string) => Observable<WasResponse>;
 }
 
 export interface IEmailService {
     send: (Id: number) => Observable<any>;
+    openEmailClient: (orderPaper: OrderPaper) => void;
 }
 
 export interface IPublishService {

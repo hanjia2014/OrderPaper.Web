@@ -511,7 +511,11 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         }
         else if (value.localeCompare(AppConstants.PROGRESS_PUBLISH) == 0 && (this.orderPaper.containPreview() || this.orderPaper.containWord())) {
             $.spin('true');
-            this.orderPaperService.generatePdf(this.orderPaper.Id).subscribe(
+            //get word file name
+            var fullUrl = this.orderPaper.WordUrl.split('/');
+            var fileName = fullUrl[fullUrl.length - 1];
+
+            this.orderPaperService.generatePdf(fileName).subscribe(
                 (data: WasResponse) => {
                     if (data != null && data.Destination != null && data.Message == "Success") {
                         this.orderPaper.PdfUrl = data.Destination;
@@ -550,22 +554,10 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
         else if (value.localeCompare(AppConstants.PROGRESS_PRINT) == 0 && this.orderPaper.containPublish()) {
             this.spinElm = document.getElementById("saveSpinner");
             this.spinner.spin(this.spinElm);
-            this.orderPaperService.send(this.orderPaper.Id).subscribe(
-                (data: any) => {
-                    this.spinner.stop();
-                    this.publishProgressValid = true;
-                },
-                (err: any) => {
-                    if (err != null && err._body != null) {
-                        var error = JSON.parse(err._body);
-                        if (error != null && error.Message != null) {
-                            this.error = error;
-                            this.deletingType = "saving error";
-                            this.modal.open();
-                        }
-                    }
-                    this.spinner.stop();
-                });
+
+            this.orderPaperService.openEmailClient(this.orderPaper);
+            this.publishProgressValid = true;
+            this.spinner.stop();
         }
     }
     //modal
@@ -582,6 +574,8 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
     closed() {
         if (this.deletingType == "saved") {
+        }
+        else if (this.deletingType == "publish success" || this.deletingType == "publish error") {
         }
         else if (this.deletingType == "saving error") {
         }
@@ -611,25 +605,27 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 included = true;
         });
         if (included == false) {
-            this.spinner.spin(this.spinElm);
-            this.orderPaper.PublishingProgress.push(step);
-            var paperString = JSON.stringify(this.orderPaper);
-            this.orderPaperService.update(this.orderPaper).subscribe(
-                (data: Response) => {
-                    this.onSave.next();
-                    this.spinner.stop();
-                },
-                (err: any) => {
-                    if (err != null && err._body != null) {
-                        var error = JSON.parse(err._body);
-                        if (error != null && error.Message != null) {
-                            this.error = error;
-                            this.deletingType = "saving error";
-                            this.modal.open();
-                        }
-                    }
-                    this.spinner.stop();
-                });
+            this.orderPaper.PublishingProgress.push(step);            
         }
+        this.spinElm = document.getElementById("saveSpinner");
+        this.spinner.spin(this.spinElm);
+        var paperString = JSON.stringify(this.orderPaper);
+        this.orderPaperService.update(this.orderPaper).subscribe(
+            (data: Response) => {
+                this.onSave.next();
+                this.spinner.stop();
+            },
+            (err: any) => {
+                if (err != null && err._body != null) {
+                    var error = JSON.parse(err._body);
+                    if (error != null && error.Message != null) {
+                        this.error = error;
+                        this.deletingType = "saving error";
+                        this.modal.open();
+                    }
+                }
+                this.spinner.stop();
+            });
+
     }
 }

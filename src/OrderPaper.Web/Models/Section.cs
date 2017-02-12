@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OrderPapers.Models
+namespace OC.OrderPapersWeb.Models
 {
     public class Section
     {

@@ -227,7 +227,7 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     }
 
     //IPdfGenerationService
-    generatePdf = (itemId: number): Observable<WasResponse> => {
+    generatePdf = (itemId: string): Observable<WasResponse> => {
         var siteUrl = '';
         var listId = '';
         var serviceUrl = '';
@@ -258,6 +258,44 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
                 return res.json();
             }
         });
+    }
+
+    openEmailClient = (orderPaper: OrderPaper) => {
+        var emailTo = '';
+        var emailCc = '';
+        var date = orderPaper.SittingDay;
+        var status = orderPaper.Status;
+        var fileName = orderPaper.PdfUrl;
+
+        AppConstants.CONFIGURATION_LIST.forEach((item: ConfigurationItem) => {
+            if (item.Key == "Publish Email To")
+                emailTo = item.Value;
+            if (item.Key == "Publish Email CC")
+                emailCc = item.Value;
+        });
+
+        var sittingDate = new Date(date);
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        var day = days[sittingDate.getDay()];
+        var month = monthNames[sittingDate.getMonth()];
+        var year = sittingDate.getFullYear();
+        var displayDay = day + ", " + sittingDate.getDate() + " " + month + " " + year;
+        var subject = status + " Order Paper for " + displayDay;
+
+        var link = "mailto:" + emailTo
+            + "?cc=" + emailCc
+            + "&subject=" + subject
+            + "&body="
+            + "Please access the following link to the PDF for the " + subject + "%0D%0A"
+            + fileName + "%0D%0A"
+            //+ "http%3A%2F%2Fwww.example.com%2Ffoo.php%3Fthis%3Da%26join%3Dabc%26user454"
+            ;
+
+        window.location.href = link;
     }
     //publish service
     publish = (id: number): Observable<any> => {
