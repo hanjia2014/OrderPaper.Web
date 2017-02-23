@@ -263,18 +263,28 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
     openEmailClient = (orderPaper: OrderPaper) => {
         var emailTo = '';
         var emailCc = '';
+        var urlPrefix = "";
         var date = orderPaper.SittingDay;
         var status = orderPaper.Status;
         var fileName = orderPaper.PdfUrl;
+        var digitDate = '';
+        var fileNamePart = '';
 
         AppConstants.CONFIGURATION_LIST.forEach((item: ConfigurationItem) => {
             if (item.Key == "Publish Email To")
                 emailTo = item.Value;
             if (item.Key == "Publish Email CC")
                 emailCc = item.Value;
+            if (item.Key == "PDF Static Email Url")
+                urlPrefix = item.Value;
         });
-
-        var sittingDate = new Date(date);
+        
+        var sittingDate = new Date(date.replace("-", " "));
+        var digitMonth = sittingDate.getMonth() + 1;
+        var fullmonth = digitMonth > 9 ? digitMonth : "0" + digitMonth;
+        var theDate = ("0" + sittingDate.getDate()).slice(-2);
+        digitDate = sittingDate.getFullYear() + '' + fullmonth + '' + theDate;
+        
         var monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
@@ -283,15 +293,17 @@ export class OrderPaperService implements IOrderPaperService, ISectionService, I
         var day = days[sittingDate.getDay()];
         var month = monthNames[sittingDate.getMonth()];
         var year = sittingDate.getFullYear();
-        var displayDay = day + ", " + sittingDate.getDate() + " " + month + " " + year;
+        var displayDay = day + ", " + theDate + " " + month + " " + year;
         var subject = status + " Order Paper for " + displayDay;
+        fileNamePart = digitDate + "/" + orderPaper.Status.toLowerCase() + "-order-paper-for-" + day.toLowerCase() + "-" + theDate + "-" + month.toLowerCase() + "-" + year;
+        var fullPdfUrl = urlPrefix + fileNamePart;
 
         var link = "mailto:" + emailTo
             + "?cc=" + emailCc
             + "&subject=" + subject
             + "&body="
             + "Please access the following link to the PDF for the " + subject + "%0D%0A"
-            + fileName + "%0D%0A"
+            + fullPdfUrl + "%0D%0A"
             //+ "http%3A%2F%2Fwww.example.com%2Ffoo.php%3Fthis%3Da%26join%3Dabc%26user454"
             ;
 

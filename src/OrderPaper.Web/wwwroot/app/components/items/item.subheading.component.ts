@@ -24,7 +24,7 @@ import { ItemComponent }    from './item.component';
                                 <span *ngIf="isExpand == null || isExpand == false" class="pointer" (click)="toggle($event, toggleId)">
                                     <img title="Open" src="{{imagesPath + 'chevron expand.png'}}">
                                 </span>
-                                <span style="margin-right: 10px; margin-left: 10px;">{{item.Type}}</span>
+                                <span style="margin-right: 10px; margin-left: 10px;">Sub heading</span>
                                 <img src="{{imagesPath + 'dragndrop.png'}}" height="23" [style.visibility]="item.hoverVisible ? 'visible' : 'hidden'">
                             </div>
                         </div>

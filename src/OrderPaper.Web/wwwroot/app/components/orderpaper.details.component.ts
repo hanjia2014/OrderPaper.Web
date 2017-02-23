@@ -144,13 +144,15 @@ import {
                        (onOpen)="opened()" [cssClass]="cssClass" #modal>
                     <modal-header [show-close]="true">
                         <h4 class="modal-title">
-                            <span *ngIf="deletingType != 'publish error' && deletingType != 'publish success' && deletingType != 'saving error' && deletingType != 'preview-warning' && deletingType != 'saved' && deletingType != 'section'">{{orderPaper != null && orderPaper.Id == -1 ? 'Confirm to cancel Order Paper' : 'Confirm to cancel' }}</span>
+                            <span *ngIf="deletingType != 'publish-warning' && deletingType != 'print-warning' && deletingType != 'publish error' && deletingType != 'publish success' && deletingType != 'saving error' && deletingType != 'preview-warning' && deletingType != 'saved' && deletingType != 'section'">{{orderPaper != null && orderPaper.Id == -1 ? 'Confirm to cancel Order Paper' : 'Confirm to cancel' }}</span>
                             <span *ngIf="deletingType == 'saving error'">Error</span>
                             <span *ngIf="deletingType == 'saved'">Saved</span>
                             <span *ngIf="deletingType == 'section'">Confirm to delete Section</span>
                             <span *ngIf="deletingType == 'preview-warning'">Save Order Paper before Previewing</span>
-                            <span *ngIf="deletingType == 'publish success'">Published succesfully</span>
+                            <span *ngIf="deletingType == 'publish success'">Request to publish successful</span>
                             <span *ngIf="deletingType == 'publish error'">Published failed</span>
+                            <span *ngIf="deletingType == 'publish-warning'">Save and Preview Order Paper before Publishing</span>
+                            <span *ngIf="deletingType == 'print-warning'">Save, Preview and Publish the Order Paper before Sending to the Printer</span>
                         </h4>
                     </modal-header>
                     <modal-body>
@@ -169,14 +171,20 @@ import {
                         <div *ngIf="deletingType == 'preview-warning'">
                             You must Save the Order Paper before you can Preview it in Word.
                         </div>
+                        <div *ngIf="deletingType == 'publish-warning'">
+                            You have unsaved data, you should Save and then click Preview before you publish to the web.
+                        </div>
+                        <div *ngIf="deletingType == 'print-warning'">
+                            You have unsaved data, you should Save and then click buttons ‘Preview’ and ‘Publish to web’ before you action ‘Send to printer’.
+                        </div>
                         <div *ngIf="deletingType == 'publish success'">
-                            Successfully queuing.
+                            This Order Paper has been released for publishing. Please check Parliament’s website to confirm that publishing has been completed.
                         </div>
                         <div *ngIf="deletingType == 'publish error'">
                             {{publishErrorMsg}}
                         </div>
                     </modal-body>
-                    <modal-footer [close-button-label]="deletingType == 'preview-warning' ? 'Save' : 'Ok'" [show-default-buttons]="true"></modal-footer>
+                    <modal-footer [close-button-label]="deletingType == 'preview-warning' || deletingType == 'publish-warning' || deletingType == 'print-warning' ? 'Save' : 'Ok'" [show-default-buttons]="true"></modal-footer>
                 </modal>
                 `,
     styles: [],
@@ -288,7 +296,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 $('.item-li').attr("draggable", "true");
                 console.log("blur");
             });
-        
+
         //$('.item-li').draggable({ cancel: 'a' });
     }
     dateChange = (value: string) => {
@@ -312,7 +320,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
     }
 
     statusChange = (e: string) => {
-        if(e != null)
+        if (e != null)
             this.orderPaper.Status = e;
     }
 
@@ -510,54 +518,68 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             var newWindow = window.open(this.orderPaper.WordUrl);
         }
         else if (value.localeCompare(AppConstants.PROGRESS_PUBLISH) == 0 && (this.orderPaper.containPreview() || this.orderPaper.containWord())) {
-            $.spin('true');
-            //get word file name
-            var fullUrl = this.orderPaper.WordUrl.split('/');
-            var fileName = fullUrl[fullUrl.length - 1];
+            if (this.orderPaper.Id != null && this.orderPaper.Id != -1) {
+                if (this.isDirty) {
+                    this.deletingType = "publish-warning";
+                    this.modal.open();
+                } else {
+                    $.spin('true');
+                    //get word file name
+                    var fullUrl = this.orderPaper.WordUrl.split('/');
+                    var fileName = fullUrl[fullUrl.length - 1];
 
-            this.orderPaperService.generatePdf(fileName).subscribe(
-                (data: WasResponse) => {
-                    if (data != null && data.Destination != null && data.Message == "Success") {
-                        this.orderPaper.PdfUrl = data.Destination;
-                    }
+                    this.orderPaperService.generatePdf(fileName).subscribe(
+                        (data: WasResponse) => {
+                            if (data != null && data.Destination != null && data.Message == "Success") {
+                                this.orderPaper.PdfUrl = data.Destination;
+                            }
 
-                    this.orderPaperService.publish(this.orderPaper.Id).subscribe(
-                        (publishResponse: any) => {
-                            $.spin('false'); 
-                            this.publishProgressValid = true;
-                            this.updateProgressSteps(AppConstants.PROGRESS_PUBLISH);
-                            this.deletingType = "publish success";
-                            this.modal.open();
+                            this.orderPaperService.publish(this.orderPaper.Id).subscribe(
+                                (publishResponse: any) => {
+                                    $.spin('false');
+                                    this.publishProgressValid = true;
+                                    this.updateProgressSteps(AppConstants.PROGRESS_PUBLISH);
+                                    this.deletingType = "publish success";
+                                    this.modal.open();
+                                },
+                                (err: any) => {
+                                    if (err != null) {
+                                        var error = JSON.parse(err._body);
+                                        this.publishErrorMsg = error.Message;
+                                        this.deletingType = "publish error";
+                                        this.modal.open();
+                                    }
+                                    $.spin('false');
+                                });
                         },
                         (err: any) => {
-                            if (err != null) {
+                            if (err != null && err._body != null) {
                                 var error = JSON.parse(err._body);
-                                this.publishErrorMsg = error.Message;
-                                this.deletingType = "publish error";
-                                this.modal.open();
+                                if (error != null && error.Message != null) {
+                                    this.error = error;
+                                    this.deletingType = "saving error";
+                                    this.modal.open();
+                                }
                             }
-                            $.spin('false'); 
+                            $.spin('false');
                         });
-                },
-                (err: any) => {
-                    if (err != null && err._body != null) {
-                        var error = JSON.parse(err._body);
-                        if (error != null && error.Message != null) {
-                            this.error = error;
-                            this.deletingType = "saving error";
-                            this.modal.open();
-                        }
-                    }
-                    $.spin('false'); 
-                });
+                }
+            }
         }
         else if (value.localeCompare(AppConstants.PROGRESS_PRINT) == 0 && this.orderPaper.containPublish()) {
-            this.spinElm = document.getElementById("saveSpinner");
-            this.spinner.spin(this.spinElm);
+            if (this.orderPaper.Id != null && this.orderPaper.Id != -1) {
+                if (this.isDirty) {
+                    this.deletingType = "print-warning";
+                    this.modal.open();
+                } else {
+                    this.spinElm = document.getElementById("saveSpinner");
+                    this.spinner.spin(this.spinElm);
 
-            this.orderPaperService.openEmailClient(this.orderPaper);
-            this.publishProgressValid = true;
-            this.spinner.stop();
+                    this.orderPaperService.openEmailClient(this.orderPaper);
+                    this.publishProgressValid = true;
+                    this.spinner.stop();
+                }
+            }
         }
     }
     //modal
@@ -583,7 +605,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
             this.orderPaper = null;
             this.onCancel.next();
         }
-        else if (this.deletingType == "preview-warning") {
+        else if (this.deletingType == "preview-warning" || this.deletingType == "publish-warning" || this.deletingType == "print-warning") {
             this.save(event);
         }
         else {
@@ -605,7 +627,7 @@ export class OrderPaperDetailsComponent extends BaseComponent implements OnInit,
                 included = true;
         });
         if (included == false) {
-            this.orderPaper.PublishingProgress.push(step);            
+            this.orderPaper.PublishingProgress.push(step);
         }
         this.spinElm = document.getElementById("saveSpinner");
         this.spinner.spin(this.spinElm);
