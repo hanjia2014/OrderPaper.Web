@@ -22,6 +22,7 @@ export class CpdReportItem {
     shoulder: string;
     committee: string;
     latestEvent: string;
+    government_response: string;
 }
 
 export class Item {
@@ -101,9 +102,12 @@ export class ReportItem extends Item {
     Shoulder: string;
     Committee: string;
     LatestEvent: string;
+    Speeches: string;
+    GovernmentResponse: string;
     CpdShoulder: string;
     CpdCommittee: string;
     CpdLatestEvent: string;
+    CpdGovernmentResponse: string;
     constructor() {
         super();
         this.Type = "Report";

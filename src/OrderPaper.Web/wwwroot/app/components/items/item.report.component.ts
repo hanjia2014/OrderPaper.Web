@@ -98,9 +98,30 @@ import { AppSettings }              from '../../settings/app.settings';
                         </div>
                         <div class="spacer"></div>
                         <div class="row nopadding">
-                            <div class="form-group col-md-5 nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
+                                <span>Government Response</span>
+                                <textarea class="form-control undraggable" [(ngModel)]="item.GovernmentResponse" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label>&nbsp;</label>
+                                <img class="undraggable nopadding noborder" height="10" src="{{imagesPath + 'CPD arrow.png'}}" />
+                            </div>
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
+                                <span>CPD</span>
+                                <textarea class="form-control undraggable" readonly [(ngModel)]="item.CpdGovernmentResponse" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row nopadding">
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
                                 <span>Details</span>
                                 <textarea class="form-control undraggable" [(ngModel)]="item.Details" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="form-group col-md-1">
+                            </div>
+                            <div class="form-group col-md-5 nopadding" style="width: 45%">
+                                <span>Speeches</span>
+                                <textarea class="form-control undraggable" [(ngModel)]="item.Speeches" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                     </div>
@@ -196,14 +217,17 @@ export class ItemReportComponent extends ItemComponent implements OnInit, AfterV
                     this.item.CpdCommittee = data.committee;
                     this.item.CpdLatestEvent = data.latestEvent;
                     this.item.CpdTitle = data.business_item_title;
+                    this.item.CpdGovernmentResponse = data.government_response;
 
                     this.item.Title = data.business_item_title;
                     this.item.Shoulder = data.shoulder;
                     this.item.Committee = data.committee;
                     this.item.LatestEvent = data.latestEvent;
+                    this.item.GovernmentResponse = data.government_response;
 
                     //clear free text
                     this.item.Details = '';
+                    this.item.Speeches = '';
                 },
                 (err: any) => this.error = err);
         }

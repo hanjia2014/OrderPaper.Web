@@ -25,20 +25,31 @@ import { AppConstants }                     from '../settings/app.constants';
                     <div class="col-md-11" style="padding-left: 90px; padding-right: 0px;">
                         <div class="panel panel-default" style="margin-bottom: 0px;">
                             <div class="panel-body">
-                                <order-paper-section-subheading [subheading]="section.Subheading" [index]="index"></order-paper-section-subheading>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="pointer" (click)="toggle($event, toggleId)">Details and Speeches</a>
+                                    </div>
+                                </div>
+                                <div id="{{toggleId}}" class="initially-hidden">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span>Details</span>
+                                            <br />
+                                            <textarea class="form-control" [(ngModel)]="section.Details" cols="40" rows="5"></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span>Speeches</span>
+                                            <br />
+                                            <textarea class="form-control" [(ngModel)]="section.Speeches" cols="40" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="spacer"></div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <span>Details</span>
-                                <br />
-                                <textarea class="form-control" [(ngModel)]="section.Details" cols="40" rows="5"></textarea>
-                            </div>
-                            <div class="col-md-6">
-                                <span>Speeches</span>
-                                <br />
-                                <textarea class="form-control" [(ngModel)]="section.Speeches" cols="40" rows="5"></textarea>
+                        <div class="panel panel-default" style="margin-bottom: 0px;">
+                            <div class="panel-body">
+                                <order-paper-section-subheading [subheading]="section.Subheading" [index]="index"></order-paper-section-subheading>
                             </div>
                         </div>
                     </div>
@@ -141,12 +152,14 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
     motionOptions = [];
     @Input()
     reportOptions = [];
+    toggleId: string;
 
     constructor(private orderPaperService: OrderPaperService) {
         super();
     }
     ngOnInit() {
         this.selectedItemType = 'Bill';
+        this.toggleId = 'section-' + this.index;
     }
 
     hasLineAlready = (): boolean => {
@@ -315,5 +328,13 @@ export class OrderPaperSectionDetailsComponent extends BaseComponent implements 
         }
 
         return list;
+    }
+
+    toggle(element: any, eleId: string) {
+        element.preventDefault();
+
+        this.isExpand = !this.isExpand;
+        var eleId = "#" + eleId;
+        $(eleId).slideToggle();
     }
 }
