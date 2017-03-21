@@ -413,7 +413,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
             source.CpdCommittee != target.CpdCommittee ||
             source.CpdLatestEvent != target.CpdLatestEvent ||
             source.CpdShoulder != target.CpdShoulder ||
-            source.Shoulder != target.Shoulder;
+            source.Shoulder != target.Shoulder ||
+            source.CpdGovernmentResponse != target.CpdGovernmentResponse ||
+            source.GovernmentResponse != target.GovernmentResponse ||
+            source.Speeches != target.Speeches;
 
         return dirty;
     }
