@@ -153,10 +153,10 @@ export class ItemMotionComponent extends ItemComponent implements OnInit, AfterV
         this.motionTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
 
         if (this.isGroupChild) {
-            this.toggleId = this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-motion';
+            this.toggleId = this.Guid() + '-' + this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-motion';
         }
         else {
-            this.toggleId = this.sectionIndex + '-' + this.index + '-motion';
+            this.toggleId = this.Guid() + '-' + this.sectionIndex + '-' + this.index + '-motion';
         }
     }
 

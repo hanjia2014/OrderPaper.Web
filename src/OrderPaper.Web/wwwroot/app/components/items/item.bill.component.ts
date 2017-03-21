@@ -164,10 +164,10 @@ export class ItemBillComponent extends ItemComponent implements OnInit, AfterVie
     }
     ngOnInit() {
         if (this.isGroupChild) {
-            this.toggleId = this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-bill';
+            this.toggleId = this.Guid() + '-' + this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-bill';
         }
         else {
-            this.toggleId = this.sectionIndex + '-' + this.index + '-bill';
+            this.toggleId = this.Guid() + '-' + this.sectionIndex + '-' + this.index + '-bill';
         }
     }
 

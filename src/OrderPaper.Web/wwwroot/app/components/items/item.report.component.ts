@@ -155,10 +155,10 @@ export class ItemReportComponent extends ItemComponent implements OnInit, AfterV
         this.reportTitleOptions = [{ id: "monday", text: "monday" }, { id: "tuesday", text: "tuesday" }];
 
         if (this.isGroupChild) {
-            this.toggleId = this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-report';
+            this.toggleId = this.Guid() + '-' + this.sectionIndex + '-' + this.index + '-' + this.groupIndex + '-report';
         }
         else {
-            this.toggleId = this.sectionIndex + '-' + this.index + '-report';
+            this.toggleId = this.Guid() + '-' + this.sectionIndex + '-' + this.index + '-report';
         }
     }
 
