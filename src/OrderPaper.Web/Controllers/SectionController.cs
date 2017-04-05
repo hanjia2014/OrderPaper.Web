@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using OC.OrderPapersWeb.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -55,7 +56,7 @@ namespace OrderPapers.Controllers
         {
             var idStr = id.ToString();
             var name = Summary.Find(p => p.Id == id).Text;
-            var section = new { Id = id, Text = name, Details="this is the details for " +  name, Speeches= "this is the details for " + name };
+            var section = new { Id = id, TitleEditingAllowed = false, Name = name, Details = "this is the details for " + name, Speeches = "this is the details for " + name, Subheading = new Subheading() };
             return JsonConvert.SerializeObject(section);
         }
     }
